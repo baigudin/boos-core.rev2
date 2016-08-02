@@ -15,39 +15,30 @@ namespace core
   {
 
   public:
-        
+
     /** 
-     * Copy constructor.
-     *
-     * @param src reference to core configuration.
-     */ 
-    CoreConfig(const CoreConfig& src) :
-      cpuFrequency       (src.cpuFrequency),
-      timerFrequency     (src.timerFrequency),
-      quant              (src.quant),
-      threadStackSize    (src.threadStackSize),
-      interruptStackSize (src.interruptStackSize),
-      mainThreadPriority (src.mainThreadPriority),
-      heapCount          (src.heapCount),
-      temp_              (src.temp_),
-      heap               (src.heap),
-      addr               (src.addr),
-      size               (src.size){
+     * Constructor.
+     */     
+    CoreConfig() :
+      cpuFrequency       (0),
+      timerFrequency     (0),
+      quant              (0),
+      threadStackSize    (0),
+      interruptStackSize (0),
+      mainThreadPriority (0),
+      heapCount          (0),
+      temp_              (0),
+      heap               (0),
+      addr               (0),
+      size               (0){
     }      
-    
+        
     /** 
      * Destructor.
      */
    ~CoreConfig()
     {
-    }    
-
-  private:
-      
-    /** 
-     * Constructor.
-     */     
-    CoreConfig(){}
+    } 
 
   public:
 

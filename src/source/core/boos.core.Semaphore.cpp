@@ -36,7 +36,7 @@ namespace core
    * @param fair true if this semaphore will guarantee FIFO granting of permits under contention.
    */      
   Semaphore::Semaphore(int32 permits, bool fair) :
-    switch_    (Switch::global()),    
+    switch_  (Switch::global()),    
     permits_ (permits),
     fair_    (fair){
     setConstruct( construct() );  
@@ -145,7 +145,7 @@ namespace core
     // Unblock thread
     permits_ -= permits;
     if(fair_ == true) list_.exec.add( Node(Thread::currentThread(), permits) );
-	  return switch_.enable(is, false); 
+    return switch_.enable(is, false); 
   }
   
   /**

@@ -10,24 +10,49 @@
   .include        "boos.core.macro.inc"
 
   .def  _c_int00
-  .def  os_core_init
-  .def  _initClassesLow__Q2_4core4CoreSFv
-        
+    
   .ref  os_config
   .ref  os_int_enable
   .ref  os_int_disable
-  .ref  _start__Q2_4core4CoreSFPCQ2_4core10CoreConfig
+  
+  ; EABI 
+  .if   __TI_EABI__
+  
+  .def  __TI_decompress_none                 
+  .def  __TI_decompress_rle24            
+  .def  __TI_zero_init  
+  .def  initClassesLow__Q2_4core4CoreSFv
+  
+  .ref  start__Q2_4core4CoreSFPCQ2_4core10CoreConfig    
+  .ref  __TI_STATIC_BASE
+  
+  .asg  __TI_STATIC_BASE, m_bss
+  .asg  initClassesLow__Q2_4core4CoreSFv,             m_init_classes
+  .asg  start__Q2_4core4CoreSFPCQ2_4core10CoreConfig, m_start  
+  
+  ; COFF ABI
+  .else
+
+  .def  _initClassesLow__Q2_4core4CoreSFv
+  
+  .ref  _start__Q2_4core4CoreSFPCQ2_4core10CoreConfig  
   .ref  ___bss__
   .ref  ___cinit__
   .ref  ___pinit__
-        
+  
+  .asg  ___bss__,   m_bss
+  .asg  ___cinit__, m_cinit
+  .asg  ___pinit__, m_pinit    
   .asg  _initClassesLow__Q2_4core4CoreSFv,             m_init_classes
-  .asg  _start__Q2_4core4CoreSFPCQ2_4core10CoreConfig, m_start
+  .asg  _start__Q2_4core4CoreSFPCQ2_4core10CoreConfig, m_start  
+  
+  .endif
+  
   .asg  b15, sp
   .asg  b14, dp
   .asg  a15, fp
         
-  .asg  0x2000, C_CORE_STACK_SIZE
+  .asg  2000h, C_CORE_STACK_SIZE
 
 m_core_stack .usect ".core", C_CORE_STACK_SIZE
 
@@ -79,7 +104,7 @@ os_core_init:
         nop
         ; Reset Cache Configuration Register
         mvkl            DREG_CCFG, b0
-     || mvk             0x0300, a0
+     || mvk             0300h, a0
         mvkh            DREG_CCFG, b0
         stw             a0, *b0
         nop             2
@@ -97,9 +122,9 @@ os_core_init:
      || mvkl            os_config, a4
         mvkh            m_core_stack + C_CORE_STACK_SIZE - 8, sp
      || mvkh            os_config, a4
-        mvkl            ___bss__, dp
+        mvkl            m_bss, dp
      || mvkl            0, fp
-        mvkh            ___bss__, dp
+        mvkh            m_bss, dp
      || mvkl            0, fp
         ; Call hi level initialization and
         ; set core executing finish procedure as return point
@@ -123,27 +148,31 @@ os_core_deinit:
 ; ----------------------------------------------------------------------------
         .text
 os_core_init_cinit:
-        mvkl            ___cinit__, a10
-     || mvkl            0xffffffff, b0
-        mvkh            ___cinit__, a10         ; A10 pointer to record
-     || mvkh            0xffffffff, b0
+        .if             __TI_EABI__
+        b               b3
+        nop             5        
+        .else
+        mvkl            m_cinit, a10
+     || mvkl            0ffffffffh, b0
+        mvkh            m_cinit, a10         ; A10 pointer to record
+     || mvkh            0ffffffffh, b0
         xor             a10, b0, b0
   [!b0] bnop            m_cinit_return?, 5
 mc_cinit_00?:
-        ldw             *a10++[0x1], b0         ; B0 copy size
+        ldw             *a10++[1], b0         ; B0 copy size
         nop             4
   [!b0] bnop            m_cinit_return?, 5
-        ldw             *a10++[0x1], a11        ; A11 pointer to .bss
+        ldw             *a10++[1], a11        ; A11 pointer to .bss
         mv              b0, a12
-        and             a12, 0x7, a12
-        mvk             0x8, a13
+        and             a12, 7, a12
+        mvk             8, a13
         sub             a13, a12, a12           ; A12 size shift data
-        and             a12, 0x7, a12
+        and             a12, 7, a12
 mc_cinit_01?:
-        ldb             *a10++[0x1], a13
+        ldb             *a10++[1], a13
         nop             4
-        stb             a13, *a11++[0x1]
-        sub             b0, 0x1, b0
+        stb             a13, *a11++[1]
+        sub             b0, 1, b0
         nop             1
    [b0] bnop            mc_cinit_01?, 5
         add             a10, a12, a10
@@ -151,6 +180,7 @@ mc_cinit_01?:
 m_cinit_return?:
         b               b3
         nop             5
+        .endif
 
 ; ----------------------------------------------------------------------------
 ; Initializes the ".pinit" global classes section.
@@ -158,15 +188,19 @@ m_cinit_return?:
         .text
 os_core_init_pinit:
 m_init_classes:
+        .if             __TI_EABI__
+        b               b3
+        nop             5        
+        .else
         mv              b3, b10     
-        mvkl            ___pinit__, a10
-     || mvkl            0xffffffff, b0
-        mvkh            ___pinit__, a10         ; A10 pointer to record
-     || mvkh            0xffffffff, b0
+        mvkl            m_pinit, a10
+     || mvkl            0ffffffffh, b0
+        mvkh            m_pinit, a10         ; A10 pointer to record
+     || mvkh            0ffffffffh, b0
         xor             a10, b0, b0
   [!b0] bnop            m_pinit_return?, 5
 mc_pinit_00?:
-        ldw             *a10++[0x1], b0
+        ldw             *a10++[1], b0
         nop             4
   [!b0] bnop            m_pinit_return?, 5
         bacc            b0
@@ -174,4 +208,22 @@ mc_pinit_00?:
 m_pinit_return?:
         b               b10
         nop             5
+        .endif
 
+        .if             __TI_EABI__
+;-----------------------------------------------------------------------------        
+__TI_decompress_none:
+        b               b3
+        nop             5        
+    
+;-----------------------------------------------------------------------------        
+__TI_decompress_rle24:
+        b               b3
+        nop             5        
+    
+;-----------------------------------------------------------------------------        
+__TI_zero_init
+        b               b3
+        nop             5        
+        .endif        
+            

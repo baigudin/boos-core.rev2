@@ -69,7 +69,7 @@ namespace core
       // This time in nanoseconds is a multiplying of
       // the value in timer clocks and system timer period.
       dc = cnt - cnt_;
-      // Use a multiplying  on 1E+9 for getting a time in nsec
+      // Use a multiplying on 1E+9 for getting a time in nsec
       // from timer frequency in hz
       acc_ = dc * 1000000000 + acc_;
       // The nanoseconds left time after previous updating

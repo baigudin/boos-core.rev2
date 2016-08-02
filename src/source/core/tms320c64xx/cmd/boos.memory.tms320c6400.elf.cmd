@@ -19,20 +19,28 @@ MEMORY
 
 SECTIONS
 {
-  .reset     : load = RESET
-  .hwi       : load = HWI
-  .text      : load = CODE
-  .data      : load = CODE
-  .bss       : load = CODE
-  .core      : load = CODE    
-  .cinit     : load = CODE
-  .pinit     : load = CODE
-  .const     : load = CODE
-  .far       : load = CODE
-  .cio       : load = CODE
-  .switch    : load = CODE
-  .template  : load = CODE
-  .sysmem    : load = HEAPLIB
+  /** BOOS Core sections */
+  .reset      : load = RESET
+  .hwi        : load = HWI
+
+  /** Compiler sections */
+  .text       : load = CODE
+  .data       : load = CODE
+  .bss        : load = CODE
+  .core       : load = CODE    
+  .cinit      : load = CODE
+  .pinit      : load = CODE
+  .const      : load = CODE
+  .far        : load = CODE
+  .cio        : load = CODE
+  .switch     : load = CODE
+  .sysmem     : load = HEAPLIB
+
+  /** ELF EABI sections */
+  .init_array : load = CODE
+  .fardata    : load = CODE
+  .neardata   : load = CODE
+  .rodata     : load = CODE
 }
 
 -heap 0x1000

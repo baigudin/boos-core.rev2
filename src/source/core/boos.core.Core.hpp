@@ -32,7 +32,7 @@ namespace core
     /**
      * Returns a core configuration structure.
      *
-     * @return pointer to configuration structure.
+     * @return configuration structure.
      */    
     static const CoreConfig& config();
 

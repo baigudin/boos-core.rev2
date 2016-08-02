@@ -11,6 +11,40 @@
 
   .def  os_int_enable
   .def  os_int_disable
+  
+  .asg  b15, sp
+  .asg  b14, dp
+  .asg  a15, fp
+
+  ; EABI
+  .if   __TI_EABI__
+  
+  .def  globalDisableLow__Q2_4core9InterruptSFv
+  .def  globalEnableLow__Q2_4core9InterruptSFb
+  .def  disableLow__Q2_4core9InterruptSFUi
+  .def  enableLow__Q2_4core9InterruptSFUib
+  .def  setLow__Q2_4core9InterruptSFUi
+  .def  clearLow__Q2_4core9InterruptSFUi
+  .def  jumpLow__Q2_4core9InterruptSFUi
+ 
+  .ref  __TI_STATIC_BASE
+  .ref  handler__Q2_4core9InterruptSFi
+  .ref  contextLow___Q2_4core9Interrupt
+  
+  .asg  __TI_STATIC_BASE,                         m_bss
+  .asg  globalDisableLow__Q2_4core9InterruptSFv,  m_global_disable
+  .asg  globalEnableLow__Q2_4core9InterruptSFb,   m_global_enable
+  .asg  disableLow__Q2_4core9InterruptSFUi,       m_disable
+  .asg  enableLow__Q2_4core9InterruptSFUib,       m_enable
+  .asg  setLow__Q2_4core9InterruptSFUi,           m_set
+  .asg  clearLow__Q2_4core9InterruptSFUi,         m_clear
+  .asg  jumpLow__Q2_4core9InterruptSFUi,          m_jump
+  .asg  handler__Q2_4core9InterruptSFi,           m_handler
+  .asg  contextLow___Q2_4core9Interrupt,          v_context
+  
+  ; COFF ABI
+  .else
+  
   .def  _globalDisableLow__Q2_4core9InterruptSFv
   .def  _globalEnableLow__Q2_4core9InterruptSFb
   .def  _disableLow__Q2_4core9InterruptSFUi
@@ -18,11 +52,12 @@
   .def  _setLow__Q2_4core9InterruptSFUi
   .def  _clearLow__Q2_4core9InterruptSFUi
   .def  _jumpLow__Q2_4core9InterruptSFUi
-
+ 
+  .ref  ___bss__
   .ref  _handler__Q2_4core9InterruptSFi
   .ref  _contextLow___Q2_4core9Interrupt
-  .ref  ___bss__
-
+  
+  .asg  ___bss__,                                  m_bss
   .asg  _globalDisableLow__Q2_4core9InterruptSFv,  m_global_disable
   .asg  _globalEnableLow__Q2_4core9InterruptSFb,   m_global_enable
   .asg  _disableLow__Q2_4core9InterruptSFUi,       m_disable
@@ -32,9 +67,8 @@
   .asg  _jumpLow__Q2_4core9InterruptSFUi,          m_jump
   .asg  _handler__Q2_4core9InterruptSFi,           m_handler
   .asg  _contextLow___Q2_4core9Interrupt,          v_context
-  .asg  b15, sp
-  .asg  b14, dp
-  .asg  a15, fp
+ 
+  .endif  
 
   .bss  bss_t, 16, 8
 
@@ -150,7 +184,7 @@ os_interrupt_handler:
         stdw            a15:a14, *++a0[2]
      || stdw            b15:b14, *++b0[2]
         ; Load an interrupt TOS address to B15 (SP) register and
-		; Store an address of contexLow table to A14
+        ; Store an address of contexLow table to A14
         lddw            *a5, b15:b14
      || mv              a5, a14
      || mvc             amr, b1
@@ -169,10 +203,10 @@ os_interrupt_handler:
      || b               m_handler
         stdw            a25:a24, *++a0[2]
      || stdw            b25:b24, *++b0[2]
-     || mvkl            ___bss__, dp
+     || mvkl            m_bss, dp
         stdw            a27:a26, *++a0[2]
      || stdw            b27:b26, *++b0[2]
-     || mvkh            ___bss__, dp
+     || mvkh            m_bss, dp
         stdw            a29:a28, *++a0[2]
      || stdw            b29:b28, *++b0[2]
      || mvc             a2, amr
@@ -190,7 +224,7 @@ os_interrupt_handler:
 restore?
         ;Load context:
         ldw             *a14, a31
-		mvk             32, a30
+        mvk             32, a30
         nop             3
         lddw            *+a31[a30], a29:a28
      || add             a31, 8, b31

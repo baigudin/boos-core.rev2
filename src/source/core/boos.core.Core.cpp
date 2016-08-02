@@ -16,6 +16,10 @@
 #include "boos.core.TimerInterrupt.hpp"
 #include "boos.core.CoreTimerInterrupt.hpp"
 
+#ifdef __TI_EABI__
+#error "ELF EABI is being developed by BAIGUDIN SOFTWARE"
+#endif
+
 namespace core
 {
   /**
@@ -38,7 +42,7 @@ namespace core
   /**
    * Returns a core configuration structure.
    *
-   * @return pointer to configuration structure.
+   * @return configuration structure.
    */    
   const CoreConfig& Core::config()
   {

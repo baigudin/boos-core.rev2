@@ -32,7 +32,7 @@ namespace core
      */  
     virtual void run()
     {
-      ::Main::main(NULL);
+      ::Main::main(0, NULL);
     }
     
   };

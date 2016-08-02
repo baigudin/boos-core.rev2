@@ -13,6 +13,10 @@
 #include "boos.util.Memory.hpp"
 #include "boos.util.Buffer.hpp"
 
+#ifdef __TI_EABI__
+#error "ELF EABI is being developed by BAIGUDIN SOFTWARE"
+#endif
+
 extern cregister volatile unsigned int CSR;
 
 namespace core

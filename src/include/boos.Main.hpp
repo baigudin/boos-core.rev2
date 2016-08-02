@@ -18,8 +18,10 @@ class Main
     /**
      * User method which will be stated as first.
      *
-     * @param args pointer to system data.
+     * @param argc count of array elements.
+     * @param argv array of arguments.
+     * @return error code or zero.
      */   
-    static void  main(void* args);
+    static int main(int argc, char* argv[]);
 };
 #endif // BOOS_MAIN_HPP_
