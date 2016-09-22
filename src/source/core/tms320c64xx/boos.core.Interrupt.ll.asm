@@ -165,8 +165,8 @@ os_interrupt_handler:
      || mv              sp, b1
         stdw            a3:a2, *+a0[2]
      || stdw            b3:b2, *+b0[2]
-        lddw            *-a1[1], a3:a2
-     || lddw            *-b1[2], b3:b2
+        lddw            *-a1[2], a3:a2
+     || lddw            *-b1[3], b3:b2
         stdw            a5:a4, *++a0[4]
      || stdw            b5:b4, *++b0[4]
         ; Load a vector number to A4 argument register
