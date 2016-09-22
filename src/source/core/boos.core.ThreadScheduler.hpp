@@ -205,7 +205,7 @@ namespace core
       if(current_ != NULL) return;
       current_ = last_;
       global().enable(true);      
-	  jump();
+      jump();
       global().disable();
     }
 
@@ -219,12 +219,13 @@ namespace core
     bool construct()
     {
       if(!isConstructed()) return false;
-	  if(!register_.isConstructed()) return false;
-	  // Set self register for contex store
-	  setRegister(&register_);
+      if(!register_.isConstructed()) return false;
+      // Set self register for contex store
+      setRegister(&register_);
       timer_.setCount(0);
       timer_.setPeriod(core_.quant);
       timer_.start();
+      enable(true);
       return true;
     }
 
