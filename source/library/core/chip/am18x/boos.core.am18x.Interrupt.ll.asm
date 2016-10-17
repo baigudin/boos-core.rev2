@@ -29,7 +29,7 @@
     
     .ref  _handler__Q3_4core5am18x9InterruptSFi 
     .ref  _supervisor__Q3_4core5am18x9InterruptSFi
-        .asg  _handler__Q3_4core5am18x9InterruptSFi,           m_handler
+    .asg  _handler__Q3_4core5am18x9InterruptSFi,           m_handler
     .asg  _supervisor__Q3_4core5am18x9InterruptSFi,        m_supervisor
     .asg  _handlerBaseLow__Q3_4core5am18x9InterruptSFv,    m_handler_base
     .asg  _handlerNullLow__Q3_4core5am18x9InterruptSFv,    m_handler_null
