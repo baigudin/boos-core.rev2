@@ -47,11 +47,11 @@
     ldr     pc, a_os_handler_rst           ; 0
     ldr     pc, a_os_handler_und           ; 5
     ldr     pc, a_os_handler_svc           ; 5
-    ldr     pc, a_os_handler_abt_prefetch	 ; 4
+    ldr     pc, a_os_handler_abt_prefetch  ; 4
     ldr     pc, a_os_handler_abt_data      ; 1
-    ldr     pc, a_os_handler_res				 ;
+    ldr     pc, a_os_handler_res           ;
     ldr     pc, a_os_handler_irq           ; 3
-    ldr     pc, a_os_handler_fiq				 ; 2
+    ldr     pc, a_os_handler_fiq           ; 2
     
 a_os_handler_rst          .word os_handler_rst
 a_os_handler_und			  .word os_handler_und
