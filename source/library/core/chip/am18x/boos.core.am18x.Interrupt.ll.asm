@@ -29,8 +29,7 @@
     
     .ref  _handler__Q3_4core5am18x9InterruptSFi 
     .ref  _supervisor__Q3_4core5am18x9InterruptSFi
-    
-    .asg  _handler__Q3_4core5am18x9InterruptSFi,           m_handler
+        .asg  _handler__Q3_4core5am18x9InterruptSFi,           m_handler
     .asg  _supervisor__Q3_4core5am18x9InterruptSFi,        m_supervisor
     .asg  _handlerBaseLow__Q3_4core5am18x9InterruptSFv,    m_handler_base
     .asg  _handlerNullLow__Q3_4core5am18x9InterruptSFv,    m_handler_null
@@ -54,13 +53,13 @@
     ldr     pc, a_os_handler_fiq           ; 2
     
 a_os_handler_rst          .word os_handler_rst
-a_os_handler_und			  .word os_handler_und
-a_os_handler_svc			  .word os_handler_svc
+a_os_handler_und          .word os_handler_und
+a_os_handler_svc          .word os_handler_svc
 a_os_handler_abt_prefetch .word os_handler_abt_prefetch
 a_os_handler_abt_data	  .word os_handler_abt_data
-a_os_handler_res		     .word os_handler_res
-a_os_handler_irq			  .word os_handler_irq
-a_os_handler_fiq			  .word os_handler_fiq
+a_os_handler_res          .word os_handler_res
+a_os_handler_irq          .word os_handler_irq
+a_os_handler_fiq          .word os_handler_fiq
     
 ; ----------------------------------------------------------------------------
 ; Reset 
