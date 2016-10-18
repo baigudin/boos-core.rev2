@@ -174,6 +174,7 @@ namespace core
 
       friend bool operator ==(const Node& node1, const Node& node2);
       friend bool operator !=(const Node& node1, const Node& node2);
+
     };
 
     /** 
@@ -267,6 +268,7 @@ namespace core
 
     friend bool operator ==(const Node& node1, const Node& node2);
     friend bool operator !=(const Node& node1, const Node& node2);
+
   };
 
   /**
@@ -292,6 +294,5 @@ namespace core
   {
     return node1.thread_ != node2.thread_ ? true : false;
   }
-
 }
 #endif //BOOS_CORE_SEMAPHORE_HPP_

@@ -23,5 +23,6 @@ class Main
      * @return error code or zero.
      */   
     static int main(int argc, char* argv[]);
+
 };
 #endif // BOOS_MAIN_HPP_

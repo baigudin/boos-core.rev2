@@ -12,6 +12,7 @@
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
+-heap 0x1000
 
 MEMORY
 {
@@ -53,5 +54,3 @@ SECTIONS
   .neardata   : load = CODE
   .rodata     : load = CODE
 }
-
--heap 0x1000

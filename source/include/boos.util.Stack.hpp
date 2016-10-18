@@ -23,7 +23,6 @@ namespace util
   class Stack : public Object<Alloc>, public ::api::Stack<Type>
   { 
     typedef Object<Alloc> Parent;  
-    typedef ::api::Stack<Type> ApiStack;
   
   public:
   

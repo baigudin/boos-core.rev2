@@ -314,10 +314,6 @@ namespace core
      */    
     static const int32 SIZEOF_HEAP = sizeof(HeapData) + sizeof(VirtualTable) - sizeof(int64);
     
-    // Eight bytes of parent interface virtual table pointers
-    // TI compiler puts at the start of class data.
-    // Self class data adds class size to eight bytes align boundary.
-    
     /**
      * Data of this heap.
      */    

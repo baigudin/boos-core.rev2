@@ -184,7 +184,7 @@ namespace core
        * HW timet registers (no boot).
        */
       Regs* reg_;
-      
+
     };
   }
 }
