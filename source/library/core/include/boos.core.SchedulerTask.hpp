@@ -112,7 +112,7 @@ namespace core
     /** 
      * Constructor.
      *
-     * @return true if object is constructed successfully.
+     * @return true if object has been constructed successfully.
      */
     bool construct()
     {

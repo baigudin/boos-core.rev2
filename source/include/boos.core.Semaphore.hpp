@@ -42,9 +42,9 @@ namespace core
     virtual ~Semaphore();
     
     /**
-     * Tests if this object is constructed.
+     * Tests if this object has been constructed.
      *
-     * @return true if object is constructed successfully.
+     * @return true if object has been constructed successfully.
      */    
     virtual bool isConstructed() const;
 
@@ -216,9 +216,9 @@ namespace core
       }
       
       /**
-       * Tests if this object is constructed.
+       * Tests if this object has been constructed.
        *
-       * @return true if object is constructed successfully.
+       * @return true if object has been constructed successfully.
        */    
       virtual bool isConstructed() const
       {
@@ -249,7 +249,7 @@ namespace core
     /**
      * Constructor.
      *
-     * @return true if object is constructed successfully.     
+     * @return true if object has been constructed successfully.     
      */    
     bool construct();
     
@@ -261,10 +261,25 @@ namespace core
      */    
     bool removeNode(::api::Queue<Node>& list, Node& node);
 
-    ::api::Switchable&        switch_;
-    int32                     permits_;
-    bool                      fair_;
-    List                      list_;
+    /**
+     * Switchable interface for global interrupts.
+     */
+    ::api::Switchable& switch_;
+    
+    /**
+     * Number of permits for acquiring this semaphore.
+     */
+    int32 permits_;
+    
+    /**
+     * Semaphore fair flag.
+     */    
+    bool isFair_;
+
+    /** 
+     * Lists of this semaphore.
+     */     
+    List list_;
 
     friend bool operator ==(const Node& node1, const Node& node2);
     friend bool operator !=(const Node& node1, const Node& node2);

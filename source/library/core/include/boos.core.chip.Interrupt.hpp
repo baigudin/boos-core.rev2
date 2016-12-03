@@ -79,9 +79,9 @@ namespace core
       }
       
       /**
-       * Tests if this object is constructed.
+       * Tests if this object has been constructed.
        *
-       * @return true if object is constructed successfully.
+       * @return true if object has been constructed successfully.
        */    
       virtual bool isConstructed() const
       {

@@ -70,7 +70,7 @@ namespace util
      *
      * This class is implemented in private zone of the list class.
      * For this reason, for fast iteration some tests are skipped.
-     * You have to use this class only if it is constructed.
+     * You have to use this class only if it has been constructed.
      */      
     class Iterator : public Object<Alloc>, public ::api::ListIterator<Type>
     {
@@ -101,9 +101,9 @@ namespace util
       virtual ~Iterator(){}
       
       /**
-       * Tests if this object is constructed.
+       * Tests if this object has been constructed.
        *
-       * @return true if object is constructed successfully.
+       * @return true if object has been constructed successfully.
        */    
       virtual bool isConstructed() const
       {

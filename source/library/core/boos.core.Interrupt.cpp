@@ -44,7 +44,7 @@ namespace core
    *
    * @param handler pointer to user class which implements an interrupt handler interface.   
    * @param source  available interrupt source.
-   * @return true if object is constructed successfully.
+   * @return true if object has been constructed successfully.
    */
   bool Interrupt::construct(::api::InterruptHandler* handler, int32 source)
   {
@@ -55,9 +55,9 @@ namespace core
   }
 
   /**
-   * Tests if this object is constructed.
+   * Tests if this object has been constructed.
    *
-   * @return true if object is constructed successfully.
+   * @return true if object has been constructed successfully.
    */    
   bool Interrupt::isConstructed() const
   {

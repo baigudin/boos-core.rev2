@@ -20,12 +20,12 @@ namespace core
    *
    * In this case the semaphore will be constructed as unfair.
    *
-   * @param permits the initial number of permits available.   
+   * @param permits the initial number of permits available.
    */      
   Semaphore::Semaphore(int32 permits) :
     switch_  (Switch::global()),
     permits_ (permits),
-    fair_    (false){
+    isFair_  (false){
     setConstruct( construct() );  
   }    
   
@@ -38,7 +38,7 @@ namespace core
   Semaphore::Semaphore(int32 permits, bool fair) :
     switch_  (Switch::global()),    
     permits_ (permits),
-    fair_    (fair){
+    isFair_  (fair){
     setConstruct( construct() );  
   }
 
@@ -50,9 +50,9 @@ namespace core
   }
   
   /**
-   * Tests if this object is constructed.
+   * Tests if this object has been constructed.
    *
-   * @return true if object is constructed successfully.
+   * @return true if object has been constructed successfully.
    */    
   bool Semaphore::isConstructed() const
   {
@@ -131,7 +131,7 @@ namespace core
    */  
   bool Semaphore::isFair() const
   {
-    return fair_;
+    return isFair_;
   }
 
   /** 
@@ -154,7 +154,7 @@ namespace core
     if(count < 0) return switch_.enable(is, true); 
     // Unblock thread
     permits_ -= permits;
-    if(fair_ == true) list_.exec().add( Node(Thread::currentThread(), permits) );
+    if(isFair_ == true) list_.exec().add( Node(Thread::currentThread(), permits) );
     return switch_.enable(is, false); 
   }
   
@@ -176,7 +176,7 @@ namespace core
   /**
    * Constructor.
    *
-   * @return true if object is constructed successfully.   
+   * @return true if object has been constructed successfully.   
    */
   bool Semaphore::construct()
   {

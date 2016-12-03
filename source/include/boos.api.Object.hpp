@@ -24,17 +24,17 @@ namespace api
     virtual ~Object(){}
 
     /**
-     * Tests if this object is constructed.
+     * Tests if this object has been constructed.
      *
-     * @return true if object is constructed successfully.
+     * @return true if object has been constructed successfully.
      */    
     virtual bool isConstructed() const = 0;
     
     /**
-     * Tests if given object is constructed object.
+     * Tests if given object has been constructed object.
      *
      * @param obj pointer to object.
-     * @return true if object is constructed successfully.
+     * @return true if object has been constructed successfully.
      */
     template<class Type>
     static inline bool isObject(const Type* obj)
