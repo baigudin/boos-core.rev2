@@ -90,12 +90,12 @@ os_start:
 
 a_os_config      .word os_config    
 a_os_core_deinit .word os_core_deinit
-a_m_stack_fiq    .word m_stack_fiq, STACK_SIZE_FIQ
-a_m_stack_svc    .word m_stack_svc, STACK_SIZE_SVC
-a_m_stack_abt    .word m_stack_abt, STACK_SIZE_ABT
-a_m_stack_irq    .word m_stack_irq, STACK_SIZE_IRQ
-a_m_stack_und    .word m_stack_und, STACK_SIZE_UND
-a_m_stack_sys    .word m_stack_sys, STACK_SIZE_SYS
+a_m_stack_fiq    .word m_stack_fiq + STACK_SIZE_FIQ
+a_m_stack_svc    .word m_stack_svc + STACK_SIZE_SVC
+a_m_stack_abt    .word m_stack_abt + STACK_SIZE_ABT
+a_m_stack_irq    .word m_stack_irq + STACK_SIZE_IRQ
+a_m_stack_und    .word m_stack_und + STACK_SIZE_UND
+a_m_stack_sys    .word m_stack_sys + STACK_SIZE_SYS
     
 ; ----------------------------------------------------------------------------
 ; Finishes the core executing
