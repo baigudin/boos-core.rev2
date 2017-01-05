@@ -1,0 +1,67 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="C:\Projects\os\src\boos\projects\boos.exe.core.target.ti.am18x.coff.ccstudio\"
+ProjectType=Executable
+CPUFamily=TMS470R2X
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="Linker"
+Tool="XDC"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\..\source\core\boos.core.Allocator.cpp"
+Source="..\..\source\core\boos.core.Core.cpp"
+Source="..\..\source\core\boos.core.Interrupt.cpp"
+Source="..\..\source\core\boos.core.Main.cpp"
+Source="..\..\source\core\boos.core.Semaphore.cpp"
+Source="..\..\source\core\boos.core.Synchronizer.cpp"
+Source="..\..\source\core\boos.core.System.cpp"
+Source="..\..\source\core\boos.core.Thread.cpp"
+Source="..\..\source\core\boos.core.Timer.cpp"
+Source="..\..\source\core\boos.core.TimerInterrupt.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Allocator.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Boot.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Boot.ll.asm"
+Source="..\..\source\core\target\ti\am18x\boos.target.Configuration.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Core.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Core.ll.asm"
+Source="..\..\source\core\target\ti\am18x\boos.target.Environment.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Interrupt.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.InterruptController.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.InterruptController.ll.asm"
+Source="..\..\source\core\target\ti\am18x\boos.target.Register.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.Timer.cpp"
+Source="..\..\source\core\target\ti\am18x\boos.target.TimerController.cpp"
+Source="Debug\boos.am18x.debug.map"
+Source="Release\boos.am18x.release.map"
+Source="Source\boos.Main.cpp"
+Source="Source\ti.lib\rts32e.lib"
+Source="..\..\source\core\target\ti\am18x\cmd\boos.memory.coff.cmd"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Debug\obj" -ff"$(Proj_dir)\Debug\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -d"BOOS_DEBUG" -d"BOOS_AM18X" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+
+["Compiler" Settings: "Release"]
+Options=-g -o3 -fr"$(Proj_dir)\Release\obj" -ff"$(Proj_dir)\Release\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+
+["Linker" Settings: "Debug"]
+Options=--abi=ti_arm9_abi -c -m".\Debug\boos.am18x.debug.map" -o".\Debug\boos.am18x.debug.out" -w -x
+
+["Linker" Settings: "Release"]
+Options=--abi=ti_arm9_abi -c -m".\Release\boos.am18x.release.map" -o".\Release\boos.am18x.release.out" -w -x
+
+["Debug\boos.am18x.debug.map" Settings: "Debug"]
+ExcludeFromBuild=true
+
+["Debug\boos.am18x.debug.map" Settings: "Release"]
+ExcludeFromBuild=true
+
+["Release\boos.am18x.release.map" Settings: "Debug"]
+ExcludeFromBuild=true
+
+["Release\boos.am18x.release.map" Settings: "Release"]
+ExcludeFromBuild=true
+
