@@ -20,8 +20,8 @@ namespace target
 
     public:
     
-      static const uint32 ADDRESS = 0x01C11000;    
-
+      static const uint32 ADDRESS = 0x01C11000;
+      
       /** 
        * Constructor.
        */  
@@ -73,6 +73,8 @@ namespace target
       /**
        * PLLC0 Divider Register base.
        */
+      static const uint32 PLLDIV_M_RATIO = 0x0000001f;
+      static const uint32 PLLDIV_S_RATIO = 0x00000000;      
       union PLLDIV
       {
         PLLDIV(){}
@@ -206,6 +208,8 @@ namespace target
       /**
        * PLL Multiplier Control Register.
        */
+      static const uint32 PLLM_M_PLLM = 0x0000001f;
+      static const uint32 PLLM_S_PLLM = 0x00000000;      
       union PLLM
       {
         PLLM(){}

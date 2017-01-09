@@ -49,24 +49,24 @@ namespace core
     virtual bool isConstructed() const;
 
     /**
-     * Acquires a permit, blocking until one is available.
+     * Acquires one permit from this semaphore.
      *
-     * @return true if the semaphore is acquire successfully.
+     * @return true if the semaphore is acquired successfully.
      */  
     virtual bool acquire();
 
     /**
-     * Acquires the given number of permits.
+     * Acquires the given number of permits from this semaphore.
      *
      * @param permits the number of permits to acquire.
-     * @return true if the semaphore is acquire successfully.
+     * @return true if the semaphore is acquired successfully.
      */  
     virtual bool acquire(int32 permits);
 
     /**
-     * Releases a permit.
+     * Releases one permit.
      *
-     * @return true if the semaphore is release successfully.
+     * @return true if the semaphore is released successfully.
      */
     virtual bool release();
 
@@ -74,7 +74,7 @@ namespace core
      * Releases the given number of permits.
      *
      * @param permits the number of permits to release.
-     * @return true if the semaphore is release successfully.
+     * @return true if the semaphore is released successfully.
      */  
     virtual bool release(int32 permits);
 
@@ -173,6 +173,24 @@ namespace core
       {
         return thread_;
       }
+      
+      /**
+       * Inequality operator.
+       *
+       * @param obj1 reference first object.
+       * @param obj2 reference second object.
+       * @return true if object are equal.
+       */
+      friend bool operator ==(const Node& obj1, const Node& obj2);
+      
+      /**
+       * Inequality operator.
+       *
+       * @param obj1 reference first object.
+       * @param obj2 reference second object.
+       * @return true if object are not equal.
+       */      
+      friend bool operator !=(const Node& obj1, const Node& obj2);
 
     private:
 
@@ -185,9 +203,6 @@ namespace core
        * Number of permits to release for this thread.
        */
       int32 permits_;
-
-      friend bool operator ==(const Node& node1, const Node& node2);
-      friend bool operator !=(const Node& node1, const Node& node2);
 
     };
 
@@ -310,32 +325,32 @@ namespace core
     List list_;
 
     friend bool operator ==(const Node& node1, const Node& node2);
-    friend bool operator !=(const Node& node1, const Node& node2);
-
+    friend bool operator !=(const Node& node1, const Node& node2);    
   };
-
+  
   /**
-   * Operator "==" for node of list.
+   * Inequality operator.
    *
-   * @param node1 reference to object 1.
-   * @param node2 reference to object 2.
-   * @return boolean result.
+   * @param obj1 reference first object.
+   * @param obj2 reference second object.
+   * @return true if object are equal.
    */
-  inline bool operator ==(const Semaphore::Node& node1, const Semaphore::Node& node2)
+  inline bool operator ==(const Semaphore::Node& obj1, const Semaphore::Node& obj2)
   {
-    return node1.thread_ == node2.thread_ ? true : false;
+    return obj1.thread_ == obj2.thread_ ? true : false;
   }
-
+  
   /**
-   * Operator "!=" for node of list.
+   * Inequality operator.
    *
-   * @param node1 reference to object 1.
-   * @param node2 reference to object 2.
-   * @return boolean result.
-   */
-  inline bool operator !=(const Semaphore::Node& node1, const Semaphore::Node& node2)
+   * @param obj1 reference first object.
+   * @param obj2 reference second object.
+   * @return true if object are not equal.
+   */      
+  inline bool operator !=(const Semaphore::Node& obj1, const Semaphore::Node& obj2)
   {
-    return node1.thread_ != node2.thread_ ? true : false;
+    return obj1.thread_ != obj2.thread_ ? true : false;
   }
+  
 }
 #endif //BOOS_CORE_SEMAPHORE_HPP_

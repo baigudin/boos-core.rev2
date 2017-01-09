@@ -9,7 +9,7 @@
 #ifndef BOOS_TARGET_ENVIRONMENT_HPP_
 #define BOOS_TARGET_ENVIRONMENT_HPP_
 
-#include "boos.Types.hpp"
+#include "boos.target.Configuration.hpp"
 
 namespace target
 {
@@ -20,13 +20,14 @@ namespace target
     friend class Core;
 
   private:
-  
+    
     /**
      * Initialization.
      *
+     * @param cfg the core configuration.
      * @return true if no errors.
      */
-    static bool init();
+    static bool init(const Configuration& cfg);    
 
     /**
      * Deinitialization.

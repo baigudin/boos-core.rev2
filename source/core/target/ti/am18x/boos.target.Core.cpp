@@ -8,8 +8,8 @@
  */
 #include "boos.target.Core.hpp"
 #include "boos.target.Boot.hpp"
-#include "boos.target.Environment.hpp"
 #include "boos.target.Configuration.hpp"
+#include "boos.target.Environment.hpp"
 #include "boos.target.TimerController.hpp"
 #include "boos.target.InterruptController.hpp"
 #include "boos.target.Allocator.hpp"
@@ -41,7 +41,7 @@ namespace target
     do{
       // Stage 1 initializes target hardware
       stage++;
-      if( !Environment::init() ) break;    
+      if( !Environment::init(cfg) ) break;    
       // Stage 2 creates heap
       stage++;
       heap = new (cfg.heapAddr) ::util::Heap(cfg.heapSize, global);

@@ -24,14 +24,20 @@ namespace api
     virtual ~Semaphore(){}
 
     /**
-     * Acquires a permit, blocking until one is available.
+     * Acquires one permit from this semaphore.
+     *
+     * The method acquires one permit or waits
+     * while the permit will be released.
      *
      * @return true if the semaphore is acquired successfully.
      */  
     virtual bool acquire() = 0;
 
     /**
-     * Acquires the given number of permits.
+     * Acquires the given number of permits from this semaphore.
+     *
+     * The method acquires given permits number or waits
+     * while the number will be released.
      *
      * @param permits the number of permits to acquire.
      * @return true if the semaphore is acquired successfully.
@@ -39,17 +45,21 @@ namespace api
     virtual bool acquire(int32 permits) = 0;
 
     /**
-     * Releases a permit.
+     * Releases one permit.
      *
-     * @return true if the semaphore is release successfully.
+     * The method releases from one permit and returns this to the semaphore.
+     *
+     * @return true if the semaphore is released successfully.
      */
     virtual bool release() = 0;
 
     /**
      * Releases the given number of permits.
      *
+     * The method releases from the permits and returns these to the semaphore.     
+     *
      * @param permits the number of permits to release.
-     * @return true if the semaphore is release successfully.
+     * @return true if the semaphore is released successfully.
      */  
     virtual bool release(int32 permits) = 0;
 

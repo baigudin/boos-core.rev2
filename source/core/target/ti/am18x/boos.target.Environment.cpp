@@ -11,16 +11,17 @@
 
 namespace target
 {
-
+    
   /**
    * Initialization.
    *
+   * @param cfg the core configuration.
    * @return true if no errors.
    */
-  bool Environment::init()
+  bool Environment::init(const Configuration& cfg)
   {
     bool res = true;
-    res = res && PllController::init(25000000, 375000000);
+    res = res && PllController::init(cfg.sourceClock, cfg.cpuClock);
     return res;
   }
   

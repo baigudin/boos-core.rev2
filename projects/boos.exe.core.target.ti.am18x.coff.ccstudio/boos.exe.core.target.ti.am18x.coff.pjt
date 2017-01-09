@@ -53,6 +53,9 @@ Options=--abi=ti_arm9_abi -c -m".\Debug\boos.am18x.debug.map" -o".\Debug\boos.am
 ["Linker" Settings: "Release"]
 Options=--abi=ti_arm9_abi -c -m".\Release\boos.am18x.release.map" -o".\Release\boos.am18x.release.out" -w -x
 
+["..\..\source\core\target\ti\am18x\boos.target.Environment.cpp" Settings: "Release"]
+Options="Compiler" -{-o3}
+
 ["Debug\boos.am18x.debug.map" Settings: "Debug"]
 ExcludeFromBuild=true
 
@@ -64,4 +67,7 @@ ExcludeFromBuild=true
 
 ["Release\boos.am18x.release.map" Settings: "Release"]
 ExcludeFromBuild=true
+
+["Source\boos.Main.cpp" Settings: "Release"]
+Options="Compiler" -{-o3}
 

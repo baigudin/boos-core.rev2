@@ -7,9 +7,6 @@
  * @link      http://baigudin.software
  */
 #include "boos.Main.hpp"
-#include "boos.util.Heap.hpp"
-//#include "boos.core.Mutex.hpp"
-//#include "boos.util.CircularList.hpp"
 
 /**
  * User method which will be stated as first.

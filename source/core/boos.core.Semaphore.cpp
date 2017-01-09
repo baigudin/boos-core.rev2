@@ -2,7 +2,7 @@
  * Semaphore class.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2014-2016 Sergey Baigudin
+ * @copyright 2014-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
@@ -62,26 +62,26 @@ namespace core
   }
 
   /**
-   * Acquires a permit, blocking until one is available.
+   * Acquires one permit from this semaphore.
    *
    * @return true if the semaphore is acquired successfully.
-   */  
+   */
   bool Semaphore::acquire()
   {
     return acquire(1);
   }    
 
   /**
-   * Acquires the given number of permits.
+   * Acquires the given number of permits from this semaphore.
    *
    * @param permits the number of permits to acquire.
    * @return true if the semaphore is acquired successfully.
-   */  
+   */   
   bool Semaphore::acquire(int32 permits)
   {
     if(!isConstructed()) return false;
     bool is = switch_.disable();
-    Node node = Node(Thread::currentThread(), permits);
+    Node node(Thread::currentThread(), permits);
     // Check about free space in semaphore zone
     int32 count = permits_ - permits;
     // If count is available and no locked threads
@@ -89,7 +89,7 @@ namespace core
     {
       permits_ -= permits;
       if( isFair() ) list_.exec().add(node);
-      // Go through sem to locked zone
+      // Go through the semaphore to critical section
       return switch_.enable(is, true);
     }
     // Block current thread on this semaphore
@@ -101,9 +101,9 @@ namespace core
   }    
 
   /**
-   * Releases a permit.
+   * Releases one permit.
    *
-   * @return true if the semaphore is release successfully.
+   * @return true if the semaphore is released successfully.
    */
   bool Semaphore::release()
   {
@@ -114,13 +114,13 @@ namespace core
    * Releases the given number of permits.
    *
    * @param permits the number of permits to release.
-   * @return true if the semaphore is release successfully.
+   * @return true if the semaphore is released successfully.
    */  
   bool Semaphore::release(int32 permits)
   {
     if(!isConstructed()) return false;
     bool is = switch_.disable();
-    Node node = Node(Thread::currentThread(), permits);      
+    Node node(Thread::currentThread(), permits);
     bool res = isFair() ? removeNode(list_.exec(), node) : true;
     permits_ += permits;
     return switch_.enable(is, res);
@@ -146,11 +146,11 @@ namespace core
     if(!isConstructed()) return false;
     int32 permits, count;
     bool is = switch_.disable();
-    Node cur = Node(Thread::currentThread(), 0);
+    Node cur(Thread::currentThread(), 0);
     Node res = list_.lock().element();
-    // Current thread is first in fifo
+    // Test if current thread is the first in FIFO
     if(cur != res) return switch_.enable(is, true);
-    // Check about free space in semaphore zone
+    // Check about free permits of semaphore
     permits = res.permits();
     count = permits_ - permits;
     if(count < 0) return switch_.enable(is, true);

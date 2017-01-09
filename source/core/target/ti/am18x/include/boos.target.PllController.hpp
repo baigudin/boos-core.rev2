@@ -25,6 +25,10 @@ namespace target
 {
   class PllController
   {
+    typedef registers::Syscfg0 Syscfg0;
+    typedef registers::Syscfg1 Syscfg1;
+    typedef registers::Pllc0   Pllc0;
+    typedef registers::Pllc1   Pllc1;
     
   public:
 
@@ -63,10 +67,10 @@ namespace target
     static bool configure()
     {
       bool res = true;        
-      syscfg0_ = new (registers::Syscfg0::ADDRESS) registers::Syscfg0();
-      syscfg1_ = new (registers::Syscfg1::ADDRESS) registers::Syscfg1();
-      pllc0_ = new (registers::Pllc0::ADDRESS) registers::Pllc0();
-      pllc1_ = new (registers::Pllc1::ADDRESS) registers::Pllc1();        
+      syscfg0_ = new (Syscfg0::ADDRESS) Syscfg0();
+      syscfg1_ = new (Syscfg1::ADDRESS) Syscfg1();
+      pllc0_ = new (Pllc0::ADDRESS) Pllc0();
+      pllc1_ = new (Pllc1::ADDRESS) Pllc1();
       // Unlock the SYSCFG module
       syscfg0_->kick0r.bit.kick0 = 0x83E70B13;
       syscfg0_->kick1r.bit.kick1 = 0x95A4F1E0;
@@ -95,13 +99,8 @@ namespace target
       // Set an internal oscillator (crystal) way
       if(isPowerDown) pllc0_->pllctl.bit.clkmode = 0;      
       // Calculate the values for multiplier and dividers
-      registers::Pllc0::PLLM reg = 0xffffffff;
-      union{
-        int64 value;
-        uint8 field:5;
-      } cpllm = { cpuClock_ / oscin_ - 1 };
-      int32 mpllm = reg.bit.pllm;
-      if(cpllm.value & ~mpllm) return false;
+      int64 pllm = cpuClock_ / oscin_ - 1;
+      if(pllm & ~Pllc0::PLLM_M_PLLM) return false;
       // Switch the PLL to bypass mode
       pllc0_->pllctl.bit.pllensrc = 0;
       pllc0_->pllctl.bit.extclksrc = 0;  
@@ -115,7 +114,7 @@ namespace target
       pllc0_->prediv.bit.ratio = 0;  
       pllc0_->prediv.bit.preden = 1;
       // Set calculated multiplier value to 15: before 25 MHz, after 375 MHz
-      pllc0_->pllm.bit.pllm = cpllm.field;
+      pllc0_->pllm.bit.pllm = pllm & Pllc0::PLLM_M_PLLM;
       // Set post-divider value to 1: before 375 MHz, after 375 MHz
       pllc0_->postdiv.bit.ratio = 0;  
       pllc0_->postdiv.bit.postden = 1;
@@ -183,14 +182,10 @@ namespace target
      * @param plldiv reference to register.
      * @param div    divider value.
      */
-    static void plldiv0(registers::Pllc0::PLLDIV& plldiv, int32 div)
+    static void plldiv0(volatile Pllc0::PLLDIV& plldiv, int32 div)
     {
       while(pllc0_->pllstat.bit.gostat);
-      union{
-        int64 value;
-        uint8 field:5;
-      } divVal = { div - 1 };
-      plldiv.bit.ratio = divVal.field;
+      plldiv.bit.ratio = (div - 1) & Pllc0::PLLDIV_M_RATIO;
       plldiv.bit.dNen = 1;
       pllc0_->pllcmd.bit.goset = 1;
       while(pllc0_->pllstat.bit.gostat);
@@ -202,14 +197,10 @@ namespace target
      * @param plldiv reference to register.
      * @param div    divider value.
      */
-    static void plldiv1(registers::Pllc1::PLLDIV& plldiv, int32 div)
+    static void plldiv1(Pllc1::PLLDIV& plldiv, int32 div)
     {
       while(pllc1_->pllstat.bit.gostat);
-      union{
-        int64 value;
-        uint8 field:5;
-      } divVal = { div - 1 };
-      plldiv.bit.ratio = divVal.field;
+      plldiv.bit.ratio = (div - 1) & Pllc1::PLLDIV_M_RATIO;
       plldiv.bit.dNen = 1;
       pllc1_->pllcmd.bit.goset = 1;
       while(pllc1_->pllstat.bit.gostat);
@@ -218,22 +209,22 @@ namespace target
     /**
      * System Configuration Module 0 registers (no boot).
      */ 
-    static registers::Syscfg0* syscfg0_;      
+    static Syscfg0* syscfg0_;
     
     /**
      * System Configuration Module 1 registers (no boot).
      */ 
-    static registers::Syscfg1* syscfg1_;
+    static Syscfg1* syscfg1_;
     
     /**
      * Phase-Locked Loop Controller 0 registers (no boot).
      */ 
-    static registers::Pllc0* pllc0_;
+    static Pllc0* pllc0_;
     
     /**
      * Phase-Locked Loop Controller 1 registers (no boot).
      */             
-    static registers::Pllc1* pllc1_;
+    static Pllc1* pllc1_;
     
     /**
      * Reference clock rate in Hz (no boot).

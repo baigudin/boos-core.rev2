@@ -13,10 +13,30 @@
 
 namespace target
 {
-  class Configuration
+  struct Configuration
   {
 
   public:
+  
+    /**
+     * Source clock in Hz.
+     */      
+    int64 sourceClock;
+    
+    /**
+     * CPU clock in Hz.
+     */  
+    int64 cpuClock;
+
+    /**
+     * Start address of heap page.
+     */      
+    void* heapAddr;    
+    
+    /**
+     * Size of heap page in bytes.
+     */  
+    int64 heapSize; 
 
     /** 
      * Constructor.
@@ -53,27 +73,6 @@ namespace target
       heapSize    = obj.heapSize;
       return *this;
     }
-    
-    /**
-     * Source clock in Hz.
-     */      
-    int64 sourceClock;
-    
-    /**
-     * CPU clock in Hz.
-     */  
-    int64 cpuClock;
-
-    /**
-     * Start address of heap page.
-     */      
-    void* heapAddr;    
-    
-    /**
-     * Size of heap page in bytes.
-     */  
-    int64 heapSize; 
-       
   };
 }
 #endif // BOOS_TARGET_CONFIGURATION_HPP_
