@@ -9,12 +9,9 @@
 #include "boos.core.Semaphore.hpp"
 #include "boos.core.Thread.hpp"
 #include "boos.core.Interrupt.hpp"
-#include "boos.core.Core.hpp"
 
 namespace core
 {
-  typedef Interrupt Switcher;
-
   /** 
    * Constructor.
    *
@@ -23,10 +20,10 @@ namespace core
    * @param permits the initial number of permits available.
    */      
   Semaphore::Semaphore(int32 permits) : Parent(),
-    switch_  (Switcher::global()),
+    toggle_  (Interrupt::global()),
     permits_ (permits),
-    isFair_  (false),
-    list_    (){
+    isFair_  (false),    
+    fifo_    (NULL){
     setConstruct( construct() );  
   }    
   
@@ -37,10 +34,10 @@ namespace core
    * @param fair true if this semaphore will guarantee FIFO granting of permits under contention.
    */      
   Semaphore::Semaphore(int32 permits, bool fair) : Parent(),
-    switch_  (Switcher::global()),    
+    toggle_  (Interrupt::global()),    
     permits_ (permits),
     isFair_  (fair),
-    list_    (){
+    fifo_    (NULL){
     setConstruct( construct() );  
   }
 
@@ -69,7 +66,7 @@ namespace core
   bool Semaphore::acquire()
   {
     return acquire(1);
-  }    
+  }
 
   /**
    * Acquires the given number of permits from this semaphore.
@@ -79,25 +76,72 @@ namespace core
    */   
   bool Semaphore::acquire(int32 permits)
   {
+    bool res, is;  
     if(!isConstructed()) return false;
-    bool is = switch_.disable();
-    Node node(Thread::currentThread(), permits);
-    // Check about free space in semaphore zone
-    int32 count = permits_ - permits;
-    // If count is available and no locked threads
-    if(count >= 0 && list_.lock().length() == 0)
+    is = toggle_.disable();
+    switch(isFair_)
     {
-      permits_ -= permits;
-      if( isFair() ) list_.exec().add(node);
-      // Go through the semaphore to critical section
-      return switch_.enable(is, true);
+      case  true: res = acquireFair(permits); break;
+      case false: res = acquireUnfair(permits); break;
     }
-    // Block current thread on this semaphore
-    list_.lock().add(node);
-    Thread::block(*this);
-    // This thread is unblock
-    removeNode(list_.lock(), node);
-    return switch_.enable(is, true);
+    return toggle_.enable(is, res);
+  }
+  
+  /**
+   * Fairly acquires the given number of permits from this semaphore.
+   *
+   * @param permits the number of permits to acquire.
+   * @return true if the semaphore is acquired successfully.
+   */  
+  bool Semaphore::acquireFair(int32 permits)
+  {
+    // The first checking for acquiring available permits of the semaphore
+    if( permits_ - permits >= 0 && fifo_.isEmpty() )
+    {
+      // Decrement the number of available permits
+      permits_ -= permits;
+      // Go through the semaphore to critical section
+      return true;      
+    }
+    Thread* thread = &Thread::currentThread();
+    // Add current thread to the queue tail
+    if( fifo_.add(thread) == false ) return false;      
+    while(true)
+    {
+      // Block current thread on the semaphore and switch to another thread
+      Thread::block(*this);
+      // Test if head thread is current thread
+      if(fifo_.element() != thread) continue;
+      // Test available permits for no breaking the fifo queue by removing
+      if(permits_ - permits < 0) continue;
+      // Decrement the number of available permits
+      permits_ -= permits;        
+      // Remove head thread
+      return fifo_.remove();
+    }
+  }    
+  
+  /**
+   * Unfairly acquires the given number of permits from this semaphore.
+   *
+   * @param permits the number of permits to acquire.
+   * @return true if the semaphore is acquired successfully.
+   */  
+  bool Semaphore::acquireUnfair(int32 permits)
+  {
+    while(true)
+    {
+      // Check about available permits in the semaphoring critical section
+      if( permits_ - permits >= 0 )
+      {
+        // Decrement the number of available permits
+        permits_ -= permits;
+        // Go through the semaphore to critical section
+        return true;
+      }
+      // Block current thread on the semaphore and switch to another thread
+      Thread::block(*this);      
+    }  
   }    
 
   /**
@@ -119,12 +163,25 @@ namespace core
   bool Semaphore::release(int32 permits)
   {
     if(!isConstructed()) return false;
-    bool is = switch_.disable();
-    Node node(Thread::currentThread(), permits);
-    bool res = isFair() ? removeNode(list_.exec(), node) : true;
+    bool is = toggle_.disable();
+    // Increment the number of available permits    
     permits_ += permits;
-    return switch_.enable(is, res);
+    // Signal the semaphore has released permits
+    return toggle_.enable(is, true);
   }  
+  
+  /** 
+   * Tests if this resource is blocked.
+   *
+   * @return true if this resource is blocked.
+   */ 
+  bool Semaphore::isBlocked()
+  {
+    if(!isConstructed()) return false;
+    bool is = toggle_.disable();
+    bool res = permits_ > 0 ? false : true;
+    return toggle_.enable(is, res);
+  }
   
   /**
    * Tests if this semaphore is fair.
@@ -135,45 +192,6 @@ namespace core
   {
     return isFair_;
   }
-
-  /** 
-   * Tests if this resource is blocked.
-   *
-   * @return true if this resource is blocked.
-   */ 
-  bool Semaphore::isBlocked()
-  {
-    if(!isConstructed()) return false;
-    int32 permits, count;
-    bool is = switch_.disable();
-    Node cur(Thread::currentThread(), 0);
-    Node res = list_.lock().element();
-    // Test if current thread is the first in FIFO
-    if(cur != res) return switch_.enable(is, true);
-    // Check about free permits of semaphore
-    permits = res.permits();
-    count = permits_ - permits;
-    if(count < 0) return switch_.enable(is, true);
-    // Unblock thread
-    permits_ -= permits;
-    if(isFair_ == true) list_.exec().add( Node(Thread::currentThread(), permits) );
-    return switch_.enable(is, false);    
-  }
-  
-  /**
-   * Removes last element from list.
-   *
-   * @param list reference to SemaphoreList class.
-   * @param node reference to node.     
-   */  
-  bool Semaphore::removeNode(::api::Queue<Node>& list, Node& node)
-  {
-    while(true)
-    {
-      if(list.element() == node) return list.remove();
-      Thread::yield();
-    }      
-  }      
   
   /**
    * Constructor.
@@ -183,7 +201,7 @@ namespace core
   bool Semaphore::construct()
   {
     if(!isConstructed()) return false;      
-    if(!list_.isConstructed()) return false;      
+    if(!fifo_.isConstructed()) return false;      
     return true;
   }
 }

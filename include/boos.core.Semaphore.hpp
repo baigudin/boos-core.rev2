@@ -9,12 +9,15 @@
 #ifndef BOOS_CORE_SEMAPHORE_HPP_
 #define BOOS_CORE_SEMAPHORE_HPP_
 
-#include "boos.core.Thread.hpp"
+#include "boos.core.Object.hpp"
 #include "boos.api.Semaphore.hpp"
+#include "boos.api.Toggle.hpp"
 #include "boos.util.LinkedList.hpp"
 
 namespace core
 {
+  class Thread;
+
   class Semaphore : public ::core::Object<>, public ::api::Semaphore
   {
     typedef ::core::Object<> Parent;
@@ -93,187 +96,22 @@ namespace core
     virtual bool isBlocked();
 
   private:
-  
-    /** 
-     * Node for semaphore lists.
+
+    /**
+     * Fairly acquires the given number of permits from this semaphore.
+     *
+     * @param permits the number of permits to acquire.
+     * @return true if the semaphore is acquired successfully.
      */  
-    class Node
-    {
-
-    public:
+    bool acquireFair(int32 permits);
     
-      /** 
-       * Constructor.
-       *
-       * @param permits number of permits to release.
-       * @param thread  current executing thread.
-       * @return true if the semaphore is release successfully.
-       */
-      Node(Thread& thread, int32 permits) : 
-        thread_  (&thread),
-        permits_ (permits){
-      }
-
-      /** 
-       * Copy constructor.
-       *
-       * @param obj reference to source node.       
-       */    
-      Node(const Node& obj) :
-        thread_  (obj.thread_), 
-        permits_ (obj.permits_){
-      }
-      
-      /** 
-       * Constructor.
-       *
-       * Constructs this object as illegal.
-       *
-       * @param permits number of permits to release.
-       * @return true if the semaphore is release successfully.
-       */
-      Node(int32 permits) : 
-        thread_  (NULL),
-        permits_ (permits){
-      }      
-
-      /**
-       * Destructor.
-       */
-     ~Node(){}
-
-      /** 
-       * Assignment operator.
-       *
-       * @param node reference to source node.
-       */  
-      Node& operator =(const Node& node)
-      {
-        thread_ = node.thread_;
-        permits_ = node.permits_;
-        return *this;
-      }
-
-      /**
-       * Returns this permits.
-       *
-       * @return this permits value.
-       */
-      int32 permits()
-      {
-        return permits_;
-      }
-
-      /**
-       * Returns this thread.
-       *
-       * @return this thread value.
-       */
-      Thread* thread()
-      {
-        return thread_;
-      }
-      
-      /**
-       * Inequality operator.
-       *
-       * @param obj1 reference first object.
-       * @param obj2 reference second object.
-       * @return true if object are equal.
-       */
-      friend bool operator ==(const Node& obj1, const Node& obj2);
-      
-      /**
-       * Inequality operator.
-       *
-       * @param obj1 reference first object.
-       * @param obj2 reference second object.
-       * @return true if object are not equal.
-       */      
-      friend bool operator !=(const Node& obj1, const Node& obj2);
-
-    private:
-
-      /** 
-       * Executing thread.
-       */
-      Thread* thread_;
-      
-      /** 
-       * Number of permits to release for this thread.
-       */
-      int32 permits_;
-
-    };
-
-    /** 
-     * Contain lists for the semaphore.
+    /**
+     * Unfairly acquires the given number of permits from this semaphore.
+     *
+     * @param permits the number of permits to acquire.
+     * @return true if the semaphore is acquired successfully.
      */  
-    class List : public ::api::Object
-    {
-
-    public:
-
-      /** 
-       * Constructor.
-       */
-      List() : 
-        illegal_ (-1),
-        exec_    (illegal_), 
-        lock_    (illegal_){
-      }
-
-      /**
-       * Destructor.
-       */
-     ~List(){}
-     
-      /**
-       * Returns this list of executing threads for fair semaphores.
-       */
-      ::api::Queue<Node>& exec()
-      {
-        return exec_;
-      }
-
-      /**
-       * Returns this list of locked threads.
-       */
-      ::api::Queue<Node>& lock()
-      {
-        return lock_;      
-      }
-      
-      /**
-       * Tests if this object has been constructed.
-       *
-       * @return true if object has been constructed successfully.
-       */    
-      virtual bool isConstructed() const
-      {
-        if(!exec_.isConstructed()) return false;
-        if(!lock_.isConstructed()) return false;        
-        return true;
-      }       
-     
-    private:
-    
-      /**
-       * Illegal value for all this lists.
-       */
-      Node illegal_;    
-
-      /**
-       * List of executing threads for fair semaphores.
-       */      
-      util::LinkedList<Node> exec_;
-      
-      /**
-       * List of locked threads.
-       */      
-      util::LinkedList<Node> lock_;
-
-    };
+    bool acquireUnfair(int32 permits);      
 
     /**
      * Constructor.
@@ -281,14 +119,6 @@ namespace core
      * @return true if object has been constructed successfully.     
      */    
     bool construct();
-    
-    /**
-     * Removes last element from list.
-     *
-     * @param list reference to SemaphoreList class.
-     * @param node reference to node.     
-     */    
-    bool removeNode(::api::Queue<Node>& list, Node& node);
     
     /**
      * Copy constructor.
@@ -305,9 +135,9 @@ namespace core
     Semaphore& operator =(const Semaphore& obj);     
 
     /**
-     * Switchable interface of global interrupts.
+     * Toggle interface of global interrupts.
      */
-    ::api::Switchable& switch_;
+    ::api::Toggle& toggle_;
     
     /**
      * Number of permits for acquiring this semaphore.
@@ -320,37 +150,10 @@ namespace core
     bool isFair_;
 
     /** 
-     * Lists of this semaphore.
+     * Queue of locked threads.
      */     
-    List list_;
+    ::util::LinkedList<Thread*> fifo_;
 
-    friend bool operator ==(const Node& node1, const Node& node2);
-    friend bool operator !=(const Node& node1, const Node& node2);    
-  };
-  
-  /**
-   * Inequality operator.
-   *
-   * @param obj1 reference first object.
-   * @param obj2 reference second object.
-   * @return true if object are equal.
-   */
-  inline bool operator ==(const Semaphore::Node& obj1, const Semaphore::Node& obj2)
-  {
-    return obj1.thread_ == obj2.thread_ ? true : false;
-  }
-  
-  /**
-   * Inequality operator.
-   *
-   * @param obj1 reference first object.
-   * @param obj2 reference second object.
-   * @return true if object are not equal.
-   */      
-  inline bool operator !=(const Semaphore::Node& obj1, const Semaphore::Node& obj2)
-  {
-    return obj1.thread_ != obj2.thread_ ? true : false;
-  }
-  
+  };  
 }
 #endif //BOOS_CORE_SEMAPHORE_HPP_

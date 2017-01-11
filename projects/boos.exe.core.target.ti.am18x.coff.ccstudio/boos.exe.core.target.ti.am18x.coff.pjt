@@ -14,6 +14,7 @@ Config="Release"
 [Source Files]
 Source="..\..\source\core\boos.core.Allocator.cpp"
 Source="..\..\source\core\boos.core.Core.cpp"
+Source="..\..\source\core\boos.core.Escalator.cpp"
 Source="..\..\source\core\boos.core.Interrupt.cpp"
 Source="..\..\source\core\boos.core.Main.cpp"
 Source="..\..\source\core\boos.core.Semaphore.cpp"
@@ -42,7 +43,7 @@ Source="Source\ti.lib\rts32e.lib"
 Source="..\..\source\core\target\ti\am18x\cmd\boos.memory.coff.cmd"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug\obj" -ff"$(Proj_dir)\Debug\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -d"BOOS_DEBUG" -d"BOOS_AM18X" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+Options=-g -fr"$(Proj_dir)\Debug\obj" -ff"$(Proj_dir)\Debug\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
 
 ["Compiler" Settings: "Release"]
 Options=-g -o3 -fr"$(Proj_dir)\Release\obj" -ff"$(Proj_dir)\Release\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf

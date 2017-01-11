@@ -15,8 +15,8 @@
     .asg  b14, dp
     .asg  a15, fp
     
-    .asg  0001h, C_REG_CSR_GIE           
-    .asg  0002h, C_REG_CSR_PGIE              
+    .asg  0001h, C_REG_CSR_GIE
+    .asg  0002h, C_REG_CSR_PGIE
 
     ; EABI
     .if   __TI_EABI__
@@ -371,14 +371,14 @@ m_clear:
 ; ----------------------------------------------------------------------------
         .text
 m_jump:
-        ; Move current GIE to PGIE, disable global interrupts, and
+        ; Move GIE to PGIE, clear GIE, and
         ; calculate interrupt vector address
         b               m_jmp?
      || mvc             csr, b0
         and             C_REG_CSR_GIE, b0, a0
      || mvkl            m_core_reset, b4
-	    shl             a0, 1, a0
-        and            ~C_REG_CSR_GIE, b0, b0
+        shl             a0, 1, a0
+        and            ~(C_REG_CSR_GIE|C_REG_CSR_PGIE), b0, b0
      || mvkh            m_core_reset, b4
         or              b0, a0, b0
      || shl             a4, 5, a4

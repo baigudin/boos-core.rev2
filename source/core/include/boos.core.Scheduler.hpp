@@ -308,7 +308,7 @@ namespace core
     /**
      * Global interrupt controller.
      */
-    ::api::Switchable& global_;
+    ::api::Toggle& global_;
 
     /**
      * Target interrupt controller.

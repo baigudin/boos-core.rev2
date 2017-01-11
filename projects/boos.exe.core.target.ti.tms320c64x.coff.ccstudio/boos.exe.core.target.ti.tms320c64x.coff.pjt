@@ -15,6 +15,7 @@ Config="Release"
 [Source Files]
 Source="..\..\source\core\boos.core.Allocator.cpp"
 Source="..\..\source\core\boos.core.Core.cpp"
+Source="..\..\source\core\boos.core.Escalator.cpp"
 Source="..\..\source\core\boos.core.Interrupt.cpp"
 Source="..\..\source\core\boos.core.Main.cpp"
 Source="..\..\source\core\boos.core.Semaphore.cpp"
@@ -43,7 +44,7 @@ Source="Source\ti.lib\rts6400.lib"
 Source="..\..\source\core\target\ti\tms320c64x\cmd\boos.memory.tms320c64x.coff.cmd"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug\obj" -ff"$(Proj_dir)\Debug\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\tms320c64x\include" -d"BOOS_DEBUG" -mv6400 --mem_model:data=far --abi=coffabi
+Options=-g -fr"$(Proj_dir)\Debug\obj" -ff"$(Proj_dir)\Debug\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\tms320c64x\include" -mv6400 --mem_model:data=far --abi=coffabi
 
 ["Compiler" Settings: "Release"]
 Options=-g -o3 -fr"$(Proj_dir)\Release\obj" -ff"$(Proj_dir)\Release\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\tms320c64x\include" -mv6400 --mem_model:data=far
@@ -65,6 +66,9 @@ ExcludeFromBuild=true
 
 ["Release\boos.tms320c64x.release.map" Settings: "Release"]
 ExcludeFromBuild=true
+
+["Source\boos.Main.cpp" Settings: "Release"]
+Options="Compiler" -{-o3}
 
 ["..\..\source\core\target\ti\tms320c64x\cmd\boos.memory.tms320c64x.coff.cmd" Settings: "Debug"]
 LinkOrder=1

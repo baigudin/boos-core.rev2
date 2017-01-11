@@ -35,7 +35,7 @@ namespace target
      * Constructs this object and allocs a first free hardware timer.
      */      
     TimerController() : Parent(),
-      switch_ (Interrupt::global()),
+      toggle_ (Interrupt::global()),
       number_ (-1),
       reg_    (NULL){
       for(int32 i=0; i<NUMBER_TIMERS; i++) 
@@ -55,7 +55,7 @@ namespace target
      * @param number available timer number.
      */
     TimerController(int32 number) : Parent(),
-      switch_ (Interrupt::global()),  
+      toggle_ (Interrupt::global()),  
       number_ (-1),
       reg_    (NULL){
       setConstruct( construct(number) );
@@ -67,12 +67,12 @@ namespace target
     virtual ~TimerController()
     {
       if(!isConstructed()) return;
-      bool is = switch_.disable();
+      bool is = toggle_.disable();
       lock_[number_] = false;
       stop();
       reg_ = NULL;
       number_ = -1;
-      switch_.enable(is);    
+      toggle_.enable(is);    
     }
     
     /**
@@ -347,8 +347,8 @@ namespace target
       if(!isConstructed()) return false;
       uint32 addr = address(number);
       if(addr == 0) return false;
-      bool is = switch_.disable();
-      if(lock_[number] == true) return switch_.enable(is, false); 
+      bool is = toggle_.disable();
+      if(lock_[number] == true) return toggle_.enable(is, false); 
       reg_ = new (addr) registers::Timer();
       lock_[number] = true;
       number_ = number;
@@ -359,7 +359,7 @@ namespace target
       reg_->tgcr.bit.timmode = 0;
       reg_->tgcr.bit.tim12rs = 1;
       reg_->tgcr.bit.tim34rs = 1;
-      return switch_.enable(is, true);
+      return toggle_.enable(is, true);
     }
     
     /**
@@ -436,9 +436,9 @@ namespace target
     static bool lock_[NUMBER_TIMERS];
     
     /**
-     * Switchable interface of global interrupts.
+     * Toggle interface of global interrupts.
      */
-    ::api::Switchable& switch_;
+    ::api::Toggle& toggle_;
     
     /**
      * Number of hardware timer

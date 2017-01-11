@@ -1,16 +1,16 @@
 /** 
- * Switcher of switchable interface.
+ * Toggle of toggle interface.
  *
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
-#ifndef BOOS_UTIL_SWITCHER_HPP_
-#define BOOS_UTIL_SWITCHER_HPP_
+#ifndef BOOS_UTIL_TOGGLE_HPP_
+#define BOOS_UTIL_TOGGLE_HPP_
 
 #include "boos.util.Object.hpp"
-#include "boos.api.Switchable.hpp"
+#include "boos.api.Toggle.hpp"
 
 namespace util
 {
@@ -19,7 +19,7 @@ namespace util
    * @param Alloc heap memory allocator class.
    */  
   template <class Alloc=Allocator>
-  class Switcher : public ::util::Object<Alloc>, public ::api::Switchable
+  class Toggle : public ::util::Object<Alloc>, public ::api::Toggle
   {
     typedef ::util::Object<Alloc> Parent;
 
@@ -31,39 +31,39 @@ namespace util
      * Default constructor is used for creating 
      * the object which will switch nothing.
      */
-    Switcher() : Parent(),
+    Toggle() : Parent(),
       pointer_ (NULL),      
-      switch_  (&pointer_){
+      toggle_  (&pointer_){
     }  
 
     /** 
      * Constructor.
      *
-     * @param sw reference to Switchable interface for controlling its.
+     * @param sw reference to toggle interface for controlling its.
      */
-    Switcher(::api::Switchable& sw) : Parent(),
+    Toggle(::api::Toggle& sw) : Parent(),
       pointer_ (&sw),      
-      switch_  (&pointer_){
+      toggle_  (&pointer_){
     }
     
     /** 
      * Constructor.
      *
-     * Until the referenced pointer equals NULL the Switcher will not switch
+     * Until the referenced pointer equals NULL the Toggle will not switch
      * given controller. This feature is the most important when a controller
      * might be used before it is initialized.
      *
-     * @param sw reference to pointer of Switchable interface for controlling its.
+     * @param sw reference to pointer of toggle interface for controlling its.
      */
-    Switcher(::api::Switchable*& sw) : Parent(),
+    Toggle(::api::Toggle*& sw) : Parent(),
       pointer_ (NULL),    
-      switch_  (&sw){
+      toggle_  (&sw){
     }
 
     /** 
      * Destructor.
      */
-    virtual ~Switcher(){}
+    virtual ~Toggle(){}
     
     /**
      * Tests if this object has been constructed.
@@ -73,7 +73,7 @@ namespace util
     virtual bool isConstructed() const
     {
       if(!this->Parent::isConstructed()) return false;
-      return *switch_ == NULL ? false : true;
+      return *toggle_ == NULL ? false : true;
     }
 
     /** 
@@ -84,7 +84,7 @@ namespace util
     virtual bool disable()
     {
       if(!isConstructed()) return false;    
-      ::api::Switchable* switcher = *switch_;
+      ::api::Toggle* switcher = *toggle_;
       return switcher->disable();      
     }
 
@@ -96,7 +96,7 @@ namespace util
     virtual void enable(bool status)
     {
       if(!isConstructed()) return;
-      ::api::Switchable* switcher = *switch_;
+      ::api::Toggle* switcher = *toggle_;
       switcher->enable(status);
     }
 
@@ -107,25 +107,25 @@ namespace util
      *
      * @param obj reference to source object.
      */
-    Switcher(const Switcher& obj);
+    Toggle(const Toggle& obj);
 
     /**
      * Assignment operator.
      *
      * @param obj reference to source object.
      */
-    Switcher& operator =(const Switcher& obj);
+    Toggle& operator =(const Toggle& obj);
   
     /**
      * Pointer to always existent interface.
      */
-    ::api::Switchable* pointer_;  
+    ::api::Toggle* pointer_;  
     
     /**
      * Pointer to pointer to maybe existent interface.
      */
-    ::api::Switchable** switch_;
+    ::api::Toggle** toggle_;
 
   };
 }
-#endif // BOOS_UTIL_SWITCHER_HPP_
+#endif // BOOS_UTIL_TOGGLE_HPP_

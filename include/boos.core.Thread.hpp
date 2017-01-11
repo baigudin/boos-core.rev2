@@ -12,7 +12,7 @@
 #include "boos.core.ThreadTask.hpp"
 #include "boos.api.Stack.hpp"
 #include "boos.api.Resource.hpp"
-#include "boos.api.Switchable.hpp"
+#include "boos.api.Toggle.hpp"
 
 namespace target { class Register; }
 
@@ -126,11 +126,11 @@ namespace core
     static ::core::Thread& currentThread();
 
     /** 
-     * Returns the switchable interface for controlling global thread switch.
+     * Returns the toggle interface for controlling global thread switch.
      *
-     * @return switchable interface.
+     * @return toggle interface.
      */ 
-    static ::api::Switchable& global();
+    static ::api::Toggle& global();
           
   private:
   

@@ -34,11 +34,11 @@ namespace target
   }
   
   /** 
-   * Returns the switchable interface for controlling global interrupts.
+   * Returns the toggle interface for controlling global interrupts.
    *
-   * @return switchable interface.
+   * @return toggle interface.
    */ 
-  ::api::Switchable& Interrupt::global()
+  ::api::Toggle& Interrupt::global()
   {
     return ::target::InterruptController::global();
   }

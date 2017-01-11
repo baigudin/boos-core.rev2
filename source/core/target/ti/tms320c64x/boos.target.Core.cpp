@@ -36,7 +36,7 @@ namespace target
     // by the heap object will be created. So, set the pointer to null 
     // for allowing the heap object does not switch global interrupts until 
     // the pointer will have gotten a value by the interrupt controller.
-    ::api::Switchable* global = NULL;    
+    ::api::Toggle* global = NULL;    
     int32 stage = 0;  
     do{
       // Stage 1 initializes target hardware

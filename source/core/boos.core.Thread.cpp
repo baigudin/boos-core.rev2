@@ -167,11 +167,11 @@ namespace core
   }
   
   /** 
-   * Returns the switchable interface for controlling global thread switch.
+   * Returns the toggle interface for controlling global thread switch.
    *
-   * @return switchable interface.
+   * @return toggle interface.
    */ 
-  ::api::Switchable& Thread::global()
+  ::api::Toggle& Thread::global()
   {
     if(scheduler_ == NULL) Core::fail();
     return *scheduler_;

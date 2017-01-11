@@ -24,7 +24,7 @@ namespace target
   {
     friend class Core;
     typedef ::target::Object<>  Parent;
-    typedef InterruptController Switch;
+    typedef InterruptController Controller;
 
   public:
 
@@ -32,7 +32,7 @@ namespace target
      * Constructor.
      */      
     TimerController() :
-      switch_ (Switch::global()),
+      toggle_ (Controller::global()),
       number_ (-1),
       reg_    (NULL){
       for(int32 i=0; i<NUMBER_TIMERS; i++) 
@@ -52,7 +52,7 @@ namespace target
      * @param number available timer number.
      */
     TimerController(int32 number) : 
-      switch_ (Switch::global()),  
+      toggle_ (Controller::global()),  
       number_ (-1),
       reg_    (NULL){
       setConstruct( construct(number) );
@@ -64,12 +64,12 @@ namespace target
     virtual ~TimerController()
     {
       if(!isConstructed()) return;
-      bool is = switch_.disable();
+      bool is = toggle_.disable();
       lock_[number_] = false;
       stop();
       reg_ = NULL;
       number_ = -1;      
-      switch_.enable(is);    
+      toggle_.enable(is);    
     }
     
     /**
@@ -225,19 +225,19 @@ namespace target
     bool construct(int32 number)
     {
       uint32 addr;
-      bool is = switch_.disable();
+      bool is = toggle_.disable();
       switch(number)
       {
         case  0: addr = registers::Timer::TIMER0; break;
         case  1: addr = registers::Timer::TIMER1; break;
         case  2: addr = registers::Timer::TIMER2; break;
-        default: return switch_.enable(is, false);
+        default: return toggle_.enable(is, false);
       }    
-      if(lock_[number] == true) return switch_.enable(is, false); 
+      if(lock_[number] == true) return toggle_.enable(is, false); 
       reg_ = new (addr) registers::Timer();
       lock_[number] = true;
       number_ = number;
-      return switch_.enable(is, true);    
+      return toggle_.enable(is, true);    
     }
     
     /**
@@ -297,9 +297,9 @@ namespace target
     static bool lock_[NUMBER_TIMERS];
 
     /**
-     * Switchable interface for global interrupts.
+     * Toggle interface for global interrupts.
      */
-    ::api::Switchable& switch_;
+    ::api::Toggle& toggle_;
     
     /**
      * Number of hardware timer

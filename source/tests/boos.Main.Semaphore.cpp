@@ -24,9 +24,9 @@ using namespace ::core;
 int Main::main(int argc, char* argv[])
 {
   // Create and check one semaphore of all threads
-  Semaphore sem(1);
+  Semaphore sem(1, true);
   if(!sem.isConstructed()) return 1;
-  int64 time[2], result;
+  volatile int64 time[2], result;
   time[0] = System::nanoTime();
   for(int32 i=0; i<1000000; i++)
   {
@@ -36,32 +36,35 @@ int Main::main(int argc, char* argv[])
   time[1] = System::nanoTime();
   // The test results:
   //
-  // AMD Phenom II X4 B55 @ 3200 MHz at Windows 7
+  // Windows 7 & AMD Phenom II X4 B55 @ 3200 MHz
   // 499_000_000 ns  
   //
-  // Intel Core i5-3570 @ 3400 MHz at Windows 7
+  // Windows 7 & Intel Core i5-3570 @ 3400 MHz
   // 514_000_000 ns
   //
-  // Intel Pentium Dual-Core E5400 @ 2700 MHz at Windows 7
+  // Windows 7 & Intel Pentium Dual-Core E5400 @ 2700 MHz
   // 1_075_000_000 ns
   //
-  // AMD FX-8150 Eight-Core Processor @ 3600 MHz at Windows 10
+  // Windows 10 & AMD FX-8150 Eight-Core Processor @ 3600 MHz
   // 1_234_000_000 ns
   //
-  // Intel Pentium 4 @ 3000 MHz at Windows XP
+  // Windows XP & Intel Pentium 4 @ 3000 MHz
   // 1_750_000_000 ns
   //
-  // TI TMS320C6416 @ 720 MHz at BOOS Core 2.2
-  // 2_091_456_845 ns -opt3  
-  // 3_655_013_066 ns -none
+  // ZOSRT Hydra & TI TMS320C6416 @ 720 MHz
+  // 417_114_355 ns
   //
-  // TI TMS320C6412 @ 500 MHz at BOOS Core 2.2
-  // 3_013_296_928 ns -opt3
-  // 5_582_179_376 ns -none
+  // BOOS Core 2.2 & TI TMS320C6416 @ 720 MHz
+  // 533_970_345 ns : unfair  
+  // 624_355_345 ns : fair
+  //
+  // BOOS Core 2.2 & TI TMS320C6412 @ 500 MHz
+  // 787_355_280 ns : unfair  
+  // 899_546_288 ns : fair
   // 
-  // TI AM1808 @ 375 MHz at BOOS Core 2.2
-  // 26_383_328_280 ns -opt3  
-  // 52_789_288_840 ns -none
+  // BOOS Core 2.2 & TI AM1808 @ 375 MHz
+  // 7_833_976_200 ns : unfair  
+  // 8_511_705_080 ns : fair
   result = time[1] - time[0];
   return result ? 0 : 1;
 }

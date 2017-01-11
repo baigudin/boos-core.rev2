@@ -9,11 +9,11 @@
 #ifndef BOOS_API_INTERRUPT_HPP_
 #define BOOS_API_INTERRUPT_HPP_
 
-#include "boos.api.Switchable.hpp"
+#include "boos.api.Toggle.hpp"
 
 namespace api
 {
-  class Interrupt : public Switchable
+  class Interrupt : public Toggle
   {
 
   public:

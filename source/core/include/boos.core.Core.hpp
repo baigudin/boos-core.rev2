@@ -10,7 +10,6 @@
 #define BOOS_CORE_CORE_HPP_
 
 #include "boos.core.Object.hpp"
-#include "boos.util.Switcher.hpp"
 
 namespace core
 {

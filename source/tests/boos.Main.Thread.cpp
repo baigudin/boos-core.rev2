@@ -9,6 +9,7 @@
 #include "boos.Main.hpp"
 #include "boos.core.Thread.hpp"
 #include "boos.core.Mutex.hpp"
+#include "boos.core.System.hpp"
 
 /**
  * User thread class.
@@ -21,14 +22,16 @@ public:
   /** 
    * Constructor.
    *
-   * @param sem  a semaphore of critical area.
-   * @param time some working time in critical area in seconds.  
-   * @param name a name of this thread.  
+   * @param sem   a semaphore of critical area.
+   * @param index an index of this thread.   
+   * @param time  some working time in critical section in seconds.  
+   * @param name  a name of this thread.
    */
-  Thread(::api::Semaphore& sem, int32 time, const char* name) :
-    sem_  (sem),
-    time_ (time * 1000),
-    name_ (name){
+  Thread(::api::Semaphore& sem, int32 index, int32 permits, int32 time) :
+    sem_     (sem),
+    index_   (index),    
+    permits_ (permits),    
+    time_    (time * 1000){
   }
   
   /**
@@ -46,9 +49,9 @@ public:
     volatile bool exe = true;
     while(exe) 
     {
-      sem_.acquire(1);
+      sem_.acquire(permits_);
       Thread::sleep(time_);
-      sem_.release(1);
+      sem_.release(permits_);
     }
   }
   
@@ -58,14 +61,20 @@ public:
   ::api::Semaphore& sem_;
   
   /**
+   * The index of this thread.
+   */
+  int32 index_;
+  
+  /**
+   * The permits of this thread.
+   */
+  int32 permits_;    
+  
+  /**
    * The working time in critical area in seconds.
    */
   int32 time_;
-  
-  /**
-   * The name of this thread.
-   */
-  const char* name_;
+
 };
 
 /**
@@ -78,12 +87,12 @@ public:
 int Main::main(int argc, char* argv[])
 {
   // Create and check one semaphore of all threads
-  ::core::Semaphore sem = ::core::Semaphore(2, true);
+  ::core::Semaphore sem(2, true);
   if(!sem.isConstructed()) return 1;
   // Create the threads
-  Thread thr1 = Thread(sem, 5, "Thread1");
-  Thread thr2 = Thread(sem, 2, "Thread2");  
-  Thread thr3 = Thread(sem, 1, "Thread3");  
+  Thread thr1 = Thread(sem, 1, 2, 5);
+  Thread thr2 = Thread(sem, 2, 1, 2);  
+  Thread thr3 = Thread(sem, 3, 1, 1);  
   // Check the threads
   if(!thr1.isConstructed() || 
      !thr2.isConstructed() || 

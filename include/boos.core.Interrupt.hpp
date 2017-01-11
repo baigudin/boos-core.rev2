@@ -81,11 +81,11 @@ namespace core
     virtual void enable(bool status);
 
     /** 
-     * Returns the switchable interface for controlling global interrupts.
+     * Returns the toggle interface for controlling global interrupts.
      *
-     * @return switchable interface.
+     * @return toggle interface.
      */
-    static ::api::Switchable& global();
+    static ::api::Toggle& global();
     
   protected:
 

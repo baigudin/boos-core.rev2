@@ -22,7 +22,6 @@ namespace target
     handler->main();
   }    
   
-  
   /**
    * HW interrupt registers (no boot).
    */

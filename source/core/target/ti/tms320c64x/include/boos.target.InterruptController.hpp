@@ -301,11 +301,11 @@ namespace target
     }
     
     /** 
-     * Returns the switchable interface for controlling global interrupts.
+     * Returns the toggle interface for controlling global interrupts.
      *
-     * @return switchable interface.
+     * @return toggle interface.
      */ 
-    static ::api::Switchable& global()
+    static ::api::Toggle& global()
     {
       if(global_ == NULL) Core::fail();
       return *global_;
@@ -458,7 +458,7 @@ namespace target
     /** 
      * Hardware global interrupts controller.
      */
-    class Global : public ::target::Object<>, public ::api::Switchable
+    class Global : public ::target::Object<>, public ::api::Toggle
     {
       typedef ::target::Object<> Parent;
 

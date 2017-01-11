@@ -93,11 +93,11 @@ namespace target
     static ::target::Interrupt* create(::api::Task& handler, int32 source);
     
     /** 
-     * Returns the switchable interface for controlling global interrupts.
+     * Returns the toggle interface for controlling global interrupts.
      *
-     * @return switchable interface.
+     * @return toggle interface.
      */ 
-    static ::api::Switchable& global();
+    static ::api::Toggle& global();
     
   };
 }

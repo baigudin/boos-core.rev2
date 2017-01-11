@@ -1,19 +1,19 @@
 /** 
- * Switchable interface of some controllers.
+ * Toggle interface of some controllers.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
-#ifndef BOOS_API_SWITCHABLE_HPP_
-#define BOOS_API_SWITCHABLE_HPP_
+#ifndef BOOS_API_TOGGLE_HPP_
+#define BOOS_API_TOGGLE_HPP_
 
 #include "boos.api.Object.hpp"
 
 namespace api
 {
-  class Switchable : public Object
+  class Toggle : public Object
   {
 
   public:
@@ -21,7 +21,7 @@ namespace api
     /** 
      * Destructor.
      */                               
-    virtual ~Switchable(){}
+    virtual ~Toggle(){}
     
     /** 
      * Disables a controller.
@@ -53,4 +53,4 @@ namespace api
 
   };
 }
-#endif // BOOS_API_SWITCHABLE_HPP_
+#endif // BOOS_API_TOGGLE_HPP_

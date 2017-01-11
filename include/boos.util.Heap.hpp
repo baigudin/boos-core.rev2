@@ -12,9 +12,8 @@
 #define BOOS_UTIL_HEAP_HPP_
 
 #include "boos.api.Heap.hpp"
-#include "boos.api.Switchable.hpp"
 #include "boos.util.Memory.hpp"
-#include "boos.util.Switcher.hpp"
+#include "boos.util.Toggle.hpp"
 
 namespace util
 {
@@ -45,9 +44,9 @@ namespace util
      * on fly.   
      *     
      * @param size total heap size.
-     * @param sw   reference to pointer to global interrupts switchable interface.
+     * @param sw   reference to pointer to global interrupts toggle interface.
      */    
-    Heap(int64 size, ::api::Switchable*& sw) :
+    Heap(int64 size, ::api::Toggle*& sw) :
       data_ (HEAP_KEY, size, sw),
       temp_ (){
       setConstruct( construct() );
@@ -74,9 +73,9 @@ namespace util
     {
       if(!isConstructed()) return NULL;
       if(ptr != NULL) return ptr;
-      bool is = data_.switch_.disable();
+      bool is = data_.toggle_.disable();
       ptr = firstBlock()->alloc(size);
-      data_.switch_.enable(is);
+      data_.toggle_.enable(is);
       return ptr;
     }
       
@@ -89,9 +88,9 @@ namespace util
     {
       if(ptr == NULL) return;
       if(!isConstructed()) return;  
-      bool is = data_.switch_.disable();
+      bool is = data_.toggle_.disable();
       heapBlock(ptr)->free();
-      data_.switch_.enable(is);
+      data_.toggle_.enable(is);
     }
 
     /**
@@ -393,11 +392,11 @@ namespace util
        * Threads switching off key.
        *
        * This class controls a global thread switch off key
-       * by switchable interface. That interface has to disable
+       * by toggle interface. That interface has to disable
        * a changing thread context. The most useful case is to give
-       * a global interrupts switchable interface.
+       * a global interrupts toggle interface.
        */
-      Switcher<Allocator> switch_;
+      Toggle<Allocator> toggle_;
 
       /**
        * Actual size of heap.
@@ -418,7 +417,7 @@ namespace util
        */
       HeapData(int32 key, int64 size) :
         block_  (NULL),
-        switch_ (),
+        toggle_ (),
         size_   ((size & ~0x7) - sizeof(Heap)),
         key_    (key){
       }
@@ -430,9 +429,9 @@ namespace util
        * @param size total heap size.
        * @param sw   reference to pointer to global interrupts interface.       
        */
-      HeapData(int32 key, int64 size, ::api::Switchable*& sw) :
+      HeapData(int32 key, int64 size, ::api::Toggle*& sw) :
         block_  (NULL),  
-        switch_ (sw),
+        toggle_ (sw),
         size_   ((size & ~0x7) - sizeof(Heap)),
         key_    (key){
       }
