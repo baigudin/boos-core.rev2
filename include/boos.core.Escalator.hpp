@@ -109,9 +109,9 @@ namespace core
        * @param thread   current executing thread.
        * @return true if the escalator is release successfully.
        */
-      Node(Thread& thread, int32 ipermits) : 
-        thread_ (&thread),
-        permits (ipermits){
+      Node(Thread& thread, int32 ipermits) :
+        permits (ipermits),
+        thread_ (&thread){
       }
 
       /** 
@@ -120,8 +120,8 @@ namespace core
        * @param obj reference to source node.       
        */    
       Node(const Node& obj) :
-        thread_ (obj.thread_), 
-        permits (obj.permits){
+        permits (obj.permits),
+        thread_ (obj.thread_){
       }
       
       /** 
@@ -132,9 +132,9 @@ namespace core
        * @param ipermits number of permits to release.
        * @return true if the escalator is release successfully.
        */
-      Node(int32 ipermits) : 
-        thread_ (NULL),
-        permits (ipermits){
+      Node(int32 ipermits) :
+        permits (ipermits),
+        thread_ (NULL){
       }      
 
       /**
@@ -218,7 +218,16 @@ namespace core
         if(!exec.isConstructed()) return false;
         if(!lock.isConstructed()) return false;        
         return true;
-      }       
+      }
+
+    private:
+
+      /**
+       * Illegal value for all this lists.
+       */
+      Node illegal_;
+
+    public:
       
       /**
        * List of executing threads for fair escalator.
@@ -234,13 +243,6 @@ namespace core
        */      
       util::LinkedList<Node> lock;
      
-    private:
-    
-      /**
-       * Illegal value for all this lists.
-       */
-      Node illegal_;    
-
     };
 
     /**

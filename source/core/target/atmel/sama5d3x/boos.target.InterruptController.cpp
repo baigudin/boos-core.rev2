@@ -14,5 +14,5 @@ namespace target
   /**    
    * Hardware global interrupts controller (no boot).
    */
-  ::util::Switcher<Allocator>* InterruptController::global_;
+  ::util::Toggle<Allocator>* InterruptController::global_;
 }

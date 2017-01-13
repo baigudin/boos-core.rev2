@@ -38,7 +38,7 @@ namespace target
    *
    * @return switchable interface.
    */ 
-  ::api::Switchable& Interrupt::global()
+  ::api::Toggle& Interrupt::global()
   {
     return InterruptController::global();
   }

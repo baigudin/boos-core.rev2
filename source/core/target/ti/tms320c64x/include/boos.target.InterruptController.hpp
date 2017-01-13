@@ -282,6 +282,7 @@ namespace target
         case GPINT5: intc_->extpol.bit.xip5 = 0; break;
         case GPINT6: intc_->extpol.bit.xip6 = 0; break;
         case GPINT7: intc_->extpol.bit.xip7 = 0; break;
+        default: break;
       }    
     }
     
@@ -297,6 +298,7 @@ namespace target
         case GPINT5: intc_->extpol.bit.xip5 = 1; break;
         case GPINT6: intc_->extpol.bit.xip6 = 1; break;
         case GPINT7: intc_->extpol.bit.xip7 = 1; break;
+        default: break;
       }    
     }
     
@@ -332,6 +334,7 @@ namespace target
      */
     static bool init(const Configuration& cfg)
     {
+      config_ = &cfg;
       int32 stage = 0;
       global_ = NULL;
       intc_ = new (registers::Intc::ADDRESS) registers::Intc();      
@@ -379,18 +382,18 @@ namespace target
       registers::Intc intc = *intc_;
       switch(vn)
       {
-        case  4: intc.muxl.bit.intsel4  = source; break;
-        case  5: intc.muxl.bit.intsel5  = source; break;
-        case  6: intc.muxl.bit.intsel6  = source; break;
-        case  7: intc.muxl.bit.intsel7  = source; break;
-        case  8: intc.muxl.bit.intsel8  = source; break;
-        case  9: intc.muxl.bit.intsel9  = source; break;
-        case 10: intc.muxh.bit.intsel10 = source; break;
-        case 11: intc.muxh.bit.intsel11 = source; break;
-        case 12: intc.muxh.bit.intsel12 = source; break;
-        case 13: intc.muxh.bit.intsel13 = source; break;
-        case 14: intc.muxh.bit.intsel14 = source; break;
-        case 15: intc.muxh.bit.intsel15 = source; break;
+        case  4: intc.muxl.bit.intsel4  = source & 0x1f; break;
+        case  5: intc.muxl.bit.intsel5  = source & 0x1f; break;
+        case  6: intc.muxl.bit.intsel6  = source & 0x1f; break;
+        case  7: intc.muxl.bit.intsel7  = source & 0x1f; break;
+        case  8: intc.muxl.bit.intsel8  = source & 0x1f; break;
+        case  9: intc.muxl.bit.intsel9  = source & 0x1f; break;
+        case 10: intc.muxh.bit.intsel10 = source & 0x1f; break;
+        case 11: intc.muxh.bit.intsel11 = source & 0x1f; break;
+        case 12: intc.muxh.bit.intsel12 = source & 0x1f; break;
+        case 13: intc.muxh.bit.intsel13 = source & 0x1f; break;
+        case 14: intc.muxh.bit.intsel14 = source & 0x1f; break;
+        case 15: intc.muxh.bit.intsel15 = source & 0x1f; break;
         default: return false;
       }
       *intc_ = intc;
@@ -454,6 +457,20 @@ namespace target
      * @param is the returned status by disable method.
      */
     static void globalEnableLow(bool is);
+
+    /**
+     * Copy constructor.
+     *
+     * @param obj reference to source object.
+     */
+    InterruptController(const InterruptController& obj);
+
+    /**
+     * Assignment operator.
+     *
+     * @param obj reference to source object.
+     */
+    InterruptController& operator =(const InterruptController& obj);
       
     /** 
      * Hardware global interrupts controller.
@@ -570,7 +587,7 @@ namespace target
       /**
        * Number of HW interrupt vectors.
        */
-      static const uint32 NUMBER_VECTORS = 12;
+      static const int32 NUMBER_VECTORS = 12;
 
       /**
        * HW interrupt registers (no boot).
@@ -592,6 +609,11 @@ namespace target
        */    
       static ContextLow contextLow_[NUMBER_VECTORS];
       
+      /**
+       * The core configuration (no boot).
+       */
+      static const Configuration* config_;
+
       /**
        * Pointer to the hi level interrupt context.
        */    

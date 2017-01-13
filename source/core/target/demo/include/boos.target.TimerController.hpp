@@ -26,8 +26,10 @@ namespace target
     /** 
      * Constructor.
      */      
-    TimerController() 
-    {
+    TimerController() :
+      number_ (0),
+      count_  (0),
+      period_ (0){
     }  
     
     /** 
@@ -35,8 +37,10 @@ namespace target
      *
      * @param number available timer number.
      */
-    TimerController(int32 number)
-    {
+    TimerController(int32 number) :
+      number_ (number),
+      count_  (0),
+      period_ (0){
     }
 
     /** 
@@ -63,7 +67,7 @@ namespace target
      */      
     virtual int64 getCount() const
     {
-      return 0;
+      return count_;
     }
     
     /**
@@ -73,7 +77,7 @@ namespace target
      */      
     virtual int64 getPeriod() const
     {
-      return 0;
+      return period_;
     }  
     
     /**
@@ -83,6 +87,7 @@ namespace target
      */      
     virtual void setCount(int64 count)
     {
+      count_ = count;
     }      
     
     /**
@@ -92,6 +97,7 @@ namespace target
      */      
     virtual void setPeriod(int64 us=0)
     {
+      period_ = us == 0 ? -1 : us;
     }
     
     /**
@@ -115,7 +121,7 @@ namespace target
      */      
     virtual int32 number() const
     {
-      return -1;
+      return number_;
     }
     
     /**
@@ -175,7 +181,22 @@ namespace target
      */
     static void deinit()
     {
-    }    
+    }
+
+    /**
+     * Number of this timer
+     */
+    int32 number_;
+
+    /**
+     * Number of this timer
+     */
+    int64 count_;
+
+    /**
+     * Number of this timer
+     */
+    int64 period_;
   
   };
 }

@@ -12,7 +12,7 @@
 #include "boos.target.Core.hpp"
 #include "boos.target.Object.hpp"
 #include "boos.target.Interrupt.hpp"
-#include "boos.util.Switcher.hpp"
+#include "boos.util.Toggle.hpp"
 
 namespace target
 {
@@ -28,8 +28,11 @@ namespace target
     /** 
      * Constructor.
      */    
-    InterruptController()
-    {
+    InterruptController() : Parent(),
+      handler_ (NULL),
+      source_  (-1),
+      reg_     (NULL),
+      status_  (false){
     }
 
     /** 
@@ -38,10 +41,13 @@ namespace target
      * @param handler pointer to user class which implements an interrupt handler interface.
      * @param source  available interrupt source.
      */     
-    InterruptController(::api::Task& handler, int32 source)
-    {
-    }  
-    
+    InterruptController(::api::Task& handler, int32 source) : Parent(),
+      handler_ (&handler),
+      source_  (source),
+      reg_     (NULL),
+      status_  (false){
+    }
+
     /** 
      * Destructor.
      */
@@ -97,6 +103,7 @@ namespace target
      */
     virtual void enable(bool status)
     {
+      status_ = status;
     }
     
     /**
@@ -108,6 +115,8 @@ namespace target
      */      
     virtual bool setHandler(::api::Task& handler, int32 source)
     {
+      handler_ = &handler;
+      source_ = source;
       return false;
     }
 
@@ -119,19 +128,20 @@ namespace target
     }
     
     /**
-     * Sets default registers context for store.
+     * Resets registers context for storing to the default.
      */
-    virtual void setRegister()
+    virtual void resetRegister()
     {
     }
     
     /**
-     * Sets new registers context for store.
+     * Sets new registers context for storing.
      *
-     * @param reg pointer to new registers context.
+     * @param reg new registers context.
      */
     virtual void setRegister(::target::Register& reg)
     {
+      reg_ = &reg;
     }
 
     /**
@@ -163,7 +173,7 @@ namespace target
      *
      * @return switchable interface.
      */ 
-    static ::api::Switchable& global()
+    static ::api::Toggle& global()
     {
       if(global_ == NULL) Core::fail();
       return *global_;
@@ -178,7 +188,7 @@ namespace target
      */
     static bool init()
     {
-      global_ = new ::util::Switcher<Allocator>();
+      global_ = new ::util::Toggle<Allocator>();
       return global_ != NULL ? global_->isConstructed() : false;
     }
     
@@ -192,9 +202,45 @@ namespace target
     }
 
     /**
-     * A switcher.
+     * Copy constructor.
+     *
+     * @param obj reference to source object.
+     */
+    InterruptController(const InterruptController& obj);
+
+    /**
+     * Assignment operator.
+     *
+     * @param obj reference to source object.
+     */
+    InterruptController& operator =(const InterruptController& obj);
+
+    /**
+     * A toggle.
      */    
-    static ::util::Switcher<Allocator>* global_;
+    static ::util::Toggle<Allocator>* global_;
+
+    /**
+     * Handler of user class which implements an interrupt handler interface.
+     */
+    ::api::Task* handler_;
+
+    /**
+     * This interrupt source.
+     */
+    int32 source_;
+
+    /**
+     * Target CPU register context.
+     */
+    Register* reg_;
+
+    /**
+     * Last given enable method argument status.
+     *
+     * Add only for pedanticly compiling.
+     */
+    bool status_;
   
   };
 }

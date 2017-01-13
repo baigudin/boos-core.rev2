@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>boos.exe.core.target.ti.am18x.elf</name>
+	<name>boos.exe.core.target.ti.tms320c64x.elf</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -83,52 +83,52 @@
 		<link>
 			<name>Source/boos.target.Allocator.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Allocator.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Allocator.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Boot.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Boot.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Boot.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Configuration.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Configuration.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Configuration.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Core.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Core.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Core.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Environment.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Environment.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Environment.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Interrupt.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Interrupt.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Interrupt.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.InterruptController.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.InterruptController.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.InterruptController.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Register.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Register.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Register.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.Timer.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.Timer.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.Timer.cpp</locationURI>
 		</link>
 		<link>
 			<name>Source/boos.target.TimerController.cpp</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/am18x/boos.target.TimerController.cpp</locationURI>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/target/ti/tms320c64x/boos.target.TimerController.cpp</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

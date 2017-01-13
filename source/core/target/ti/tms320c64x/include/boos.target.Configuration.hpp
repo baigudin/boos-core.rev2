@@ -58,7 +58,21 @@ namespace target
      */
    ~Configuration()
     {
-    } 
+    }
+
+    /**
+     * Assignment operator.
+     *
+     * @param obj reference to source object.
+     */
+    Configuration& operator =(const Configuration& obj)
+    {
+      sourceClock = obj.sourceClock;
+      cpuClock    = obj.cpuClock;
+      heapAddr    = obj.heapAddr;
+      heapSize    = obj.heapSize;
+      return *this;
+    }
        
   };
 }

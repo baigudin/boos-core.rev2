@@ -109,10 +109,11 @@ namespace target
      */      
     virtual void setCount(int64 count)
     {
-      if(!isConstructed()) return;  
-      uint32 reg = count & 0xffffffff;
-      if(reg > reg_->prd.value) return;
-      reg_->cnt.value = reg;    
+      if(!isConstructed()) return;
+      uint64 cnt = count;
+      uint64 prd = getPeriod();
+      if(cnt > prd) return;
+      reg_->cnt.value = cnt bitand 0x00000000ffffffff;
     }      
     
     /**
@@ -129,8 +130,8 @@ namespace target
       }
       else
       {
-        int64 prd = (us * internalClock()) / 1000000;
-        if( (prd & 0xffffffff00000000) == 0) reg_->prd.value = prd & 0xffffffff;
+        uint64 prd = (us * internalClock()) / 1000000;
+        if( (prd & 0xffffffff00000000) == 0) reg_->prd.value = prd & 0x00000000ffffffff;
         else return setPeriod();
       }    
     }
@@ -279,7 +280,21 @@ namespace target
         lock_[i] = false;      
       } 
       return true;
-    }    
+    }
+
+    /**
+     * Copy constructor.
+     *
+     * @param obj reference to source object.
+     */
+    TimerController(const TimerController& obj);
+
+    /**
+     * Assignment operator.
+     *
+     * @param obj reference to source object.
+     */
+    TimerController& operator =(const TimerController& obj);
 
     /**
      * Number of HW timers.

@@ -41,4 +41,9 @@ namespace target
    * Low level interrupts context table (no boot).
    */    
   InterruptController::ContextLow InterruptController::contextLow_[NUMBER_VECTORS];
+
+  /**
+   * The core configuration (no boot).
+   */
+  const Configuration* InterruptController::config_;
 }

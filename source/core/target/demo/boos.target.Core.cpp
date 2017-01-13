@@ -13,18 +13,6 @@
 #include "boos.core.Main.hpp"
 #include "boos.util.Heap.hpp"  
 
-const int32 HEAP_SIZE = 0x800;
-
-/**
- * Entry point after a bootstrap.
- */
-int main()
-{
-  uint8* heap = new uint8[HEAP_SIZE];
-  if(heap != NULL) ::target::Core::start(heap, HEAP_SIZE);
-  return 0;
-}
-
 namespace target
 {
   /**

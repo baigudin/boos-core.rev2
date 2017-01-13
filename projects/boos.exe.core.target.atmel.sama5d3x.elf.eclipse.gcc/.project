@@ -36,6 +36,11 @@
 			<locationURI>PARENT-2-PROJECT_LOC/source/core/boos.core.Core.cpp</locationURI>
 		</link>
 		<link>
+			<name>Source/boos.core.Escalator.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/source/core/boos.core.Escalator.cpp</locationURI>
+		</link>
+		<link>
 			<name>Source/boos.core.Interrupt.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/source/core/boos.core.Interrupt.cpp</locationURI>

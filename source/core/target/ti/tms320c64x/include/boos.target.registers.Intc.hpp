@@ -12,13 +12,13 @@
 #ifndef BOOS_TARGET_REGISTER_INTC_HPP_
 #define BOOS_TARGET_REGISTER_INTC_HPP_
 
-#include "boos.target.registers.Mapped.hpp"
+#include "boos.Types.hpp"
 
 namespace target
 {
   namespace registers
   {
-    struct Intc : public Mapped
+    struct Intc
     {
     
     public:
@@ -35,12 +35,12 @@ namespace target
       /** 
        * Copy constructor.
        *
-       * @param reg reference to source object. 
+       * @param obj reference to source object.
        */  
-      Intc(const Intc& reg) :
-        muxh   (reg.muxh),
-        muxl   (reg.muxl),
-        extpol (reg.extpol){
+      Intc(const Intc& obj) :
+        muxh   (obj.muxh),
+        muxl   (obj.muxl),
+        extpol (obj.extpol){
       }
       
       /** 
@@ -51,15 +51,27 @@ namespace target
       /**
        * Assignment operator.
        *
-       * @param reg reference to source object. 
+       * @param obj reference to source object.
        */    
-      Intc& operator =(const Intc& reg)
+      Intc& operator =(const Intc& obj)
       {
-        muxh = reg.muxh;
-        muxl = reg.muxl;
-        extpol = reg.extpol;
+        muxh = obj.muxh;
+        muxl = obj.muxl;
+        extpol = obj.extpol;
         return *this;        
       }
+      
+      /**
+       * Operator new.
+       *
+       * @param size unused.
+       * @param ptr  address of memory.
+       * @return address of memory.
+       */     
+      void* operator new(uint32, uint32 ptr)
+      {
+        return reinterpret_cast<void*>(ptr);
+      }       
     
       /**
        * Memory mapped address.
@@ -174,9 +186,10 @@ namespace target
           value = 0;
         }  
         
-        void operator =(const EXTPOL& reg)
+        EXTPOL& operator =(const EXTPOL& reg)
         {
           value = reg.value;
+          return *this;                  
         }         
     
         uint32 value;

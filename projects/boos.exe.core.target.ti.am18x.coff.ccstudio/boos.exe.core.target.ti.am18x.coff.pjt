@@ -36,17 +36,15 @@ Source="..\..\source\core\target\ti\am18x\boos.target.InterruptController.ll.asm
 Source="..\..\source\core\target\ti\am18x\boos.target.Register.cpp"
 Source="..\..\source\core\target\ti\am18x\boos.target.Timer.cpp"
 Source="..\..\source\core\target\ti\am18x\boos.target.TimerController.cpp"
-Source="Debug\boos.am18x.debug.map"
-Source="Release\boos.am18x.release.map"
 Source="Source\boos.Main.cpp"
 Source="Source\ti.lib\rts32e.lib"
 Source="..\..\source\core\target\ti\am18x\cmd\boos.memory.coff.cmd"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug\obj" -ff"$(Proj_dir)\Debug\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+Options=-g -fr"$(Proj_dir)\Debug\" -ff"$(Proj_dir)\Debug\" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
 
 ["Compiler" Settings: "Release"]
-Options=-g -o3 -fr"$(Proj_dir)\Release\obj" -ff"$(Proj_dir)\Release\lst" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+Options=-g -o3 -fr"$(Proj_dir)\Release\" -ff"$(Proj_dir)\Release\" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\core\target\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
 
 ["Linker" Settings: "Debug"]
 Options=--abi=ti_arm9_abi -c -m".\Debug\boos.am18x.debug.map" -o".\Debug\boos.am18x.debug.out" -w -x
@@ -56,18 +54,6 @@ Options=--abi=ti_arm9_abi -c -m".\Release\boos.am18x.release.map" -o".\Release\b
 
 ["..\..\source\core\target\ti\am18x\boos.target.Environment.cpp" Settings: "Release"]
 Options="Compiler" -{-o3}
-
-["Debug\boos.am18x.debug.map" Settings: "Debug"]
-ExcludeFromBuild=true
-
-["Debug\boos.am18x.debug.map" Settings: "Release"]
-ExcludeFromBuild=true
-
-["Release\boos.am18x.release.map" Settings: "Debug"]
-ExcludeFromBuild=true
-
-["Release\boos.am18x.release.map" Settings: "Release"]
-ExcludeFromBuild=true
 
 ["Source\boos.Main.cpp" Settings: "Release"]
 Options="Compiler" -{-o3}

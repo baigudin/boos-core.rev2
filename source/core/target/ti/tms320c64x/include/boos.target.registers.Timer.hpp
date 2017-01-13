@@ -12,13 +12,13 @@
 #ifndef BOOS_TARGET_REGISTER_TIMER_HPP_
 #define BOOS_TARGET_REGISTER_TIMER_HPP_
 
-#include "boos.target.registers.Mapped.hpp"
+#include "boos.Types.hpp"
 
 namespace target
 {
   namespace registers
   {
-    struct Timer : public Mapped
+    struct Timer
     {
     
     public:
@@ -35,12 +35,12 @@ namespace target
       /** 
        * Copy constructor.
        *
-       * @param reg reference to source object. 
+       * @param obj reference to source object.
        */  
-      Timer(const Timer& reg) :
-        ctl (reg.ctl),
-        prd (reg.prd),
-        cnt (reg.cnt){
+      Timer(const Timer& obj) :
+        ctl (obj.ctl),
+        prd (obj.prd),
+        cnt (obj.cnt){
       }
       
       /** 
@@ -51,15 +51,27 @@ namespace target
       /**
        * Assignment operator.
        *
-       * @param reg reference to source object. 
+       * @param obj reference to source object.
        */    
-      Timer& operator =(const Timer& reg)
+      Timer& operator =(const Timer& obj)
       {
-        ctl = reg.ctl;
-        prd = reg.prd;
-        cnt = reg.cnt;
+        ctl = obj.ctl;
+        prd = obj.prd;
+        cnt = obj.cnt;
         return *this;        
       }
+      
+      /**
+       * Operator new.
+       *
+       * @param size unused.
+       * @param ptr  address of memory.
+       * @return address of memory.
+       */     
+      void* operator new(uint32, uint32 ptr)
+      {
+        return reinterpret_cast<void*>(ptr);
+      }      
     
       /**
        * Memory mapped addresses.

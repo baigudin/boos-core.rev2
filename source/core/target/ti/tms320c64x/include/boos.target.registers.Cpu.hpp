@@ -27,7 +27,25 @@ namespace target
       /** 
        * Constructor.
        */  
-      Cpu() : Parent(){
+      Cpu() : Parent(),
+        align8_ (0xb00cffffffffb00c),      
+        a0_ (0),  a1_(0),  b0_(0),  b1_(0),
+        a2_ (0),  a3_(0),  b2_(0),  b3_(0),
+        a4_ (0),  a5_(0),  b4_(0),  b5_(0),
+        a6_ (0),  a7_(0),  b6_(0),  b7_(0),
+        a8_ (0),  a9_(0),  b8_(0),  b9_(0),
+        a10_(0), a11_(0), b10_(0), b11_(0),
+        a12_(0), a13_(0), b12_(0), b13_(0),
+        a14_(0), a15_(0), b14_(0), b15_(0),
+        a16_(0), a17_(0), b16_(0), b17_(0),
+        a18_(0), a19_(0), b18_(0), b19_(0),
+        a20_(0), a21_(0), b20_(0), b21_(0),
+        a22_(0), a23_(0), b22_(0), b23_(0),
+        a24_(0), a25_(0), b24_(0), b25_(0),
+        a26_(0), a27_(0), b26_(0), b27_(0),
+        a28_(0), a29_(0), b28_(0), b29_(0),
+        a30_(0), a31_(0), b30_(0), b31_(0),
+        amr_(0), irp_(0), csr_(0), ier_(0){
         setConstruct( construct() );
       }
       
@@ -36,7 +54,25 @@ namespace target
        *
        * @param obj reference to source object.
        */ 
-      Cpu(const Cpu& obj) : Parent(obj){
+      Cpu(const Cpu& obj) : Parent(obj),
+        align8_ (obj.align8_),
+        a0_ (obj.a0_),  a1_ (obj.a1_),  b0_ (obj.b0_),  b1_ (obj.b1_),
+        a2_ (obj.a2_),  a3_ (obj.a3_),  b2_ (obj.b2_),  b3_ (obj.b3_),
+        a4_ (obj.a4_),  a5_ (obj.a5_),  b4_ (obj.b4_),  b5_ (obj.b5_),
+        a6_ (obj.a6_),  a7_ (obj.a7_),  b6_ (obj.b6_),  b7_ (obj.b7_),
+        a8_ (obj.a8_),  a9_ (obj.a9_),  b8_ (obj.b8_),  b9_ (obj.b9_),
+        a10_(obj.a10_), a11_(obj.a11_), b10_(obj.b10_), b11_(obj.b11_),
+        a12_(obj.a12_), a13_(obj.a13_), b12_(obj.b12_), b13_(obj.b13_),
+        a14_(obj.a14_), a15_(obj.a15_), b14_(obj.b14_), b15_(obj.b15_),
+        a16_(obj.a16_), a17_(obj.a17_), b16_(obj.b16_), b17_(obj.b17_),
+        a18_(obj.a18_), a19_(obj.a19_), b18_(obj.b18_), b19_(obj.b19_),
+        a20_(obj.a20_), a21_(obj.a21_), b20_(obj.b20_), b21_(obj.b21_),
+        a22_(obj.a22_), a23_(obj.a23_), b22_(obj.b22_), b23_(obj.b23_),
+        a24_(obj.a24_), a25_(obj.a25_), b24_(obj.b24_), b25_(obj.b25_),
+        a26_(obj.a26_), a27_(obj.a27_), b26_(obj.b26_), b27_(obj.b27_),
+        a28_(obj.a28_), a29_(obj.a29_), b28_(obj.b28_), b29_(obj.b29_),
+        a30_(obj.a30_), a31_(obj.a31_), b30_(obj.b30_), b31_(obj.b31_),
+        amr_(obj.amr_), irp_(obj.irp_), csr_(obj.csr_), ier_(obj.ier_){
         setConstruct( copy(obj) );
       }
       
