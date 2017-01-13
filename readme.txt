@@ -5,4 +5,3 @@ The folder content:
  - LIBRARIES directory contains compiled libraries of target processors.
  - PROJECTS directory contains projects for easily starting development.
  - SOURCE directory contains C++ and ASM source code files of the core and target processors.
-
