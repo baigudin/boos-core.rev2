@@ -9,7 +9,7 @@
 #ifndef BOOS_UTIL_ALIGN_HPP_
 #define BOOS_UTIL_ALIGN_HPP_
 
-#include "boos.util.Allocator.hpp"
+#include "boos.util.Object.hpp"
 
 namespace util
 {

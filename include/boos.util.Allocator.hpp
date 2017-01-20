@@ -1,21 +1,20 @@
 /** 
- * Memory allocator for utility library.
+ * Memory allocator of utility library.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
 #ifndef BOOS_UTIL_ALLOCATOR_HPP_
 #define BOOS_UTIL_ALLOCATOR_HPP_
 
-#include "boos.core.Allocator.hpp"
+#include "boos.Allocator.hpp"
 
 namespace util
 {
-  class Allocator : public ::core::Allocator
+  class Allocator
   {
-    typedef ::core::Allocator Parent;
     
   public:
 
@@ -27,7 +26,7 @@ namespace util
      */    
     static void* alloc(size_t size)
     {
-      return Parent::alloc(size);
+      return ::Allocator::alloc(size);
     }
 
     /**
@@ -37,20 +36,8 @@ namespace util
      */      
     static void free(void* ptr)
     {
-      Parent::free(ptr);
+      ::Allocator::free(ptr);
     }
-
-  protected:
-
-    /**
-     * Constructor.
-     */
-    Allocator() : Parent(){}
-
-    /**
-     * Destructor.
-     */
-    virtual ~Allocator(){}
 
   };
 }

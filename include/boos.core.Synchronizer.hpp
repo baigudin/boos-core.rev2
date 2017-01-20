@@ -1,5 +1,5 @@
 /** 
- * Synchronization of one executing program of processor units.
+ * One program synchronization for executing in several processor units.
  * 
  * This class provides a synchronization of one program 
  * which is being executed by several processor units.  
@@ -17,11 +17,11 @@
 
 namespace core
 {
-  class Core;
+  class Main;
   
   class Synchronizer : public ::core::Object<>, public ::api::Synchronizable
   {
-    friend class Core;
+    friend class Main;
     typedef ::core::Object<> Parent;
 
   public:

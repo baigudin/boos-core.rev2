@@ -23,8 +23,8 @@ namespace core
     /** 
      * Constructor.
      */
-    MainThread() : Parent()
-    {
+    MainThread() : Parent(),
+      error_ (-1){
     }
 
     /** 
@@ -39,8 +39,16 @@ namespace core
      */  
     virtual void main()
     {
-      ::Main::main(0, NULL);
+      error_ = ::Main::main();
     }
+    
+    /**
+     * Returns execution error.
+     */  
+    virtual int32 error()
+    {
+      return error_;
+    }    
     
   private:
     
@@ -57,6 +65,11 @@ namespace core
      * @param obj reference to source object.
      */
     MainThread& operator =(const MainThread& obj);      
+    
+    /**
+     * Execution error.
+     */
+    int32 error_;
     
   };
 }

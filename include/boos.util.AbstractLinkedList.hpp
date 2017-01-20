@@ -22,7 +22,7 @@ namespace util
    * @param Type  data type of container element.
    * @param Alloc heap memory allocator class.
    */
-  template <typename Type, class Alloc>
+  template <typename Type, class Alloc=Allocator>
   class AbstractLinkedList : 
     public ::util::Object<Alloc>, 
     public ::api::List<Type>, 

@@ -10,8 +10,8 @@
 #define BOOS_CORE_OBJECT_HPP_
 
 #include "boos.Object.hpp"
-#include "boos.core.Types.hpp"
 #include "boos.core.Allocator.hpp"
+#include "boos.core.Types.hpp"
 
 namespace core
 {

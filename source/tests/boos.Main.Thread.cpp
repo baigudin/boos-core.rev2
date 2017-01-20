@@ -22,16 +22,10 @@ public:
   /** 
    * Constructor.
    *
-   * @param sem   a semaphore of critical area.
    * @param index an index of this thread.   
-   * @param time  some working time in critical section in seconds.  
-   * @param name  a name of this thread.
    */
-  Thread(::api::Semaphore& sem, int32 index, int32 permits, int32 time) :
-    sem_     (sem),
-    index_   (index),    
-    permits_ (permits),    
-    time_    (time * 1000){
+  Thread(int32 index) :
+    index_   (index){
   }
   
   /**
@@ -46,53 +40,41 @@ public:
    */  
   void main()
   {
+    volatile uint32 v = 0;  
     volatile bool exe = true;
-    while(exe) 
-    {
-      sem_.acquire(permits_);
-      Thread::sleep(time_);
-      sem_.release(permits_);
-    }
+    while(exe) v = v + 1;
   }
   
   /**
-   * The semaphore of critical area.
-   */
-  ::api::Semaphore& sem_;
+   * Returns size of thread stack.
+   *
+   * The method returns size of thread stack in bytes which should be allocated for the task.
+   *
+   * @return stack size in bytes.
+   */  
+  virtual int32 stackSize() const
+  {
+    return 0x80;
+  }  
   
   /**
    * The index of this thread.
    */
   int32 index_;
   
-  /**
-   * The permits of this thread.
-   */
-  int32 permits_;    
-  
-  /**
-   * The working time in critical area in seconds.
-   */
-  int32 time_;
-
 };
 
 /**
- * The user application entry method.
+ * User method which will be stated as first.
  *
- * @param argc count of array elements.
- * @param argv array of arguments.
  * @return error code or zero.
  */   
-int Main::main(int argc, char* argv[])
+int32 Main::main()
 {
-  // Create and check one semaphore of all threads
-  ::core::Semaphore sem(2, true);
-  if(!sem.isConstructed()) return 1;
   // Create the threads
-  Thread thr1 = Thread(sem, 1, 2, 5);
-  Thread thr2 = Thread(sem, 2, 1, 2);  
-  Thread thr3 = Thread(sem, 3, 1, 1);  
+  Thread thr1(1);
+  Thread thr2(2);  
+  Thread thr3(3);  
   // Check the threads
   if(!thr1.isConstructed() || 
      !thr2.isConstructed() || 

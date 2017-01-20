@@ -109,6 +109,16 @@ protected:
   {
     if(isConstructed_ == true) isConstructed_ = flag;
   }
+  
+  /**
+   * Gets the object constructed flag.
+   *
+   * @return reference to the constructed flag.
+   */      
+  virtual const bool& getConstruct()
+  {
+    return isConstructed_;
+  }  
 
   /**
    * Allocates memory.

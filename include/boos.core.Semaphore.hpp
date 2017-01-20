@@ -133,11 +133,11 @@ namespace core
      * @param obj reference to source object.
      */
     Semaphore& operator =(const Semaphore& obj);     
-
-    /**
-     * Toggle interface of global interrupts.
-     */
-    ::api::Toggle& toggle_;
+    
+    /** 
+     * Reference the root object constructed flag.
+     */  
+    const bool& isConstructed_;
     
     /**
      * Number of permits for acquiring this semaphore.

@@ -1,0 +1,38 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir=""
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="XDC"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\..\source\core\source\boos.core.Core.cpp"
+Source="..\..\source\core\source\boos.core.Escalator.cpp"
+Source="..\..\source\core\source\boos.core.Interrupt.cpp"
+Source="..\..\source\core\source\boos.core.Main.cpp"
+Source="..\..\source\core\source\boos.core.Semaphore.cpp"
+Source="..\..\source\core\source\boos.core.Synchronizer.cpp"
+Source="..\..\source\core\source\boos.core.System.cpp"
+Source="..\..\source\core\source\boos.core.Thread.cpp"
+Source="..\..\source\core\source\boos.core.Timer.cpp"
+Source="..\..\source\core\source\boos.core.TimerInterrupt.cpp"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\libraries\boos.core.ti.tms320c64x.coff.ccstudio.debug.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\libraries\boos.core.ti.tms320c64x.coff.ccstudio.release.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\core\include" -mv6400 --mem_model:data=far --abi=coffabi
+
+["Compiler" Settings: "Release"]
+Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\core\include" -mv6400 --mem_model:data=far --abi=coffabi
+

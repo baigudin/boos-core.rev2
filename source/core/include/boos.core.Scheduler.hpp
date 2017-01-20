@@ -323,7 +323,7 @@ namespace core
     /**
      * The tasks list.
      */    
-    ::util::LinkedList<Task*> list_;    
+    ::util::LinkedList<Task*> list_;
 
   };
 }

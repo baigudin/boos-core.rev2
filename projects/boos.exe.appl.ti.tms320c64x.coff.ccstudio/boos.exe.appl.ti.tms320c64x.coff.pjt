@@ -1,0 +1,36 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="C:\Projects\os\src\boos\projects\boos.exe.appl.ti.tms320c64x.coff.ccstudio\"
+ProjectType=Executable
+CPUFamily=TMS320C64XX
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Tool="XDC"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\..\libraries\boos.core.ti.tms320c64x.coff.ccstudio.debug.lib"
+Source="..\..\libraries\boos.target.ti.tms320c64x.coff.ccstudio.debug.lib"
+Source="Source\boos.Main.cpp"
+Source="Source\ti.lib\rts6400.lib"
+Source="..\..\source\target\source\ti\tms320c64x\cmd\boos.memory.tms320c64x.coff.cmd"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -mv6400 --mem_model:data=far --abi=coffabi
+
+["Compiler" Settings: "Release"]
+Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -mv6400 --mem_model:data=far --abi=coffabi
+
+["Linker" Settings: "Debug"]
+Options=-a -c -h -m"$(Proj_dir)\Debug\boos.tms320c64x.debug.map" -o"$(Proj_dir)\Debug\boos.tms320c64x.debug.out" -w -x
+
+["Linker" Settings: "Release"]
+Options=-a -c -m"$(Proj_dir)\Release\boos.tms320c64x.release.map" -o"$(Proj_dir)\Release\boos.tms320c64x.release.out" -w -x
+
+["Source\boos.Main.cpp" Settings: "Release"]
+Options="Compiler" -{-o3}
+

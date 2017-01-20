@@ -12,8 +12,7 @@
 #define BOOS_UTIL_HEAP_HPP_
 
 #include "boos.api.Heap.hpp"
-#include "boos.util.Memory.hpp"
-#include "boos.util.Toggle.hpp"
+#include "boos.api.Toggle.hpp"
 
 namespace util
 {
@@ -28,11 +27,10 @@ namespace util
      * @param size total heap size.
      */    
     Heap(int64 size) :
-      data_ (HEAP_KEY, size),
+      data_ (size),
       temp_ (){
       setConstruct( construct() );
     }    
-  
   
     /** 
      * Constructor.
@@ -43,11 +41,11 @@ namespace util
      * This gives you a possibility to change using golobal interrupts
      * on fly.   
      *     
-     * @param size total heap size.
-     * @param sw   reference to pointer to global interrupts toggle interface.
+     * @param size   total heap size.
+     * @param toggle reference to pointer to global interrupts toggle interface.
      */    
-    Heap(int64 size, ::api::Toggle*& sw) :
-      data_ (HEAP_KEY, size, sw),
+    Heap(int64 size, ::api::Toggle*& toggle) :
+      data_  (size, toggle),
       temp_ (){
       setConstruct( construct() );
     }    
@@ -57,7 +55,7 @@ namespace util
      */
     virtual ~Heap()
     {
-      data_.key_ = 0;
+      data_.key = 0;
     }
 
     /**
@@ -73,9 +71,9 @@ namespace util
     {
       if(!isConstructed()) return NULL;
       if(ptr != NULL) return ptr;
-      bool is = data_.toggle_.disable();
+      bool is = disable();
       ptr = firstBlock()->alloc(size);
-      data_.toggle_.enable(is);
+      enable(is);
       return ptr;
     }
       
@@ -88,10 +86,20 @@ namespace util
     {
       if(ptr == NULL) return;
       if(!isConstructed()) return;  
-      bool is = data_.toggle_.disable();
+      bool is = disable();
       heapBlock(ptr)->free();
-      data_.toggle_.enable(is);
+      enable(is);
     }
+    
+    /**
+     * Frees an allocated memory.
+     *
+     * @param toggle reference to pointer to global interrupts toggle interface.
+     */      
+    virtual void toggle(::api::Toggle*& toggle)
+    {
+      data_.toggle = &toggle;
+    }    
 
     /**
      * Tests if this object has been constructed.
@@ -100,7 +108,7 @@ namespace util
      */    
     virtual bool isConstructed() const
     {
-      return data_.key_ == HEAP_KEY ? true : false;
+      return data_.key == HEAP_KEY ? true : false;
     }
     
     /**
@@ -140,7 +148,7 @@ namespace util
      */      
     void setConstruct(bool flag)
     {
-      if(data_.key_ == HEAP_KEY) data_.key_ = flag ? HEAP_KEY : 0;
+      if(data_.key == HEAP_KEY) data_.key = flag ? HEAP_KEY : 0;
     }
     
     /** 
@@ -151,17 +159,41 @@ namespace util
     bool construct()
     {
       // Crop a size to multiple of eight
-      if(sizeof(HeapBlock) + 16 > data_.size_) return false;
+      if(sizeof(HeapBlock) + 16 > data_.size) return false;
       // Test Heap and HeapBlock structures sizes witch has to be multipled to eight
       if(sizeof(Heap) & 0x7) return false;
       if(sizeof(HeapBlock) & 0x7) return false;
       // Test memory
       uint32 addr = reinterpret_cast<uint32>(this) + sizeof(Heap);
       void*  ptr  = reinterpret_cast<void*>(addr);
-      if( !isMemoryAvailable(ptr, data_.size_) ) return false;
+      if( !isMemoryAvailable(ptr, data_.size) ) return false;
       // Alloc first heap block
-      data_.block_ = new ( firstBlock() ) HeapBlock(this, data_.size_);
-      return data_.block_ != NULL ? true : false;
+      data_.block = new ( firstBlock() ) HeapBlock(this, data_.size);
+      return data_.block != NULL ? true : false;
+    }
+    
+    /** 
+     * Disables a controller.
+     *
+     * @return an enable source bit value of a controller before method was called.
+     */ 
+    bool disable()
+    {
+      if(data_.toggle == NULL) return false;
+      register ::api::Toggle* toggle = *data_.toggle;
+      return toggle != NULL ? toggle->disable() : false;      
+    }
+
+    /** 
+     * Enables a controller.
+     *
+     * @param status returned status by disable method.
+     */    
+    void enable(bool status)
+    {
+      if(data_.toggle == NULL) return;
+      register ::api::Toggle* toggle = *data_.toggle;
+      if(toggle != NULL) toggle->enable(status);
     }
     
     /**
@@ -370,95 +402,7 @@ namespace util
      * to aligned 8 memory address. Therefore, size of classes 
      * with 32 bit pointer to virtual table and one 64 bit variable is 16 bytes.
      */    
-    class VirtualTable : public ::api::Heap{int64 temp;};
-
-    /**
-     * Heap data.
-     *
-     * This structure is needed for aligning heap data or otherwise 
-     * this Heap class can not de aligned because it is incompleted.
-     */
-    struct HeapData
-    {
-    
-    public:
-
-      /**
-       * First memory block of heap page memory.
-       */
-      HeapBlock* block_;
-
-      /**
-       * Threads switching off key.
-       *
-       * This class controls a global thread switch off key
-       * by toggle interface. That interface has to disable
-       * a changing thread context. The most useful case is to give
-       * a global interrupts toggle interface.
-       */
-      Toggle<Allocator> toggle_;
-
-      /**
-       * Actual size of heap.
-       */
-      int64 size_;
-
-      /**
-       * Heap page memory definition key.
-       */
-      int32 key_;
-    
-      /** 
-       * Constructor.
-       *
-       * @param key  heap key constant.       
-       * @param size total heap size.
-       * @param sw   reference to pointer to global interrupts interface.       
-       */
-      HeapData(int32 key, int64 size) :
-        block_  (NULL),
-        toggle_ (),
-        size_   ((size & ~0x7) - sizeof(Heap)),
-        key_    (key){
-      }
-    
-      /** 
-       * Constructor.
-       *
-       * @param key  heap key constant.       
-       * @param size total heap size.
-       * @param sw   reference to pointer to global interrupts interface.       
-       */
-      HeapData(int32 key, int64 size, ::api::Toggle*& sw) :
-        block_  (NULL),  
-        toggle_ (sw),
-        size_   ((size & ~0x7) - sizeof(Heap)),
-        key_    (key){
-      }
-      
-      /** 
-       * Destructor.
-       */
-     ~HeapData(){}       
-
-    private:
-
-
-      /**
-       * Copy constructor.
-       *
-       * @param obj reference to source object.
-       */
-      HeapData(const HeapData& obj);
-
-      /**
-       * Assignment operator.
-       *
-       * @param src reference to source object.
-       */
-      HeapData& operator =(const HeapData&);
-
-    };
+    class VirtualTable : public ::api::Heap{int64 temp;};    
     
     /** 
      * Heap memory block.
@@ -483,7 +427,7 @@ namespace util
         attr_  (0),
         size_  (size - sizeof(HeapBlock)),
         key_   (BLOCK_KEY),
-        temp_  (-1){
+        temp_  (0xbbbbbbbb){
       }
       
       /** 
@@ -566,9 +510,6 @@ namespace util
             prev_->size_ += 2 * sizeof(HeapBlock) + size_ + next_->size_;
             prev_->next_ = next_->next_;
             if(prev_->next_ != NULL) prev_->next_->prev_ = prev_;
-            #ifdef BOOS_DEBUG
-            Memory::memset((void*)((uint32)prev_+sizeof(HeapBlock)), 0, (size_t)prev_->size_);
-            #endif
           }
           break;
           case PREV_FREE:
@@ -576,9 +517,6 @@ namespace util
             prev_->size_ += sizeof(HeapBlock) + size_;
             prev_->next_ = next_;
             if(next_ != NULL) next_->prev_ = prev_;
-            #ifdef BOOS_DEBUG
-            Memory::memset((void*)((uint32)prev_+sizeof(HeapBlock)), 0, (size_t)prev_->size_);
-            #endif      
           }
           break;
           case NEXT_FREE:
@@ -587,17 +525,11 @@ namespace util
             next_ = next_->next_;
             if(next_ != NULL) next_->prev_ = this;
             attr_ &= ~ATTR_USED;
-            #ifdef BOOS_DEBUG
-            Memory::memset((void*)((uint32)this+sizeof(HeapBlock)), 0, (size_t)size_);
-            #endif
           }
           break;
           default:
           {
             attr_ &= ~ATTR_USED;
-            #ifdef BOOS_DEBUG
-            Memory::memset((void*)((uint32)this+sizeof(HeapBlock)), 0, (size_t)size_);
-            #endif      
           }
         }
         return true;
@@ -728,7 +660,95 @@ namespace util
        */    
       int32 temp_;
 
+    };
+    
+    /**
+     * Heap data.
+     *
+     * This structure is needed for aligning heap data or otherwise 
+     * this Heap class can not de aligned because it is incompleted.
+     */
+    struct HeapData
+    {
+      /** 
+       * Constructor.
+       *
+       * @param ikey  heap key constant.       
+       * @param isize total heap size.
+       */
+      HeapData(int64 isize) :
+        block  (NULL),
+        toggle (NULL),
+        size   ((isize & ~0x7) - sizeof(Heap)),
+        key    (HEAP_KEY){
+      }
+    
+      /** 
+       * Constructor.
+       *
+       * @param ikey    heap key constant.       
+       * @param i1size  total heap size.
+       * @param itoggle reference to pointer to global interrupts interface.       
+       */
+      HeapData(int64 isize, ::api::Toggle*& itoggle) :
+        block  (NULL),
+        toggle (&itoggle),
+        size   ((isize & ~0x7) - sizeof(Heap)),
+        key    (HEAP_KEY){
+      }
+      
+      /** 
+       * Destructor.
+       */
+     ~HeapData(){}       
+        
+      /**
+       * First memory block of heap page memory.
+       */
+      HeapBlock* block;
+
+      /**
+       * Threads switching off key.
+       *
+       * This interface controls a global thread switch off key
+       * by toggle interface. That interface has to disable
+       * a changing thread context. The most useful case is to give
+       * a global interrupts toggle interface.
+       */
+      ::api::Toggle** toggle;       
+
+      /**
+       * Actual size of heap.
+       */
+      int64 size;
+
+      /**
+       * Heap page memory definition key.
+       */
+      int32 key;
+      
+    private:
+
+      /**
+       * Copy constructor.
+       *
+       * @param obj reference to source object.
+       */
+      HeapData(const HeapData& obj);
+
+      /**
+       * Assignment operator.
+       *
+       * @param obj reference to source object.
+       */
+      HeapData& operator =(const HeapData& obj);
+
     };    
+    
+    /**
+     * Size of this Heap class without aligned data.
+     */    
+    static const int32 SIZEOF_HEAP = sizeof(HeapData) + sizeof(VirtualTable) - sizeof(int64);        
     
     /**
      * Heap page memory definition key.
@@ -736,19 +756,14 @@ namespace util
     static const int32 HEAP_KEY = 0x19811019;
     
     /**
-     * Size of this Heap class without aligned data.
-     */    
-    static const int32 SIZEOF_HEAP = sizeof(HeapData) + sizeof(VirtualTable) - sizeof(int64);
-    
-    /**
      * Data of this heap.
      */    
-    HeapData data_;
+    HeapData data_;    
     
     /**
      * Aligning data.
      */        
-    Aligner<SIZEOF_HEAP> temp_;
+    Aligner<SIZEOF_HEAP> temp_;  
 
   };
 }

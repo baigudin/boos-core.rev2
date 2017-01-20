@@ -2,23 +2,20 @@
  * System memory allocator.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
 #ifndef BOOS_CORE_ALLOCATOR_HPP_
 #define BOOS_CORE_ALLOCATOR_HPP_
 
-#include "boos.api.Heap.hpp"
+#include "boos.Allocator.hpp"
 
 namespace core
 {
-  class Core;
-
   class Allocator
   {
-    friend class Core;
-
+    
   public:
 
     /**
@@ -27,46 +24,20 @@ namespace core
      * @param size number of bytes to allocate.
      * @return allocated memory address or a null pointer.
      */    
-    static void* alloc(size_t size);
-
+    static void* alloc(size_t size)
+    {
+      return ::Allocator::alloc(size);
+    }
+    
     /**
      * Frees an allocated memory.
      *
      * @param ptr address of allocated memory block or a null pointer.
      */      
-    static void free(void* ptr);
-
-  protected:
-
-    /**
-     * Constructor.
-     */
-    Allocator(){}
-
-    /**
-     * Destructor.
-     */
-    virtual ~Allocator(){}
-
-  private:
-
-    /**
-     * Initialization.
-     *
-     * @param heap a heap interface.   
-     * @return true if no errors.
-     */
-    static bool init(::api::Heap& heap);    
-
-    /**
-     * Deinitialization.
-     */
-    static void deinit();
-
-    /**
-     * Pointer to allocated heap memory block (no boot).
-     */
-    static ::api::Heap* heap_;
+    static void free(void* ptr)
+    {
+      ::Allocator::free(ptr);    
+    }
 
   };
 }

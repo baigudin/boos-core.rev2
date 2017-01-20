@@ -17,11 +17,11 @@ namespace target { class Interrupt; }
 
 namespace core
 {
-  class Core;
+  class Main;
 
   class Interrupt : public ::core::Object<>, public ::api::Interrupt
   {
-    friend class Core;
+    friend class Main;
     typedef ::core::Object<> Parent;
 
   public:
@@ -106,6 +106,18 @@ namespace core
      * @return true if object has been constructed successfully.     
      */    
     bool construct(::api::Task* handler, int32 source);
+    
+    /**
+     * Initialization.
+     *
+     * @return true if no errors.
+     */
+    static bool init();
+
+    /**
+     * Deinitialization.
+     */
+    static void deinit();    
 
     /**
      * Copy constructor.
@@ -120,6 +132,72 @@ namespace core
      * @param obj reference to source object.
      */
     Interrupt& operator =(const Interrupt& obj);
+    
+    /** 
+     * Hardware global interrupts controller.
+     */
+    class Global : public ::core::Object<>, public ::api::Toggle
+    {
+      typedef ::core::Object<> Parent;
+
+    public:
+      
+      /** 
+       * Constructor.
+       */
+      Global() : Parent(),
+        isConstructed_ (getConstruct()){
+      }  
+      
+      /** 
+       * Destructor.
+       */                               
+      virtual ~Global()
+      {
+      }
+      
+      /**
+       * Tests if this object has been constructed.
+       *
+       * @return true if object has been constructed successfully.
+       */    
+      virtual bool isConstructed() const
+      {
+        return isConstructed_;
+      }
+      
+      /** 
+       * Disables all maskable interrupts.
+       *
+       * @return global interrupt enable bit value before method was called.
+       */ 
+      virtual bool disable();
+      
+      /** 
+       * Enables all maskable interrupts.
+       *
+       * @param status returned status by disable method.
+       */    
+      virtual void enable(bool status);
+      
+    private:
+      
+      /** 
+       * Reference the root object constructed flag.
+       */  
+      const bool& isConstructed_;       
+      
+    };    
+    
+    /**    
+     * Hardware global interrupt controller (no boot).
+     */
+    static Global* global_;
+    
+    /** 
+     * Reference the root object constructed flag.
+     */  
+    const bool& isConstructed_;    
 
     /**
      * Extended interrupt controller interface.

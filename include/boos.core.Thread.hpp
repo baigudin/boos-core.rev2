@@ -18,12 +18,12 @@ namespace target { class Register; }
 
 namespace core
 {
-  class Core;
+  class Main;
   class Scheduler;
 
   class Thread : public ::core::ThreadTask
   {
-    friend class ::core::Core;
+    friend class ::core::Main;
     friend class ::core::Scheduler;
     typedef ::core::ThreadTask Parent;
     

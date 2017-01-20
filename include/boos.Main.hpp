@@ -2,7 +2,7 @@
  * User main class.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2014-2015 Sergey Baigudin
+ * @copyright 2014-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
@@ -19,11 +19,9 @@ public:
   /**
    * User method which will be stated as first.
    *
-   * @param argc count of array elements.
-   * @param argv array of arguments.
    * @return error code or zero.
    */
-  static int main(int argc, char* argv[]);
+  static int32 main();
 
 };
 #endif // BOOS_MAIN_HPP_

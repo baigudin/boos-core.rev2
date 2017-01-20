@@ -1,5 +1,5 @@
 /** 
- * Synchronizable interface for synchronizing one program in some processor units.
+ * One program synchronization for executing in several processor units.
  * 
  * This interface provides a synchronization of one program 
  * which is being executed by several processor units. 

@@ -10,22 +10,18 @@
 #define BOOS_CORE_CORE_HPP_
 
 #include "boos.core.Object.hpp"
+#include "boos.api.Toggle.hpp"
 
 namespace core
 {
+  class Main;
   class CoreTimerInterrupt;
 
   class Core
   {
+    friend class Main;
 
   public:
-  
-    /**
-     * Starts the core.
-     *
-     * @param heap a target core heap interface.
-     */   
-    static void start(::api::Heap& heap);
 
     /** 
      * Returns a current value of the running core.
@@ -40,11 +36,6 @@ namespace core
     static void fail();
 
   private:
-
-    /**
-     * Executes the core.
-     */
-    static void execute();
 
     /**
      * Initialization.
@@ -62,6 +53,11 @@ namespace core
      * Hardware timer interrupt resource of core (no boot).
      */
     static CoreTimerInterrupt* interrupt_;
+    
+    /**
+     * Global interrupt resource (no boot).
+     */
+    static ::api::Toggle* global_;
 
   };
 }
