@@ -37,5 +37,5 @@ Options=-r -o"..\..\libraries\boos.target.ti.tms320c64x.coff.ccstudio.release.li
 Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c64x\include" -mv6400 --mem_model:data=far --abi=coffabi
 
 ["Compiler" Settings: "Release"]
-Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c64x\include" -mv6400 --mem_model:data=far --abi=coffabi
+Options=-o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c64x\include" -mv6400 --mem_model:data=far --abi=coffabi
 

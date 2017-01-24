@@ -1,13 +1,12 @@
 ; Code Composer Project File, Version 2.0 (do not modify or remove this line)
 
 [Project Settings]
-ProjectDir="C:\Projects\os\src\boos\projects\boos.lib.core.ti.tms320c64x.coff.ccstudio\"
+ProjectDir="C:\Projects\os\src\boos\projects\boos.lib.core.ti.am18x.coff.ccstudio\"
 ProjectType=Library
-CPUFamily=TMS320C64XX
+CPUFamily=TMS470R2X
 Tool="Archiver"
 Tool="Compiler"
 Tool="CustomBuilder"
-Tool="DspBiosBuilder"
 Tool="XDC"
 Config="Debug"
 Config="Release"
@@ -25,14 +24,14 @@ Source="..\..\source\core\source\boos.core.Timer.cpp"
 Source="..\..\source\core\source\boos.core.TimerInterrupt.cpp"
 
 ["Archiver" Settings: "Debug"]
-Options=-r -o"..\..\libraries\boos.core.ti.tms320c64x.coff.ccstudio.debug.lib"
+Options=-r -o"..\..\libraries\boos.core.ti.am18x.coff.ccstudio.debug.lib"
 
 ["Archiver" Settings: "Release"]
-Options=-r -o"..\..\libraries\boos.core.ti.tms320c64x.coff.ccstudio.release.lib"
+Options=-r -o"..\..\libraries\boos.core.ti.am18x.coff.ccstudio.release.lib"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\core\include" -mv6400 --mem_model:data=far --abi=coffabi
+Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\core\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff
 
 ["Compiler" Settings: "Release"]
-Options=-o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\core\include" -mv6400 --mem_model:data=far --abi=coffabi
+Options=-o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\core\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff
 

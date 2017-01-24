@@ -40,10 +40,10 @@ Source="Source\ti.lib\rts32e.lib"
 Source="..\..\source\target\source\ti\am18x\cmd\boos.memory.am18x.coff.cmd"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff
 
 ["Compiler" Settings: "Release"]
-Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff -mf
+Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\am18x\include" -me -mv5e --abi=ti_arm9_abi --code_state=32 --coff
 
 ["Linker" Settings: "Debug"]
 Options=--abi=ti_arm9_abi -c -m".\Debug\boos.am18x.debug.map" -o".\Debug\boos.am18x.debug.out" -w -x

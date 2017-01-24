@@ -444,7 +444,7 @@ namespace util
        * @param ptr  address of memory.
        * @return address of memory.
        */   
-      void* operator new(uint32, void* ptr)
+      void* operator new(size_t, void* ptr)
       {
         // Size of this class has to be multipled to eight
         if(sizeof(HeapBlock) & 0x7) return NULL;
