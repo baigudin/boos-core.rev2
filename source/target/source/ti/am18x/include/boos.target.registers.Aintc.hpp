@@ -155,7 +155,7 @@ namespace target
         uint32 value;
         struct 
         {
-          uint8  index : 7;
+          ucell  index : 7;
           uint32       : 25;
         } bit;
       } sisr;

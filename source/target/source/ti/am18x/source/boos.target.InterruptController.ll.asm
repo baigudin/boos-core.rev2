@@ -1,5 +1,5 @@
 ; ----------------------------------------------------------------------------
-; Core of Operation System
+; The kernel.
 ;
 ; @author    Sergey Baigudin, baigudin@mail.ru
 ; @copyright 2016 Sergey Baigudin

@@ -242,7 +242,7 @@ namespace core
      *
      * When first scheduler timer interrupt is occurred, 
      * default registers of parent interrupt class will be used
-     * for storing the core context to it.
+     * for storing the kernel context to it.
      *
      * @return true if object has been constructed successfully.
      */

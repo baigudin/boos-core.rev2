@@ -1,5 +1,5 @@
 /** 
- * Core boot routine.
+ * Boot routine.
  *
  * The module performs the tasks to initialize C/C++ run-time environment.
  * 

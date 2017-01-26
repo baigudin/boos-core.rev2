@@ -11,7 +11,7 @@
 namespace target
 {
   /**
-   * The core configuration (no boot).
+   * The kernel configuration (no boot).
    */
   const Configuration* TimerController::config_;
 }

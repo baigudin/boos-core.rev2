@@ -90,7 +90,7 @@ namespace core
   protected:
 
     /** 
-     * Returns extended core interface of interrupt.
+     * Returns target kernel interrupt interface.
      *
      * @return extended interface.
      */  

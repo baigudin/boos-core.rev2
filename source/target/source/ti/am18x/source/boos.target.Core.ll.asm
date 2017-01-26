@@ -1,5 +1,5 @@
 ; ----------------------------------------------------------------------------
-; Core of Operation System
+; The kernel.
 ;
 ; @author    Sergey Baigudin, baigudin@mail.ru
 ; @copyright 2016 Sergey Baigudin
@@ -34,7 +34,7 @@
     .bss  v_stack_sys, STACK_SIZE_SYS, 8
 
 ; ----------------------------------------------------------------------------
-; Initializes the low level core.
+; Initializes the low level kernel.
 ;
 ; The entry point after CPU hardware is reseted.
 ; ----------------------------------------------------------------------------
@@ -90,7 +90,7 @@ m_core_start:
     ldr     sp,  a_v_stack_sys        
     mov     lr,  #0
     ; Call hi level initialization and
-    ; set core executing finish procedure as return point
+    ; set kernel executing finish procedure as return point
     ldr     lr,  a_m_core_deinit
     b       m_main
 
@@ -103,7 +103,7 @@ a_v_stack_fiq   .word v_stack_fiq + STACK_SIZE_FIQ
 a_v_stack_sys   .word v_stack_sys + STACK_SIZE_SYS
 
 ; ----------------------------------------------------------------------------
-; Finishes the core executing
+; Finishes the kernel executing
 ; ----------------------------------------------------------------------------
     .text
 m_core_deinit:

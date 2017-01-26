@@ -1,5 +1,5 @@
 /** 
- * Core of system.
+ * Kernel of system.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin

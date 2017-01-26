@@ -1,5 +1,5 @@
 /** 
- * Core of system.
+ * The target kernel main class.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin

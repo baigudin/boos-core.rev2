@@ -1,5 +1,5 @@
 /** 
- * Core of system.
+ * Target kernel of system.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin
@@ -19,7 +19,7 @@ namespace target
   public:
     
     /**
-     * Fails the target core.
+     * Fails the target kernel.
      */
     static void fail();
     

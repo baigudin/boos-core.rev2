@@ -1,5 +1,5 @@
 ; ----------------------------------------------------------------------------
-; Core of Operation System
+; The kernel.
 ;
 ; @author    Sergey Baigudin, baigudin@mail.ru
 ; @copyright 2014-2016 Sergey Baigudin
@@ -33,7 +33,7 @@
     .bss  v_stack_core, STACK_SIZE_CORE, 8
 
 ; ----------------------------------------------------------------------------
-; Initializes the low level core.
+; Initializes the low level kernel.
 ;
 ; The entry point after CPU hardware is reseted.
 ; ----------------------------------------------------------------------------
@@ -69,14 +69,14 @@ mr_i0?  addkpc          mr_i0?+4, b3, 4
         mvkh            DREG_CCFG, b0
         stw             a0, *b0
         nop             2
-        ; Set CPU register to zero
+        ; Set CPU registers to zero
         .eval           0, i
         .loop           32
         mvk             0, a:i:
      || mvk             0, b:i:
         .eval           i+1, i
         .endloop
-        ; Initialize OS core pointers
+        ; Initialize OS kernel pointers
         mvkl            v_stack_core + STACK_SIZE_CORE - 8, sp
         mvkh            v_stack_core + STACK_SIZE_CORE - 8, sp
         mvkl            m_bss, dp
@@ -84,7 +84,7 @@ mr_i0?  addkpc          mr_i0?+4, b3, 4
         mvkh            m_bss, dp
      || mvkl            0, fp
         ; Call hi level initialization and
-        ; set core executing finish procedure as return point
+        ; set kernel executing finish procedure as return point
         mvkl            m_core_deinit, b3
      || mvkl            m_main, a3
         mvkh            m_core_deinit, b3
@@ -93,7 +93,7 @@ mr_i0?  addkpc          mr_i0?+4, b3, 4
         nop             5
 
 ; ----------------------------------------------------------------------------
-; Finishes the core executing
+; Finishes the kernel executing
 ; ----------------------------------------------------------------------------
         .text
 m_core_deinit:

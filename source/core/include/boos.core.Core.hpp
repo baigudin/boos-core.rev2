@@ -1,5 +1,5 @@
 /** 
- * Core of system.
+ * Common kernel of system.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2014-2016 Sergey Baigudin
@@ -24,14 +24,14 @@ namespace core
   public:
 
     /** 
-     * Returns a current value of the running core.
+     * Returns a current value of the running kernel.     
      *
      * @return time in nanoseconds.
      */      
     static int64 nanoTime();
 
     /** 
-     * Terminates the core.
+     * Terminates the kernel execution.
      */      
     static void fail();
 
@@ -50,7 +50,7 @@ namespace core
     static void deinit();
 
     /**
-     * Hardware timer interrupt resource of core (no boot).
+     * Hardware timer interrupt resource of kernel (no boot).
      */
     static CoreTimerInterrupt* interrupt_;
     

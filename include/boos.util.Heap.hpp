@@ -229,24 +229,25 @@ namespace util
      */
     static bool isMemoryAvailable(void* addr, int64 size)
     {
-      uint8* ptr = reinterpret_cast<uint8*>(addr);
+      cell mask = -1;
+      cell* ptr = reinterpret_cast<cell*>(addr);
       // Value test
       for( int64 i=0; i<size; i++) 
-        ptr[i] = static_cast<uint8>(i) & 0xff;
+        ptr[i] = static_cast<cell>(i & mask);
       for( int64 i=0; i<size; i++) 
-        if(ptr[i] != (i & 0xff))
+        if(ptr[i] != static_cast<cell>(i & mask))
           return false;
       // 0x55 test
       for( int64 i=0; i<size; i++) 
-        ptr[i] = 0x55;
+        ptr[i] = static_cast<cell>(0x55555555 & mask);
       for( int64 i=0; i<size; i++) 
-        if(ptr[i] != 0x55)
+        if(ptr[i] != static_cast<cell>(0x55555555 & mask))
           return false;
       // 0xAA test          
       for( int64 i=0; i<size; i++) 
-        ptr[i] = 0xaa;
+        ptr[i] = static_cast<cell>(0xaaaaaaaa & mask);
       for( int64 i=0; i<size; i++) 
-        if(ptr[i] != 0xaa)
+        if(ptr[i] != static_cast<cell>(0xaaaaaaaa & mask))
           return false;          
       // Zero test          
       for( int64 i=0; i<size; i++) 
@@ -368,7 +369,7 @@ namespace util
       Aligner()
       {
         #ifdef BOOS_DEBUG
-        for(int32 i=0; i<SIZE; i++) val_[i] = 0xAA;
+        for(int32 i=0; i<SIZE; i++) val_[i] = 0x0A;
         #endif
       }
       
@@ -387,7 +388,7 @@ namespace util
       /**
        * Temp array.
        */      
-      uint8 val_[SIZE];
+      cell val_[SIZE];
 
     };
     

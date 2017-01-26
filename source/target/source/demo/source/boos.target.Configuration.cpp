@@ -1,5 +1,5 @@
 /** 
- * Target core configuration.
+ * Target kernel configuration.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin

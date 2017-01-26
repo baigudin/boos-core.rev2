@@ -171,7 +171,7 @@ namespace core
   /** 
    * Returns interrupt developing interface.
    *
-   * @return interrupt core developing interface.
+   * @return interrupt kernel developing interface.
    */  
   ::target::Interrupt& Interrupt::extension()
   {

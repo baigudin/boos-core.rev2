@@ -1,5 +1,5 @@
 /** 
- * Hardware timer interrupt resource of core.
+ * Hardware timer interrupt resource of the kernel.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin
@@ -103,7 +103,7 @@ namespace core
       acc_ = dc * 1000000000 + acc_;
       // The nanoseconds left time after previous updating
       dt = acc_ / timerFrequency;
-      // Increment core working time in nsec
+      // Increment kernel working time in nsec
       time = time_ += dt;
       // Store the remainder for next updating
       acc_ = acc_ - dt * timerFrequency;
@@ -170,7 +170,7 @@ namespace core
     uint64 acc_;
     
     /**
-     * Core working time in nsec.
+     * The kernel working time in nsec.
      */        
     uint64 time_;
 

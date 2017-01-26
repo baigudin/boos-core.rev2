@@ -135,7 +135,7 @@ namespace core
   /** 
    * Returns timer developing interface.
    *
-   * @return timer core developing interface.
+   * @return timer kernel developing interface.
    */  
   ::target::Timer& Timer::extension()
   {

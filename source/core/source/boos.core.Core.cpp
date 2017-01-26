@@ -1,5 +1,5 @@
 /** 
- * Core of system.
+ * Common kernel of system.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin
@@ -13,7 +13,7 @@
 namespace core
 {
   /** 
-   * Returns a current value of the running core.
+   * Returns a current value of the running kernel.
    *
    * @return time in nanoseconds.
    */      
@@ -23,7 +23,7 @@ namespace core
   }
   
   /** 
-   * Terminates the core.
+   * Terminates the kernel execution.
    */      
   void Core::fail()
   {
@@ -51,8 +51,6 @@ namespace core
   
   /**
    * Deinitialization.
-   *
-   * @param heap a target core heap interface.   
    */
   void Core::deinit()
   {
@@ -65,7 +63,7 @@ namespace core
   }
   
   /**
-   * Hardware timer interrupt resource of core (no boot).
+   * Hardware timer interrupt resource of kernel (no boot).
    */
   CoreTimerInterrupt* Core::interrupt_;  
 

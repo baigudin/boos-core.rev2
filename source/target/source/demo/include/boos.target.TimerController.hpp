@@ -172,7 +172,7 @@ namespace target
     /**
      * Initialization.
      *
-     * @param cfg the core configuration.
+     * @param cfg the kernel configuration.
      * @return true if no errors.
      */
     static bool init(const Configuration& cfg)
@@ -189,7 +189,7 @@ namespace target
     }
 
     /**
-     * The core configuration (no boot).
+     * The kernel configuration (no boot).
      */
     static const Configuration* config_;
 

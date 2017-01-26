@@ -1,5 +1,5 @@
 /** 
- * System class of core.
+ * System class of the kernel.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2014-2016 Sergey Baigudin

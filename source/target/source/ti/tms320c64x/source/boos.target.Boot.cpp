@@ -1,5 +1,5 @@
 /** 
- * Core boot routine.
+ * Boot routine.
  *
  * The module performs the tasks to initialize C/C++ run-time environment.
  * 
@@ -26,7 +26,8 @@ namespace target
     CRecord* cRecord = getCRecord();
     while(cRecord != NULL)
     {
-      for(int32 i=0; i<cRecord->size; i++) cRecord->addr[i] = cRecord->data[i];
+      for(int32 i=0; i<cRecord->size; i++) 
+        cRecord->addr[i] = cRecord->data[i];
       cRecord = getCRecord(cRecord);
     }
     // Call global C++ class default constructors
@@ -56,7 +57,6 @@ namespace target
   Boot::CRecord* Boot::getCRecord(Boot::CRecord* record)
   {
     const int32 align = 0x7;
-    if(align == 0xffffffff) return NULL;
     int32 size = (record->size + align) & ~align;    
     record = reinterpret_cast<CRecord*>(&record->data[size]);
     return record->size != 0 ? record : NULL;

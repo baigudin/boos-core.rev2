@@ -1,5 +1,5 @@
 ; ----------------------------------------------------------------------------
-; Core boot routine.
+; Boot routine.
 ;
 ; The module performs the tasks to initialize C/C++ run-time environment.
 ; 
@@ -28,11 +28,11 @@
     .ref  ___cinit__
     .ref  ___pinit__
     
-    .asg  _c_int00,   m_bootstrap    
-    .asg  ___cinit__, v_cinit
-    .asg  ___pinit__, v_pinit 
+    .asg  _c_int00,                        m_bootstrap    
     .asg  _getCRecord__Q2_6target4BootSFv, m_get_cinit
     .asg  _getPRecord__Q2_6target4BootSFv, m_get_pinit
+    .asg  ___cinit__,                      v_cinit
+    .asg  ___pinit__,                      v_pinit
     
     .endif
 
@@ -72,7 +72,7 @@ m_get_cinit:
 ; @return A4 memory address of .pinit section or NULL.
 ; ----------------------------------------------------------------------------
         .text
-m_get_pinit
+m_get_pinit:
         .if             __TI_EABI__
         b               b3
         mvk             0, a4

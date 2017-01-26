@@ -194,7 +194,7 @@ namespace target
     /**
      * Initialization.
      *
-     * @param config the core configuration.
+     * @param config the kernel configuration.
      * @return true if no errors.
      */
     static bool init(const Configuration& config)
@@ -225,7 +225,7 @@ namespace target
     InterruptController& operator =(const InterruptController& obj);
 
     /**
-     * The core configuration (no boot).
+     * The kernel configuration (no boot).
      */
     static const Configuration* config_;
 

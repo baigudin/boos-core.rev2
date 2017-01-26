@@ -81,6 +81,16 @@
 			<locationURI>PARENT-2-PROJECT_LOC/source/target/source/atmel/sama5d3x/source/boos.target.Board.cpp</locationURI>
 		</link>
 		<link>
+			<name>Source/boos.target.Boot.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-ECLIPSE_HOME/boos/source/target/source/atmel/sama5d3x/source/boos.target.Boot.cpp</locationURI>
+		</link>
+		<link>
+			<name>Source/boos.target.Configuration.cpp</name>
+			<type>1</type>
+			<locationURI>PARENT-2-ECLIPSE_HOME/boos/source/target/source/atmel/sama5d3x/source/boos.target.Configuration.cpp</locationURI>
+		</link>
+		<link>
 			<name>Source/boos.target.Core.cpp</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/source/target/source/atmel/sama5d3x/source/boos.target.Core.cpp</locationURI>

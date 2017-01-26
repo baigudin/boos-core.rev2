@@ -174,7 +174,7 @@ namespace util
     /**
      * Array of data bytes.
      */    
-    uint8 val_[SIZE];
+    cell val_[SIZE];
 
   };
   

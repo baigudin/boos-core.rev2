@@ -22,25 +22,28 @@ Source="..\..\source\core\source\boos.core.System.cpp"
 Source="..\..\source\core\source\boos.core.Thread.cpp"
 Source="..\..\source\core\source\boos.core.Timer.cpp"
 Source="..\..\source\core\source\boos.core.TimerInterrupt.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Board.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Boot.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Configuration.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Core.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Interrupt.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.InterruptController.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Main.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Register.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.Timer.cpp"
-Source="..\..\source\target\source\ti\tms320f2833x\source\boos.target.TimerController.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Board.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Boot.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Boot.ll.asm"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Configuration.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Core.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Core.ll.asm"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Interrupt.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.InterruptController.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.InterruptController.ll.asm"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Main.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Register.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Timer.cpp"
+Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.TimerController.cpp"
 Source="Source\boos.Main.cpp"
-Source="Source\ti.lib\rts2800.lib"
-Source="..\..\source\target\source\ti\tms320f2833x\cmd\boos.memory.tms320f2833x.coff.cmd"
+Source="Source\ti.lib\rts2800_fpu32.lib"
+Source="..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320c28x.coff.cmd"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320f2833x\include" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28
+Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c28x\include" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32
 
 ["Compiler" Settings: "Release"]
-Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320f2833x\include" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28
+Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c28x\include" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28
 
 ["Linker" Settings: "Debug"]
 Options=-c -m".\Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.out" -w -x
@@ -48,9 +51,9 @@ Options=-c -m".\Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\D
 ["Linker" Settings: "Release"]
 Options=-c -m".\Release\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\Release\boos.exe.appl.core.target.ti.tms320f2833x.coff.out" -w -x
 
-["..\..\source\target\source\ti\tms320f2833x\cmd\boos.memory.tms320f2833x.coff.cmd" Settings: "Debug"]
+["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320c28x.coff.cmd" Settings: "Debug"]
 LinkOrder=1
 
-["..\..\source\target\source\ti\tms320f2833x\cmd\boos.memory.tms320f2833x.coff.cmd" Settings: "Release"]
+["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320c28x.coff.cmd" Settings: "Release"]
 LinkOrder=1
 

@@ -29,8 +29,8 @@ namespace util
      */
     static void* memcpy(void* dst, const void* src, size_t len)
     {
-      register uint8* sp  = static_cast<uint8*>(const_cast<void*>(src));
-      register uint8* dp  = static_cast<uint8*>(dst);
+      register cell* sp  = static_cast<cell*>(const_cast<void*>(src));
+      register cell* dp  = static_cast<cell*>(dst);
       while(len--) *dp++ = *sp++;
       return dst;
     }
@@ -44,10 +44,10 @@ namespace util
      * @param len Number of bytes to be set to the value.
      * @return destination is returned.
      */
-    static void* memset(void* dst, uint8 val, size_t len)
+    static void* memset(void* dst, cell val, size_t len)
     {
-      register uint8* dp = static_cast<uint8*>(dst);    
-      register const uint8 uc = val;
+      register cell* dp = static_cast<cell*>(dst);    
+      register const cell uc = val;
       while(len--) *dp++ = uc;
       return dst;
     }

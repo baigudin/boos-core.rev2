@@ -57,7 +57,7 @@ namespace target
   InterruptController::ContextLow* InterruptController::contextLow_;
   
   /**
-   * The core configuration (no boot).
+   * The kernel configuration (no boot).
    */
   const Configuration* InterruptController::config_;  
 }

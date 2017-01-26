@@ -320,7 +320,7 @@ namespace target
     /**
      * Initialization.
      *
-     * @param config the core configuration.
+     * @param config the kernel configuration.
      * @return true if no errors.
      */
     static bool init(const Configuration& config)
@@ -521,7 +521,7 @@ namespace target
     static ContextLow contextLow_[NUMBER_VECTORS];
     
     /**
-     * The core configuration (no boot).
+     * The kernel configuration (no boot).
      */
     static const Configuration* config_;
 

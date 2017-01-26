@@ -15,7 +15,7 @@ namespace target
   /**
    * Initialization.
    *
-   * @param config the core configuration.
+   * @param config the kernel configuration.
    * @return true if no errors.
    */
   bool Board::init(const Configuration& config)
@@ -34,7 +34,7 @@ namespace target
   }
   
   /**
-   * The core configuration (no boot).
+   * The kernel configuration (no boot).
    */
   const Configuration* Board::config_;  
 }

@@ -241,7 +241,7 @@ namespace target
     /**
      * Initialization.
      *
-     * @param config the core configuration.
+     * @param config the kernel configuration.
      * @return true if no errors.
      */
     static bool init(const Configuration& config)
@@ -299,7 +299,7 @@ namespace target
     static const int32 NUMBER_TIMERS = 3;
     
     /**
-     * The core configuration (no boot).
+     * The kernel configuration (no boot).
      */
     static const Configuration* config_;     
     

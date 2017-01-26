@@ -1,5 +1,5 @@
 /** 
- * Core boot routine.
+ * Boot routine.
  *
  * The module performs the tasks to initialize C/C++ run-time environment.
  * 
@@ -23,39 +23,20 @@ namespace target
 
   private:
   
-    /**
-     * Initialization record in .cinit section.
-     */    
-    struct CRecord
-    {
-      /**
-       * The size of the initialization data in bytes.
-       */
-      int32 size;
-      
-      /**
-       * The starting address of the area within the .bss section.
-       */
-      int8* addr;
-      
-      /**
-       * The data of a variable.
-       */
-      int8 data[1];
-      
-    };  
+    struct CRecord;
+    struct PRecord;
     
     /**
-     * Initialization record in .pinit section.
-     */    
-    struct PRecord
-    {
-      /**
-       * Address of constructor.
-       */
-      void (*constructor)();
-      
-    };    
+     * Initialization.
+     *
+     * @return true if no errors.
+     */
+    static bool init();
+
+    /**
+     * Deinitialization.
+     */
+    static void deinit();    
   
     /**
      * Returns the first record adderess.
@@ -86,20 +67,40 @@ namespace target
      * @return memory address of the next record or NULL.
      */
     static PRecord* getPRecord(PRecord* record);
-
-  private:
     
     /**
-     * Initialization.
-     *
-     * @return true if no errors.
-     */
-    static bool init();
-
+     * Initialization record in .cinit section.
+     */    
+    struct CRecord
+    {
+      /**
+       * The size of the initialization data in bytes.
+       */
+      int32 size;
+      
+      /**
+       * The starting address of the area within the .bss section.
+       */
+      cell* addr;
+      
+      /**
+       * The data of a variable.
+       */
+      cell data[1];
+      
+    };  
+    
     /**
-     * Deinitialization.
-     */
-    static void deinit();
+     * Initialization record in .pinit section.
+     */    
+    struct PRecord
+    {
+      /**
+       * Address of constructor.
+       */
+      void (*constructor)();
+      
+    };    
  
   };
 }
