@@ -42,8 +42,7 @@ PAGE 0:
   IQTABLES2   : origin = 0x3FEB50,  length = 0x00008c     /* IQ Math Tables in Boot ROM */  
   FPUTABLES   : origin = 0x3FEBDC,  length = 0x0006A0     /* FPU Tables in Boot ROM */
   ROM         : origin = 0x3FF27C,  length = 0x000D44     /* Boot ROM */        
-  RESET       : origin = 0x3FFFC0,  length = 0x000002     /* part of boot ROM  */
-  VECTORS     : origin = 0x3FFFC2,  length = 0x00003E     /* part of boot ROM  */
+  HWI         : origin = 0x3FFFC0,  length = 0x000040     /* part of boot ROM  */
 
   /**
    * Data Memory
@@ -65,15 +64,8 @@ PAGE 1:
 
 SECTIONS
 {
-
-   /**
-    * .reset is a standard section used by the compiler.  It contains the
-    * the address of the start of _c_int00 for C Code.
-    * When using the boot ROM this section and the CPU vector
-    * table is not needed.  Thus the default type is set here to DSECT
-    */
-   .reset              : > RESET,      PAGE = 0, TYPE = DSECT
-   vectors             : > VECTORS     PAGE = 0, TYPE = DSECT
+    /** Hardware interrupts */    
+   .hwi                : > HWI,        PAGE = 0, TYPE = DSECT
 
    /** Allocate program areas */
    .cinit              : > FLASHA      PAGE = 0

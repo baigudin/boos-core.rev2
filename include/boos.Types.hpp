@@ -82,7 +82,7 @@ typedef double              float64;
 // The type returned by sizeof
 typedef uint32              size_t;
 // Minimal addressable memory cell
-typedef char                cell;
+typedef signed char         cell;
 typedef unsigned char       ucell;
 // Byte types of byte addressing cores
 typedef signed char         int8;

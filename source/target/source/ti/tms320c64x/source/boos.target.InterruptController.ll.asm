@@ -185,7 +185,7 @@ m_core_handler:
         stdw            a21:a20, *++a0[2]
      || stdw            b21:b20, *++b0[2]
      || mv              b3, a3
-;    || mvc FOR BACKLOG ier, b3
+    ;|| mvc FOR BACKLOG ier, b3
         stdw            a23:a22, *++a0[2]
      || stdw            b23:b22, *++b0[2]
         ; Call an interrupt handler
@@ -236,7 +236,7 @@ m_restore?
      || mvc             a28, amr
         lddw            *a31++[2], a13:a12
      || lddw            *b31++[2], b13:b12
-;    || mvc FOR BACKLOG b29, ier
+    ;|| mvc FOR BACKLOG b29, ier
         lddw            *a31++[2], a15:a14
      || lddw            *b31++[2], b15:b14
      || mvc             b28, csr
@@ -293,7 +293,7 @@ m_core_int_enable:
 ; Locks maskable interrupt source.
 ;
 ; @param A4 hardware interrupt vector number.
-; @return an interrupt enable source bit in low bit before method was called.
+; @return A4 an interrupt enable source bit before method was called.
 ; ----------------------------------------------------------------------------
         .text
 m_disable:

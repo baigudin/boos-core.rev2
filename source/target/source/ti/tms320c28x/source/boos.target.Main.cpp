@@ -30,10 +30,10 @@ namespace target
     do{
       // Stage 1
       stage++;
-      if( !Boot::init() ) break;     
+      if( !Board::init(config) ) break;    
       // Stage 2
       stage++;
-      if( !Board::init(config) ) break;    
+      if( !Boot::init() ) break;     
       // Stage 3
       stage++;
       if( !InterruptController::init(config) ) break;
@@ -50,8 +50,8 @@ namespace target
       default:
       case  4: TimerController::deinit();
       case  3: InterruptController::deinit();
-      case  2: Board::deinit();      
-      case  1: Boot::deinit();      
+      case  2: Boot::deinit();            
+      case  1: Board::deinit();      
       case  0: break;
     }
     return error;

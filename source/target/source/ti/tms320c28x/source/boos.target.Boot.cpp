@@ -4,7 +4,7 @@
  * The module performs the tasks to initialize C/C++ run-time environment.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
@@ -45,7 +45,6 @@ namespace target
   void Boot::deinit()
   {
   }
-  
   
   /**
    * Returns the next record adderess.
