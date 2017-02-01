@@ -14,9 +14,4 @@ namespace target
    * The kernel configuration (no boot).
    */
   const Configuration* InterruptController::config_;
-
-  /**
-   * Global interrupts enable flag (no boot).
-   */
-  bool InterruptController::gie_;
 }

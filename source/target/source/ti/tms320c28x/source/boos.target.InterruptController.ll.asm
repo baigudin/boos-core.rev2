@@ -99,6 +99,7 @@ m_core_handler:
         .text
 m_global_disable:
 m_core_int_disable:
+        trap            #10
         nop
         b               m_global_disable, unc
 

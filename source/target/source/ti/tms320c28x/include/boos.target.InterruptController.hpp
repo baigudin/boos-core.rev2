@@ -174,20 +174,14 @@ namespace target
      *
      * @return global interrupts enable bit value before method was called.
      */
-    static bool globalDisable()
-    {
-      return gie_;
-    }
+    static bool globalDisable();
 
     /**
      * Enables all maskable interrupts.
      *
      * @param status the returned status by disable method.
      */
-    static void globalEnable(bool status)
-    {
-      gie_ = status;
-    }
+    static void globalEnable(bool status);
     
   private:    
     
@@ -228,11 +222,6 @@ namespace target
      * The kernel configuration (no boot).
      */
     static const Configuration* config_;
-
-    /**
-     * Global interrupts enable flag (no boot).
-     */
-    static bool gie_;
 
     /**
      * Handler of user class which implements an interrupt handler interface.

@@ -17,6 +17,7 @@ MEMORY
    */
 PAGE 0:    
 
+  HWI0        : origin = 0x000000,  length = 0x000040     /* HW Interrupt Vectors */  
   ZONE0       : origin = 0x004000,  length = 0x001000     /* XINTF zone 0 */
   RAML0       : origin = 0x008000,  length = 0x001000     /* on-chip RAM block L0 */
   RAML1       : origin = 0x009000,  length = 0x001000     /* on-chip RAM block L1 */
@@ -42,7 +43,7 @@ PAGE 0:
   IQTABLES2   : origin = 0x3FEB50,  length = 0x00008c     /* IQ Math Tables in Boot ROM */  
   FPUTABLES   : origin = 0x3FEBDC,  length = 0x0006A0     /* FPU Tables in Boot ROM */
   ROM         : origin = 0x3FF27C,  length = 0x000D44     /* Boot ROM */        
-  HWI         : origin = 0x3FFFC0,  length = 0x000040     /* part of boot ROM  */
+  HWI1        : origin = 0x3FFFC0,  length = 0x000040     /* HW Interrupt Vectors */
 
   /**
    * Data Memory
@@ -51,8 +52,7 @@ PAGE 0:
    */
 PAGE 1:
    
-  BOOT_RSVD   : origin = 0x000000, length = 0x000050     /* Part of M0, BOOT rom will use this for stack */
-  RAMM0       : origin = 0x000050, length = 0x0003B0     /* on-chip RAM block M0 */
+  RAMM0       : origin = 0x000040, length = 0x0003C0     /* on-chip RAM block M0 */
   RAMM1       : origin = 0x000400, length = 0x000400     /* on-chip RAM block M1 */
   RAML4       : origin = 0x00C000, length = 0x001000     /* BOOS Heap is on-chip RAM block L1 */
   RAML5       : origin = 0x00D000, length = 0x001000     /* on-chip RAM block L1 */
@@ -65,7 +65,7 @@ PAGE 1:
 SECTIONS
 {
     /** Hardware interrupts */    
-   .hwi                : > HWI,        PAGE = 0, TYPE = DSECT
+   .hwi                : > HWI0,       PAGE = 0, TYPE = DSECT
 
    /** Allocate program areas */
    .cinit              : > FLASHA      PAGE = 0
