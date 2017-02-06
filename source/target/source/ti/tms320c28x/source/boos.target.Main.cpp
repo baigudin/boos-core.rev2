@@ -13,6 +13,7 @@
 #include "boos.target.Configuration.hpp"
 #include "boos.target.Main.hpp"
 #include "boos.core.Main.hpp"
+#include "boos.Main.hpp"
 
 namespace target
 {
@@ -44,6 +45,8 @@ namespace target
       stage = -1;
       // Start the common kernel
       error = ::core::Main::main();
+      // Dedug start an user application
+      error = ::Main::main();
     }while(false);
     switch(stage)
     {

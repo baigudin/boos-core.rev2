@@ -30,7 +30,7 @@ namespace target
     /** 
      * Constructor.
      */      
-    TimerController() :
+    TimerController() : Parent(),
       number_ (-1),
       reg_    (NULL){
       for(int32 i=0; i<NUMBER_TIMERS; i++) 
@@ -49,7 +49,7 @@ namespace target
      *
      * @param number available timer number.
      */
-    TimerController(int32 number) : 
+    TimerController(int32 number) : Parent(),
       number_ (-1),
       reg_    (NULL){
       setConstruct( construct(number) );
@@ -314,7 +314,7 @@ namespace target
     int32 number_;
     
     /**
-     * HW timet registers (no boot).
+     * HW timer registers.
      */
     registers::Timer* reg_;        
   
