@@ -18,7 +18,7 @@
     .asg  _main__Q2_6target4MainSFv, m_main
 
     ; Mode stacks sizes
-    .asg  1000h, STACK_SIZE_CORE
+    .asg  800h, STACK_SIZE_CORE
     ; Mode stacks
     .bss  v_stack_core, STACK_SIZE_CORE, 8
 

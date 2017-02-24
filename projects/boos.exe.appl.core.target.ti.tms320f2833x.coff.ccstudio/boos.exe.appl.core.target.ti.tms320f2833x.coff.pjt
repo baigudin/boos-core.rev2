@@ -22,6 +22,8 @@ Source="..\..\source\core\source\boos.core.System.cpp"
 Source="..\..\source\core\source\boos.core.Thread.cpp"
 Source="..\..\source\core\source\boos.core.Timer.cpp"
 Source="..\..\source\core\source\boos.core.TimerInterrupt.cpp"
+Source="..\..\source\driver\source\boos.driver.Pwm.cpp"
+Source="..\..\source\driver\target\ti\tms320f2833x\epwm\boos.driver.PwmController.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Board.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Boot.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Boot.ll.asm"
@@ -35,12 +37,13 @@ Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Main.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Register.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Timer.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.TimerController.cpp"
+Source="Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map"
 Source="Source\boos.Main.cpp"
 Source="Source\ti.lib\rts2800_fpu32.lib"
-Source="..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320c28x.coff.cmd"
+Source="..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320f28335.coff.cmd"
 
 ["Compiler" Settings: "Debug"]
-Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c28x\include" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32
+Options=-g -fr"$(Proj_dir)\Debug" -ff"$(Proj_dir)\Debug" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\driver\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c28x\include" -i"$(Proj_dir)\..\..\source\driver\target\ti\tms320f2833x\epwm" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32
 
 ["Compiler" Settings: "Release"]
 Options=-g -o3 -fr"$(Proj_dir)\Release" -ff"$(Proj_dir)\Release" -i"$(Proj_dir)\..\..\include" -i"$(Proj_dir)\..\..\source\core\include" -i"$(Proj_dir)\..\..\source\target\include" -i"$(Proj_dir)\..\..\source\target\source\ti\tms320c28x\include" -d"BOOS_TYPE_WIDTH_LP32" -d"LARGE_MODEL" -ml -v28
@@ -51,9 +54,15 @@ Options=-c -m".\Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\D
 ["Linker" Settings: "Release"]
 Options=-c -m".\Release\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\Release\boos.exe.appl.core.target.ti.tms320f2833x.coff.out" -w -x
 
-["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320c28x.coff.cmd" Settings: "Debug"]
+["Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" Settings: "Debug"]
+ExcludeFromBuild=true
+
+["Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" Settings: "Release"]
+ExcludeFromBuild=true
+
+["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320f28335.coff.cmd" Settings: "Debug"]
 LinkOrder=1
 
-["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320c28x.coff.cmd" Settings: "Release"]
+["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320f28335.coff.cmd" Settings: "Release"]
 LinkOrder=1
 

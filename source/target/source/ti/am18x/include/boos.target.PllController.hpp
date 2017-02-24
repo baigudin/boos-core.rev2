@@ -35,7 +35,7 @@ namespace target
     /**
      * Initialization.
      *
-     * @param sourceClock Source clock in Hz.    
+     * @param sourceClock source clock in Hz.    
      * @param cpuClock    CPU clock in Hz.
      * @return true if no errors.
      */

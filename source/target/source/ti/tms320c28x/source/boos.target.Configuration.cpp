@@ -16,7 +16,7 @@ namespace target
   Configuration::Configuration() :
     sourceClock        (0),
     cpuClock           (150000000),
-    heapAddr           (reinterpret_cast<void*>(0x00c000)),
-    heapSize           (0x001000){
+    heapAddr           (reinterpret_cast<void*>(0x000400)),
+    heapSize           (0x000040){
   }
 }
