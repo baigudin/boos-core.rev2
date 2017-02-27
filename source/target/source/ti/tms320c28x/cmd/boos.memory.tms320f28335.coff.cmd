@@ -15,35 +15,36 @@ MEMORY
 PAGE 0:    
 
   HWI0        : origin = 0x000000, length = 0x000040
-  RAML        : origin = 0x008000, length = 0x008000
+  CODE        : origin = 0x008000, length = 0x006000
   HWI1        : origin = 0x3fffc0, length = 0x000040
 
   /** Data Memory */
 PAGE 1:
    
-  RAMM0       : origin = 0x000040, length = 0x0003C0 
-  RAMM1       : origin = 0x000400, length = 0x000400
+  DATA1       : origin = 0x000040, length = 0x0003c0
+  DATA        : origin = 0x00e000, length = 0x002000   
+  MEMORY      : origin = 0x000400, length = 0x000400
 }
 
 SECTIONS
 {
    /** Hardware interrupts */    
-   .hwi                : > HWI0,    PAGE = 0, TYPE = DSECT
+   .hwi                : > HWI0,    PAGE = 0
 
    /** Allocate program areas */
-   .cinit              : > RAML,    PAGE = 0
-   .pinit              : > RAML,    PAGE = 0
-   .text               : > RAML,    PAGE = 0
+   .cinit              : > CODE,    PAGE = 0
+   .pinit              : > CODE,    PAGE = 0
+   .text               : > CODE,    PAGE = 0
 
    /** Initalized data sections */
-   .cio                : > RAML,    PAGE = 0
-   .econst             : > RAML,    PAGE = 0
-   .switch             : > RAML,    PAGE = 0     
+   .cio                : > DATA,    PAGE = 1
+   .econst             : > DATA,    PAGE = 1
+   .switch             : > DATA,    PAGE = 1     
 
    /** Uninitalized data sections */
-   .bss                : > RAML,    PAGE = 0   
-   .stack              : > RAMM0,   PAGE = 1   
-   .ebss               : > RAMM0,   PAGE = 1
-   .esysmem            : > RAMM0,   PAGE = 1
-
+   .stack              : > DATA,    PAGE = 1   
+   .ebss               : > DATA,    PAGE = 1
+   .esysmem            : > DATA,    PAGE = 1
+   .bss                : > DATA1,   PAGE = 1   
+   
 }

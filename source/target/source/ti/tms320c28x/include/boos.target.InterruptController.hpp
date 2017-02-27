@@ -9,7 +9,6 @@
 #ifndef BOOS_TARGET_INTERRUPT_CONTROLLER_HPP_
 #define BOOS_TARGET_INTERRUPT_CONTROLLER_HPP_
 
-#include "boos.target.Core.hpp"
 #include "boos.target.Object.hpp"
 #include "boos.target.Interrupt.hpp"
 #include "boos.target.Configuration.hpp"
@@ -144,30 +143,6 @@ namespace target
     {
       reg_ = &reg;
     }
-
-    /**
-     * Tests if this interrupt source can be polarized.
-     *
-     * @return true if this source is polarizing.
-     */  
-    virtual bool isPolarizing()
-    {
-      return false;
-    }
-    
-    /**
-     * Sets a low-to-high transition on an interrupt source.
-     */
-    virtual void risingPolarization()
-    {
-    }
-    
-    /**
-     * Sets a high-to-low transition on an interrupt source.
-     */
-    virtual void fallingPolarization()
-    {
-    }
     
     /**
      * Disables all maskable interrupts.
@@ -237,7 +212,6 @@ namespace target
      * Target CPU register context.
      */
     Register* reg_;
-
 
     /**
      * Source interrupts enable flag (no boot).

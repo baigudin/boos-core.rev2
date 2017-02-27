@@ -2,7 +2,7 @@
  * Target processor interrupts factory.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
@@ -43,7 +43,7 @@ namespace target
      * Resets registers context for storing to the default.
      * 
      * Method restores default registers for storing the CPU registers to it.
-     * This method may be called in an user interrupt hander, it means
+     * This method may be called in an user interrupt handler, it means
      * the default conxet will be restored by the context restore procedure.
      */
     virtual void resetRegister() = 0;
@@ -52,29 +52,12 @@ namespace target
      * Sets new registers context for storing.
      * 
      * Method sets a new register context for storing the CPU registers to it.
-     * This method may be called in an user interrupt hander, it means
+     * This method may be called in an user interrupt handler, it means
      * given conxet will be restored by the context restore procedure.
      *
      * @param reg new registers context.
      */
     virtual void setRegister(::target::Register& reg) = 0;
-    
-    /**
-     * Tests if this interrupt source can be polarized.
-     *
-     * @return true if this source is polarizing.
-     */  
-    virtual bool isPolarizing() = 0;
-    
-    /**
-     * Sets a low-to-high transition on an interrupt source.
-     */
-    virtual void risingPolarization() = 0;
-    
-    /**
-     * Sets a high-to-low transition on an interrupt source.
-     */
-    virtual void fallingPolarization() = 0;      
   
     /**
      * Returns the interrupt interface of a target processor.

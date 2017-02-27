@@ -1,7 +1,7 @@
 ; Code Composer Project File, Version 2.0 (do not modify or remove this line)
 
 [Project Settings]
-ProjectDir=""
+ProjectDir="C:\Projects\os\src\boos\projects\boos.lib.target.ti.am18x.coff.ccstudio\"
 ProjectType=Library
 CPUFamily=TMS470R2X
 Tool="Archiver"

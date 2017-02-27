@@ -6,9 +6,9 @@
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
-#include "boos.core.Core.hpp" 
 #include "boos.core.Timer.hpp"
 #include "boos.target.Timer.hpp"
+#include "boos.target.System.hpp" 
 
 namespace core
 {
@@ -139,7 +139,7 @@ namespace core
    */  
   ::target::Timer& Timer::extension()
   {
-    if(!isConstructed()) Core::fail();
+    if(!isConstructed()) ::target::System::fail();
     return *target_;
   }
 }

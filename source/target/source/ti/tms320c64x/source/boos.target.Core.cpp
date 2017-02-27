@@ -1,23 +1,31 @@
 /** 
- * Target kernel of system.
+ * Target core initialization.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
 #include "boos.target.Core.hpp"
-#include "boos.target.Interrupt.hpp"
 
 namespace target
 {
+
   /**
-   * Fails the target core.
+   * Initialization.
+   *
+   * @param config the kernel configuration.
+   * @return true if no errors.
    */
-  void Core::fail()
+  bool Core::init()
   {
-    Interrupt::globalDisable();
-    while(true);
+    return true;
+  }
+  
+  /**
+   * Deinitialization.
+   */
+  void Core::deinit()
+  {
   }
 }
-

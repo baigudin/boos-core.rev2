@@ -33,9 +33,12 @@ namespace api
     /** 
      * Enables a controller.
      *
-     * @param status returned status by disable method.
+     * The true passed argument directly turns a controller on, 
+     * either the false does nothing, a controller stays in the current state.
+     * 
+     * @param status returned status by disable method, or true for directly turning a controller on.
      */    
-    virtual void enable(bool status) = 0;
+    virtual void enable(bool status=true) = 0;
 
     /** 
      * Enables a controller.

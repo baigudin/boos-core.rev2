@@ -7,6 +7,7 @@
  * @link      http://baigudin.software
  */
 #include "boos.target.Board.hpp"
+#include "boos.target.PllController.hpp"
 
 namespace target
 {
@@ -20,7 +21,9 @@ namespace target
   bool Board::init(const Configuration& config)
   {
     config_ = &config;
-    return true;
+    bool res = true;
+    res = res && PllController::init(config.sourceClock, config.cpuClock);    
+    return res;
   }
   
   /**

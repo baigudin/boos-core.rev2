@@ -14,7 +14,6 @@
 
 namespace target
 {
-
   class Board
   {
 

@@ -6,9 +6,8 @@
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
+#include "boos.core.Core.hpp" 
 #include "boos.core.CoreTimerInterrupt.hpp"
-#include "boos.core.Core.hpp"
-#include "boos.target.Core.hpp"
 
 namespace core
 {
@@ -20,14 +19,6 @@ namespace core
   int64 Core::nanoTime()
   {
     return interrupt_ != NULL ? interrupt_->nanoTime() : 0;
-  }
-  
-  /** 
-   * Terminates the kernel execution.
-   */      
-  void Core::fail()
-  {
-    ::target::Core::fail();
   }
 
   /**

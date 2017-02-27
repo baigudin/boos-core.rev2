@@ -250,56 +250,6 @@ namespace target
       if(!isAllocated()) return;
       ctx_->low->reg = reg.registers();
     }
-
-    /**
-     * Tests if this interrupt source can be polarized.
-     *
-     * @return true if this source is polarizing.
-     */  
-    virtual bool isPolarizing()
-    {
-      if(!isAllocated()) return false;
-      switch(ctx_->source)
-      {
-        default    : return false;
-        case GPINT4:
-        case GPINT5:
-        case GPINT6:
-        case GPINT7: return true;
-      }
-    }
-    
-    /**
-     * Sets a low-to-high transition on an interrupt source.
-     */
-    virtual void risingPolarization()
-    {
-      if(!isAllocated()) return;
-      switch(ctx_->source)
-      {
-        case GPINT4: intc_->extpol.bit.xip4 = 0; break;
-        case GPINT5: intc_->extpol.bit.xip5 = 0; break;
-        case GPINT6: intc_->extpol.bit.xip6 = 0; break;
-        case GPINT7: intc_->extpol.bit.xip7 = 0; break;
-        default: break;
-      }    
-    }
-    
-    /**
-     * Sets a high-to-low transition on an interrupt source.
-     */
-    virtual void fallingPolarization()
-    {
-      if(!isAllocated()) return;
-      switch(ctx_->source)
-      {
-        case GPINT4: intc_->extpol.bit.xip4 = 1; break;
-        case GPINT5: intc_->extpol.bit.xip5 = 1; break;
-        case GPINT6: intc_->extpol.bit.xip6 = 1; break;
-        case GPINT7: intc_->extpol.bit.xip7 = 1; break;
-        default: break;
-      }    
-    }
     
     /**
      * Disables all maskable interrupts.
@@ -315,7 +265,57 @@ namespace target
      */
     static void globalEnable(bool status);
 
-  private:    
+  private:
+  
+    /**
+     * Tests if this interrupt source can be polarized.
+     *
+     * @return true if this source is polarizing.
+     */  
+    bool isPolarizing()
+    {
+      if(!isAllocated()) return false;
+      switch(ctx_->source)
+      {
+        default    : return false;
+        case GPINT4:
+        case GPINT5:
+        case GPINT6:
+        case GPINT7: return true;
+      }
+    }
+    
+    /**
+     * Sets a low-to-high transition on an interrupt source.
+     */
+    void risingPolarization()
+    {
+      if(!isAllocated()) return;
+      switch(ctx_->source)
+      {
+        case GPINT4: intc_->extpol.bit.xip4 = 0; break;
+        case GPINT5: intc_->extpol.bit.xip5 = 0; break;
+        case GPINT6: intc_->extpol.bit.xip6 = 0; break;
+        case GPINT7: intc_->extpol.bit.xip7 = 0; break;
+        default: break;
+      }    
+    }
+    
+    /**
+     * Sets a high-to-low transition on an interrupt source.
+     */
+    void fallingPolarization()
+    {
+      if(!isAllocated()) return;
+      switch(ctx_->source)
+      {
+        case GPINT4: intc_->extpol.bit.xip4 = 1; break;
+        case GPINT5: intc_->extpol.bit.xip5 = 1; break;
+        case GPINT6: intc_->extpol.bit.xip6 = 1; break;
+        case GPINT7: intc_->extpol.bit.xip7 = 1; break;
+        default: break;
+      }    
+    }      
     
     /**
      * Initialization.

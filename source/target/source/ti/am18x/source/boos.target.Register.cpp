@@ -20,4 +20,14 @@ namespace target
   {
     return new registers::Cpu();
   }
+
+  /** 
+   * Access to protected memory mapped CPU registers.
+   *
+   * @return the interface, or NULL if CPU family does not have protected registers, or error has been occurred.
+   */    
+  ::api::Toggle* Register::access()
+  {
+    return NULL;
+  }
 }

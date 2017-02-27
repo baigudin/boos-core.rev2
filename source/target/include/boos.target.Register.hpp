@@ -2,7 +2,7 @@
  * Target processor registers factory.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
- * @copyright 2016 Sergey Baigudin
+ * @copyright 2016-2017 Sergey Baigudin
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
@@ -11,6 +11,7 @@
 
 #include "boos.api.Object.hpp"
 #include "boos.api.Stack.hpp"
+#include "boos.api.Toggle.hpp"
 
 namespace target
 {
@@ -25,7 +26,7 @@ namespace target
     virtual ~Register(){}
   
     /** 
-     * Initializes the registers.
+     * Initializes the CPU registers.
      *
      * Usually, this method is used for normally restoring 
      * from some interrupt service routines. 
@@ -38,7 +39,7 @@ namespace target
     virtual void initialize(::api::Stack<int64>& stack, int32 entry, int32 arg1, int32 arg2) = 0;
   
     /** 
-     * Returns a pointer to the first register of registers.
+     * Returns a pointer to the first register of CPU registers context.
      *
      * @return memory address of registers order, or NULL if error has been occurred.
      */    
@@ -50,6 +51,13 @@ namespace target
      * @return target processor register interface, or NULL if error has been occurred.
      */
     static ::target::Register* create();
+
+    /** 
+     * Access to protected memory mapped CPU registers.
+     *
+     * @return the interface, or NULL if CPU family does not have protected registers, or error has been occurred.
+     */    
+    static ::api::Toggle* access();    
     
   };
 }

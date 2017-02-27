@@ -14,9 +14,9 @@ namespace target
    * Constructor.
    */     
   Configuration::Configuration() :
-    sourceClock        (0),
+    sourceClock        (30000000),
     cpuClock           (150000000),
-    heapAddr           (reinterpret_cast<void*>(0x000400)),
-    heapSize           (0x000040){
+    heapAddr           (reinterpret_cast<void*>(0x00000400)),
+    heapSize           (0x00000400){
   }
 }

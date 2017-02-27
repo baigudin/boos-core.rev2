@@ -7,18 +7,21 @@
 ; @link      http://baigudin.software
 ; ----------------------------------------------------------------------------
     .c28_amode
+    
     .def  m_core_start
     
-;    .ref  m_core_int_enable
-;    .ref  m_core_int_disable
-
+    .def  _registerProtected__Q2_6target4CoreSFv    
+    .def  _registerPublic__Q2_6target4CoreSFv
+    
     .ref  bss
     .ref  _main__Q2_6target4MainSFv
-    .asg  bss,                  m_bss    
-    .asg  _main__Q2_6target4MainSFv, m_main
-
+    
+    .asg  bss,                                    m_bss
+    .asg  _main__Q2_6target4MainSFv,              m_main
+    .asg  _registerProtected__Q2_6target4CoreSFv, m_dallow        
+    .asg  _registerPublic__Q2_6target4CoreSFv,    m_eallow
     ; Mode stacks sizes
-    .asg  800h, STACK_SIZE_CORE
+    .asg  3c0h, STACK_SIZE_CORE
     ; Mode stacks
     .bss  v_stack_core, STACK_SIZE_CORE, 8
 
@@ -36,8 +39,8 @@ m_core_start:
         mov             sp, #v_stack_core  ; Set kernel stack pointer
         clrc            c, tc, ovm, sxm    ; Clear Status Register 0
         spm             0                  ; Set product shift mode
-        clrc            page0              ; Clear Status Register 1
-        setc            vmap, dbgm, intm   ; Set Status Register 1
+        clrc            vmap, page0        ; Clear Status Register 1
+        setc            dbgm, intm         ; Set Status Register 1
         movw            dp, #0             ; Initialize DP
         nop             *, arp0            ; Set ARP pointer to XAR0        
         asp                                ; Ensure SP is aligned
@@ -66,3 +69,19 @@ m_core_start:
         .text
 m_core_deinit:
         b               m_core_deinit, unc
+        
+; ----------------------------------------------------------------------------
+; Disables access to protected space.
+; ----------------------------------------------------------------------------
+        .text
+m_dallow:        
+        edis
+        lretr
+
+; ----------------------------------------------------------------------------
+; Enables access to protected space.
+; ----------------------------------------------------------------------------
+        .text
+m_eallow:
+        eallow
+        lretr        

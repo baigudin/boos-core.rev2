@@ -9,7 +9,6 @@
 #ifndef BOOS_TARGET_INTERRUPT_CONTROLLER_HPP_
 #define BOOS_TARGET_INTERRUPT_CONTROLLER_HPP_
 
-#include "boos.target.Core.hpp"
 #include "boos.target.Object.hpp"
 #include "boos.target.Interrupt.hpp"
 #include "boos.target.registers.Cpu.hpp"
@@ -294,7 +293,6 @@ namespace target
       ctx_->low->arg = channel;        
       ctx_->low->reg = ctx_->reg->registers();
       ctx_->low->tos = ctx_->stack->tos();
-      risingPolarization();
       return Interrupt::globalEnable(is, true);
     }
 
@@ -337,30 +335,6 @@ namespace target
     virtual void setRegister(::target::Register& reg)
     {
       if(isAllocated()) ctx_->low->reg = reg.registers();
-    }
-
-    /**
-     * Tests if this interrupt source can be polarized.
-     *
-     * @return true if this source is polarizing.
-     */  
-    virtual bool isPolarizing()
-    {
-      return false;
-    }
-    
-    /**
-     * Sets a low-to-high transition on an interrupt source.
-     */
-    virtual void risingPolarization()
-    {
-    }
-    
-    /**
-     * Sets a high-to-low transition on an interrupt source.
-     */
-    virtual void fallingPolarization()
-    {
     }
     
     /**

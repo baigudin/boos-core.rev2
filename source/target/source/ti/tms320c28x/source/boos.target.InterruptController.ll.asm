@@ -34,22 +34,62 @@
     .asg  _jumpLow__Q2_6target19InterruptControllerSFUi,      m_jump
     .asg  _handler__Q2_6target19InterruptControllerSFi,       m_handler
     .asg  _contextLow___Q2_6target19InterruptController,      v_context
+    
+; ----------------------------------------------------------------------------
+; Hardware interrupt vector
+; ----------------------------------------------------------------------------
+vector  .macro          n
+vec_:n: .ulong          han_:n:
+        .endm    
 
 ; ----------------------------------------------------------------------------
-; Hardware interrupt handler (the execution is 7 cycles).
-;
-; This is a macro command for interrupts table.
-; It has fixed size that equals eight.
+; Hardware interrupt handler.
 ; ----------------------------------------------------------------------------
 handler .macro          n
-int_:n: b               int_:n:, unc
+han_:n: b               han_:n:, unc
         .endm
         
 ; ----------------------------------------------------------------------------
 ; Hardware interrupts table.
 ; ----------------------------------------------------------------------------
         .sect           ".hwi"
-m_core_reset:
+        vector          0
+        vector          1
+        vector          2
+        vector          3
+        vector          4
+        vector          5
+        vector          6
+        vector          7
+        vector          8
+        vector          9
+        vector          10
+        vector          11
+        vector          12
+        vector          13
+        vector          14
+        vector          15
+        vector          16
+        vector          17
+        vector          18
+        vector          19
+        vector          20
+        vector          21
+        vector          22
+        vector          23
+        vector          24
+        vector          25
+        vector          26
+        vector          27
+        vector          28
+        vector          29
+        vector          30                                                                                        
+        vector          31
+        
+; ----------------------------------------------------------------------------
+; Hardware interrupts table.
+; ----------------------------------------------------------------------------
+        .text
         handler         0
         handler         1
         handler         2
@@ -99,7 +139,6 @@ m_core_handler:
         .text
 m_global_disable:
 m_core_int_disable:
-        trap            #10
         nop
         b               m_global_disable, unc
 

@@ -6,6 +6,7 @@
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
+#include "boos.target.Core.hpp" 
 #include "boos.target.Board.hpp"
 #include "boos.target.InterruptController.hpp"
 #include "boos.target.TimerController.hpp"
@@ -24,29 +25,28 @@ namespace target
    */
   int32 Main::main()   
   {
+    int32 error = -1;
+    int32 stage = 0;    
+    if( not Core::init() ) return error;
     const Configuration config = Configuration();
     ::Allocator::setHeap(config.heapAddr, config.heapSize);
-    int32 error = -1;
-    int32 stage = 0;  
     do{
       // Stage 1
       stage++;
-      if( !Board::init(config) ) break;    
+      if( not Board::init(config) ) break;    
       // Stage 2
       stage++;
-      if( !Boot::init() ) break;     
+      if( not Boot::init() ) break;     
       // Stage 3
       stage++;
-      if( !InterruptController::init(config) ) break;
+      if( not InterruptController::init(config) ) break;
       // Stage 4
       stage++;
-      if( !TimerController::init(config) ) break;
+      if( not TimerController::init(config) ) break;
       // Stage complete
       stage = -1;
       // Start the common kernel
       error = ::core::Main::main();
-      // Dedug start an user application
-      error = ::Main::main();
     }while(false);
     switch(stage)
     {

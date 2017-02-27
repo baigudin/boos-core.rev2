@@ -6,8 +6,8 @@
  * @license   http://baigudin.software/license/
  * @link      http://baigudin.software
  */
-#include "boos.core.Core.hpp"
 #include "boos.core.Interrupt.hpp"
+#include "boos.target.System.hpp"
 #include "boos.target.Interrupt.hpp"
  
 namespace core
@@ -116,8 +116,6 @@ namespace core
     if(!isConstructed_) return;
     target_->enable(status);  
   }
-  
-
 
   /**
    * Initialization.
@@ -164,7 +162,7 @@ namespace core
    */ 
   ::api::Toggle& Interrupt::global()
   {
-    if(global_ == NULL) Core::fail();
+    if(global_ == NULL) ::target::System::fail();
     return *global_;
   }
   
@@ -175,7 +173,7 @@ namespace core
    */  
   ::target::Interrupt& Interrupt::extension()
   {
-    if(!isConstructed_) Core::fail();
+    if(!isConstructed_) ::target::System::fail();
     return *target_;
   }
   

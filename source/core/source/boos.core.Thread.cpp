@@ -8,6 +8,7 @@
  */
 #include "boos.core.Thread.hpp"
 #include "boos.core.Scheduler.hpp"
+#include "boos.target.System.hpp"
 #include "boos.target.Register.hpp"
 #include "boos.util.Stack.hpp"
 
@@ -118,9 +119,9 @@ namespace core
    */
   Thread& Thread::currentThread()
   {
-    if(scheduler_ == NULL) Core::fail();
+    if(scheduler_ == NULL) ::target::System::fail();
     Thread* thread = scheduler_->currentTask();
-    if(thread == NULL) Core::fail();
+    if(thread == NULL) ::target::System::fail();
     return *thread;
   }
 
@@ -173,7 +174,7 @@ namespace core
    */ 
   ::api::Toggle& Thread::global()
   {
-    if(scheduler_ == NULL) Core::fail();
+    if(scheduler_ == NULL) ::target::System::fail();
     return *scheduler_;
   }
   

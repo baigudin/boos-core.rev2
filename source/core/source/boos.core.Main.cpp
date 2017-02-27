@@ -23,21 +23,21 @@ namespace core
    */   
   int32 Main::main()  
   {
+    int32 stage = 0;
     int32 error = -1;
-    int32 stage = 0;  
     do{
       // Stage 1 
       stage++;
-      if( !Interrupt::init() ) break;
+      if( not Interrupt::init() ) break;
       // Stage 2
       stage++;
-      if( !Thread::init() ) break;      
+      if( not Thread::init() ) break;      
       // Stage 3
       stage++;
-      if( !Synchronizer::init() ) break;      
+      if( not Synchronizer::init() ) break;      
       // Stage 4
       stage++;
-      if( !Core::init() ) break;      
+      if( not Core::init() ) break;      
       // Stage complete
       stage = -1;
       {
