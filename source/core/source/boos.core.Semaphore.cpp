@@ -144,9 +144,8 @@ namespace core
   {
     if(!isConstructed_) return;
     bool is = Int::globalDisable();
-    // Increment the number of available permits    
     permits_ += permits;
-    // Signal the semaphore has released permits
+    Int::globalEnable(is);
   }  
   
   /** 
