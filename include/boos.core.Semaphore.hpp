@@ -68,18 +68,15 @@ namespace core
 
     /**
      * Releases one permit.
-     *
-     * @return true if the semaphore is released successfully.
      */
-    virtual bool release();
+    virtual void release();
 
     /**
      * Releases the given number of permits.
      *
      * @param permits the number of permits to release.
-     * @return true if the semaphore is released successfully.
      */  
-    virtual bool release(int32 permits);
+    virtual void release(int32 permits);
 
     /**
      * Tests if this semaphore is fair.

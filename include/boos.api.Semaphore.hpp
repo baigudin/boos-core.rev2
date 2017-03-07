@@ -48,10 +48,8 @@ namespace api
      * Releases one permit.
      *
      * The method releases from one permit and returns this to the semaphore.
-     *
-     * @return true if the semaphore is released successfully.
      */
-    virtual bool release() = 0;
+    virtual void release() = 0;
 
     /**
      * Releases the given number of permits.
@@ -59,9 +57,8 @@ namespace api
      * The method releases from the permits and returns these to the semaphore.     
      *
      * @param permits the number of permits to release.
-     * @return true if the semaphore is released successfully.
      */  
-    virtual bool release(int32 permits) = 0;
+    virtual void release(int32 permits) = 0;
 
     /**
      * Tests if this semaphore is fair.

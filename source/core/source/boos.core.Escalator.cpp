@@ -108,9 +108,9 @@ namespace core
    *
    * @return true if the escalator is released successfully.
    */
-  bool Escalator::release()
+  void Escalator::release()
   {
-    return release(1);
+    release(1);
   }    
 
   /**
@@ -119,10 +119,10 @@ namespace core
    * @param permits the number of permits to release.
    * @return true if the escalator is released successfully.
    */  
-  bool Escalator::release(int32 permits)
+  void Escalator::release(int32 permits)
   {
     bool res, is;
-    if(!isConstructed()) return false;
+    if(!isConstructed()) return;
     is = toggle_.disable();
     Node node(Thread::currentThread(), permits);
     // Remove current thread from executing list    
@@ -130,7 +130,7 @@ namespace core
     // Increment the number of available permits    
     if(res == true) permits_ += permits;
     // Signal the escalator has released permits
-    return toggle_.enable(is, res);
+    toggle_.enable(is);
   }  
   
   /** 

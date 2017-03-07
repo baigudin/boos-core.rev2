@@ -58,12 +58,10 @@ namespace core
     
     /**
      * Unlock mutex.
-     *
-     * @return true if the semaphore is unlock successfully.
      */      
-    virtual bool unlock()
+    virtual void unlock()
     {
-      return sem_.release();         
+      sem_.release();         
     }
 
     /** 

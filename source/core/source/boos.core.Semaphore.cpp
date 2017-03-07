@@ -129,28 +129,24 @@ namespace core
 
   /**
    * Releases one permit.
-   *
-   * @return true if the semaphore is released successfully.
    */
-  bool Semaphore::release()
+  void Semaphore::release()
   {
-    return release(1);
+    release(1);
   }    
 
   /**
    * Releases the given number of permits.
    *
    * @param permits the number of permits to release.
-   * @return true if the semaphore is released successfully.
    */  
-  bool Semaphore::release(int32 permits)
+  void Semaphore::release(int32 permits)
   {
-    if(!isConstructed_) return false;
+    if(!isConstructed_) return;
     bool is = Int::globalDisable();
     // Increment the number of available permits    
     permits_ += permits;
     // Signal the semaphore has released permits
-    return Int::globalEnable(is, true);
   }  
   
   /** 

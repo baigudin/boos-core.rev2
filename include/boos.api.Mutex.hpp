@@ -32,10 +32,8 @@ namespace api
 
     /**
      * Unlocks this mutex.
-     *
-     * @return true if this mutex is unlocked successfully.       
      */
-    virtual bool unlock() = 0;   
+    virtual void unlock() = 0;   
 
     /**
      * Unlocks this mutex.       
