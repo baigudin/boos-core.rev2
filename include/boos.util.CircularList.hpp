@@ -78,6 +78,7 @@ namespace util
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     CircularList& operator =(const CircularList& obj);
 
@@ -294,6 +295,7 @@ namespace util
        * Assignment operator.
        *
        * @param obj reference to source object.
+       * @return reference to this object.       
        */
       Iterator& operator =(const Iterator& obj);
 

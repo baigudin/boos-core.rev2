@@ -84,6 +84,7 @@ namespace core
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     TimerInterrupt& operator =(const TimerInterrupt& obj);      
 

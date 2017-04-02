@@ -17,7 +17,7 @@ namespace api
    * @param Type data type of illegal value.
    */ 
   template <typename Type>
-  class IllegalValue  : public Object
+  class IllegalValue  : public ::api::Object
   {
     
   public:

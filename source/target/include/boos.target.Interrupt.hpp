@@ -85,9 +85,12 @@ namespace target
     /**
      * Enables all maskable interrupts.
      *
+     * The true passed argument directly turns all maskable interrupts on, 
+     * and the false does nothing, the interrupts stay in the current state.     
+     *
      * @param status the returned status by disable method.
      */
-    static void globalEnable(bool status);
+    static void globalEnable(bool status=true);
     
     /**
      * Enables all maskable interrupts.

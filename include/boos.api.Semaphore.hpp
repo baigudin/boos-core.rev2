@@ -13,7 +13,7 @@
 
 namespace api
 {  
-  class Semaphore : public Resource
+  class Semaphore : public ::api::Resource
   {
 
   public:

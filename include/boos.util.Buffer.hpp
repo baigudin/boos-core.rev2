@@ -63,6 +63,7 @@ namespace util
      * only cropped data of that will be copied.
      *
      * @param buf reference to source buffer.
+     * @return reference to this object.     
      */
     Buffer& operator =(const Buffer<Type,COUNT,Alloc>& buf)
     {
@@ -77,6 +78,7 @@ namespace util
      * only cropped data of that will be copied.
      *
      * @param buf reference to source buffer.
+     * @return reference to this object.     
      */
     Buffer& operator =(const AbstractBuffer<Type,Alloc>& buf)
     {
@@ -201,6 +203,7 @@ namespace util
      * only cropped data of that will be copied.
      *
      * @param buf reference to source buffer.
+     * @return reference to this object.     
      */
     Buffer& operator =(const Buffer<Type,0,Alloc>& buf)
     {
@@ -215,6 +218,7 @@ namespace util
      * only cropped data of that will be copied.
      *
      * @param buf reference to source buffer.
+     * @return reference to this object.     
      */
     Buffer& operator =(const AbstractBuffer<Type,Alloc>& buf)
     {

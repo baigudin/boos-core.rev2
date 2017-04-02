@@ -1,14 +1,13 @@
 ; Code Composer Project File, Version 2.0 (do not modify or remove this line)
 
 [Project Settings]
-ProjectDir="C:\Projects\os\src\boos\projects\boos.exe.appl.core.target.ti.tms320c64x.coff.ccstudio\"
+ProjectDir="D:\baigudin\boos.v2\projects\boos.exe.appl.core.target.ti.tms320c64x.coff.ccstudio\"
 ProjectType=Executable
 CPUFamily=TMS320C64XX
 Tool="Compiler"
 Tool="CustomBuilder"
 Tool="DspBiosBuilder"
 Tool="Linker"
-Tool="XDC"
 Config="Debug"
 Config="Release"
 
@@ -17,6 +16,7 @@ Source="..\..\source\core\source\boos.core.Core.cpp"
 Source="..\..\source\core\source\boos.core.Escalator.cpp"
 Source="..\..\source\core\source\boos.core.Interrupt.cpp"
 Source="..\..\source\core\source\boos.core.Main.cpp"
+Source="..\..\source\core\source\boos.core.Mutex.cpp"
 Source="..\..\source\core\source\boos.core.Semaphore.cpp"
 Source="..\..\source\core\source\boos.core.Synchronizer.cpp"
 Source="..\..\source\core\source\boos.core.System.cpp"

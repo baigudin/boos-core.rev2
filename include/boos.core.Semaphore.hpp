@@ -11,7 +11,6 @@
 
 #include "boos.core.Object.hpp"
 #include "boos.api.Semaphore.hpp"
-#include "boos.api.Toggle.hpp"
 #include "boos.util.LinkedList.hpp"
 
 namespace core
@@ -128,6 +127,7 @@ namespace core
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     Semaphore& operator =(const Semaphore& obj);     
     

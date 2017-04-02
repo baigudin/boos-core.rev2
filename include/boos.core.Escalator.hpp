@@ -143,6 +143,7 @@ namespace core
        * Assignment operator.
        *
        * @param node reference to source node.
+       * @return reference to this object.
        */  
       Node& operator =(const Node& node)
       {
@@ -268,6 +269,7 @@ namespace core
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.
      */
     Escalator& operator =(const Escalator& obj);     
 

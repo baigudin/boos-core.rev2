@@ -17,7 +17,7 @@ namespace api
    * @param Type data type of default stack element.
    */ 
   template <typename Type>  
-  class Stack : public Collection<Type>
+  class Stack : public ::api::Collection<Type>
   { 
   
   public:

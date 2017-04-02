@@ -62,6 +62,7 @@ namespace util
      * Assignment operator.
      *
      * @param val source data value.
+     * @return reference to this object.     
      */
     Align& operator =(Type val)
     {
@@ -73,6 +74,7 @@ namespace util
      * Assignment operator.
      *
      * @param obj reference to source object. 
+     * @return reference to this object.     
      */    
     Align& operator =(const Align& obj)
     {

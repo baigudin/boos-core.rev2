@@ -1,7 +1,7 @@
 ; Code Composer Project File, Version 2.0 (do not modify or remove this line)
 
 [Project Settings]
-ProjectDir="C:\Projects\os\src\boos\projects\boos.exe.appl.core.target.ti.tms320f2833x.coff.ccstudio\"
+ProjectDir="D:\baigudin\boos.v2\projects\boos.exe.appl.core.target.ti.tms320f2833x.coff.ccstudio\"
 ProjectType=Executable
 CPUFamily=TMS320C28XX
 Tool="Compiler"
@@ -36,7 +36,6 @@ Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Register.cpp
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.System.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.Timer.cpp"
 Source="..\..\source\target\source\ti\tms320c28x\source\boos.target.TimerController.cpp"
-Source="Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map"
 Source="Source\boos.Main.cpp"
 Source="Source\ti.lib\rts2800_fpu32.lib"
 Source="..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320f28335.coff.cmd"
@@ -52,12 +51,6 @@ Options=-c -m".\Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\D
 
 ["Linker" Settings: "Release"]
 Options=-c -m".\Release\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" -o".\Release\boos.exe.appl.core.target.ti.tms320f2833x.coff.out" -w -x
-
-["Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" Settings: "Debug"]
-ExcludeFromBuild=true
-
-["Debug\boos.exe.appl.core.target.ti.tms320f2833x.coff.map" Settings: "Release"]
-ExcludeFromBuild=true
 
 ["..\..\source\target\source\ti\tms320c28x\cmd\boos.memory.tms320f28335.coff.cmd" Settings: "Debug"]
 LinkOrder=1

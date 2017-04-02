@@ -485,6 +485,7 @@ namespace util
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     AbstractLinkedList& operator =(const AbstractLinkedList& obj);
 

@@ -1,5 +1,5 @@
 /**
- * Mutex semaphore class.
+ * Mutex class.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2015-2016 Sergey Baigudin
@@ -9,11 +9,14 @@
 #ifndef BOOS_CORE_MUTEX_HPP_
 #define BOOS_CORE_MUTEX_HPP_
 
-#include "boos.core.Semaphore.hpp"
+#include "boos.core.Object.hpp"
 #include "boos.api.Mutex.hpp"
+#include "boos.util.LinkedList.hpp"
 
 namespace core
 {  
+  class Thread;
+  
   class Mutex : public ::core::Object<>, public ::api::Mutex
   {
     typedef ::core::Object<> Parent;    
@@ -23,58 +26,47 @@ namespace core
     /** 
      * Constructor.
      */    
-    Mutex() : Parent(),
-      sem_(1){
-      setConstruct( sem_.isConstructed() );
-    }
+    Mutex();
 
-    
     /** 
      * Destructor.
      */      
-    virtual ~Mutex()
-    {
-    }
-    
+    virtual ~Mutex();
+        
     /**
      * Tests if this object has been constructed.
      *
      * @return true if object has been constructed successfully.
      */    
-    virtual bool isConstructed() const
-    {
-      return this->Parent::isConstructed();
-    }    
+    virtual bool isConstructed() const;  
     
     /**
-     * Lock mutex.
+     * Locks the mutex.
      *
-     * @return true if the semaphore is lock successfully.
+     * @return true if the mutex is lock successfully.
      */      
-    virtual bool lock()
-    {
-      return sem_.acquire();
-    }
+    virtual bool lock();
     
     /**
-     * Unlock mutex.
+     * Unlocks the mutex.
      */      
-    virtual void unlock()
-    {
-      sem_.release();         
-    }
+    virtual void unlock();
 
     /** 
      * Tests if this resource is blocked.
      *
      * @return true if this resource is blocked.
      */ 
-    virtual bool isBlocked()
-    {
-      return sem_.isBlocked();
-    }
+    virtual bool isBlocked();
 
   private:
+
+    /**
+     * Constructor.
+     *
+     * @return true if object has been constructed successfully.     
+     */    
+    bool construct();  
     
     /**
      * Copy constructor.
@@ -87,13 +79,34 @@ namespace core
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     Mutex& operator =(const Mutex& obj);      
+
+    /**
+     * The unlocked id.
+     */
+    static const int64 UNLOCKED_ID = -1;    
+
+    /** 
+     * Reference the root object constructed flag.
+     */  
+    const bool& isConstructed_; 
   
     /**
-     * Semaphore resource.
+     * The identifier of locked thread.
      */
-    Semaphore sem_;
+    int64 id_;
+    
+    /**
+     * The mutex counter.
+     */
+    int32 count_;
+    
+    /** 
+     * Queue of locked threads.
+     */     
+    ::util::LinkedList<Thread*> fifo_;    
 
   };
 }

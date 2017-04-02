@@ -18,7 +18,7 @@ namespace api
    * @param Type data type of list element.
    */ 
   template <typename Type>
-  class List : public Collection<Type>
+  class List : public ::api::Collection<Type>
   {
     
   public:

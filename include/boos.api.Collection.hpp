@@ -17,7 +17,7 @@ namespace api
    * @param Type data type of collection element.
    */ 
   template <typename Type>
-  class Collection : public IllegalValue<Type>
+  class Collection : public ::api::IllegalValue<Type>
   {
     
   public:

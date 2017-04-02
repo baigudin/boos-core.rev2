@@ -18,7 +18,7 @@ namespace api
    * @param Type data type of iterator element.
    */ 
   template <typename Type>
-  class Iterator : public IllegalValue<Type>
+  class Iterator : public ::api::IllegalValue<Type>
   {
     
   public:

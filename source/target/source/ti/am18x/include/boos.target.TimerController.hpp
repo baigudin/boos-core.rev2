@@ -416,6 +416,7 @@ namespace target
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     TimerController& operator =(const TimerController& obj);
 

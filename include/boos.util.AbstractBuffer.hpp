@@ -217,6 +217,7 @@ namespace util
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     AbstractBuffer& operator =(const AbstractBuffer& obj);
 

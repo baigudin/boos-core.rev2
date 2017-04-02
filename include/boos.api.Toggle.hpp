@@ -13,7 +13,7 @@
 
 namespace api
 {
-  class Toggle : public Object
+  class Toggle : public ::api::Object
   {
 
   public:
@@ -34,7 +34,7 @@ namespace api
      * Enables a controller.
      *
      * The true passed argument directly turns a controller on, 
-     * either the false does nothing, a controller stays in the current state.
+     * and the false does nothing, a controller stays in the current state.
      * 
      * @param status returned status by disable method, or true for directly turning a controller on.
      */    

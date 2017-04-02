@@ -17,7 +17,7 @@ namespace api
    * @param Type data type of queue element.
    */
   template <typename Type>
-  class Queue : public Collection<Type>
+  class Queue : public ::api::Collection<Type>
   {
     
   public:

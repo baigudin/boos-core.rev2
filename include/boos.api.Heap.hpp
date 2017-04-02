@@ -13,7 +13,7 @@
 
 namespace api
 {
-  class Heap : public Object
+  class Heap : public ::api::Object
   {
     
   public:

@@ -13,7 +13,7 @@
 
 namespace api
 {
-  class Interrupt : public Toggle
+  class Interrupt : public ::api::Toggle
   {
 
   public:

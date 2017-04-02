@@ -17,7 +17,7 @@ namespace api
    * @param Type data type of list iterator element.
    */
   template <typename Type>
-  class ListIterator : public Iterator<Type>
+  class ListIterator : public ::api::Iterator<Type>
   {
     
   public:

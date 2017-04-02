@@ -16,7 +16,7 @@
 
 namespace api
 {
-  class Synchronizable : public Object
+  class Synchronizable : public ::api::Object
   {
 
   public:

@@ -290,6 +290,7 @@ namespace util
      * Assignment operator.
      *
      * @param src reference to source object.
+     * @return reference to this object.     
      */    
     Heap& operator =(const Heap&);
     
@@ -603,6 +604,7 @@ namespace util
        * Assignment operator.
        *
        * @param src reference to source object.
+       * @return reference to this object.       
        */
       HeapBlock& operator =(const HeapBlock&);
 
@@ -741,6 +743,7 @@ namespace util
        * Assignment operator.
        *
        * @param obj reference to source object.
+       * @return reference to this object.       
        */
       HeapData& operator =(const HeapData& obj);
 

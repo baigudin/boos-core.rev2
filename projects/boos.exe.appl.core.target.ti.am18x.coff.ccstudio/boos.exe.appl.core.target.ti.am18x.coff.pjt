@@ -1,13 +1,12 @@
 ; Code Composer Project File, Version 2.0 (do not modify or remove this line)
 
 [Project Settings]
-ProjectDir="C:\Projects\os\src\boos\projects\boos.exe.appl.core.target.ti.am18x.coff.ccstudio\"
+ProjectDir="D:\baigudin\boos.v2\projects\boos.exe.appl.core.target.ti.am18x.coff.ccstudio\"
 ProjectType=Executable
 CPUFamily=TMS470R2X
 Tool="Compiler"
 Tool="CustomBuilder"
 Tool="Linker"
-Tool="XDC"
 Config="Debug"
 Config="Release"
 

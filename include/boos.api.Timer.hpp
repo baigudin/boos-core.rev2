@@ -13,7 +13,7 @@
 
 namespace api
 {
-  class Timer : public Object
+  class Timer : public ::api::Object
   {
     
   public:

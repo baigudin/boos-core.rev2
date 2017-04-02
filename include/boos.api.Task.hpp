@@ -15,7 +15,7 @@
 
 namespace api
 {
-  class Task : public Object
+  class Task : public ::api::Object
   {
     
   public:

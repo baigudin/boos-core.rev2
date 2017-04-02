@@ -58,6 +58,7 @@ public:
    * Assignment operator.
    *
    * @param obj reference to source object.
+   * @return reference to this object.   
    */  
   Object& operator =(const Object& obj)
   {
@@ -111,7 +112,7 @@ protected:
   }
   
   /**
-   * Gets the object constructed flag.
+   * Returns the object constructed flag.
    *
    * @return reference to the constructed flag.
    */      

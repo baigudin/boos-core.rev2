@@ -52,6 +52,7 @@ namespace target
        * Assignment operator.
        *
        * @param obj reference to source object.
+       * @return reference to this object.       
        */    
       Timer& operator =(const Timer& obj)
       {

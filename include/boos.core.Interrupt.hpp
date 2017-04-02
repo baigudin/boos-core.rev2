@@ -130,6 +130,7 @@ namespace core
      * Assignment operator.
      *
      * @param obj reference to source object.
+     * @return reference to this object.     
      */
     Interrupt& operator =(const Interrupt& obj);
     

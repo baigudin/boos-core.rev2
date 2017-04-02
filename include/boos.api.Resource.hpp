@@ -13,7 +13,7 @@
 
 namespace api
 {
-  class Resource : public Object
+  class Resource : public ::api::Object
   {
 
   public:

@@ -1,5 +1,5 @@
 /**
- * Mutex semaphore interface.
+ * Mutex interface.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2015-2016 Sergey Baigudin
@@ -13,7 +13,7 @@
 
 namespace api
 {  
-  class Mutex : public Resource
+  class Mutex : public ::api::Resource
   {
 
   public:

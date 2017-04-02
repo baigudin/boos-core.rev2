@@ -18,7 +18,7 @@ namespace api
    * @param Type data type of element.
    */ 
   template <typename Type>
-  class Iterable : public Object
+  class Iterable : public ::api::Object
   {
     
   public:
