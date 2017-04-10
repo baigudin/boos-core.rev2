@@ -1,5 +1,5 @@
 /** 
- * TI TMS320F2833x/F2823x DSC controller of protected registers.
+ * TI TMS320F28x3x DSC controller of protected registers.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2017 Sergey Baigudin

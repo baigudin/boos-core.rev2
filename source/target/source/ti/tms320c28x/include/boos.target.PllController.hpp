@@ -1,5 +1,5 @@
 /** 
- * TI TMS320F2833x/F2823x DSC Phase-Locked Loop Controller.
+ * TI TMS320F28x3x DSC Phase-Locked Loop Controller.
  * 
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2016 Sergey Baigudin

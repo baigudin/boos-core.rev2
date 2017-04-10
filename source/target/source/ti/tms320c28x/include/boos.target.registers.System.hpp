@@ -1,5 +1,5 @@
 /**
- * TI TMS320F2833x/F2823x DSC System Control Registers.
+ * TI TMS320F28x3x DSC System Control Registers.
  *
  * System Control Registers include PLL, Clocking, 
  * Watchdog, and Low-Power Mode Registers.

@@ -1,5 +1,5 @@
 /**
- * System memory configuration for TI TMS320F2833x DSCs.
+ * System memory configuration for TI TMS320F28x3x DSCs.
  *
  * @author    Sergey Baigudin, baigudin@mail.ru
  * @copyright 2017 Sergey Baigudin
