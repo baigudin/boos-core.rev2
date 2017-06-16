@@ -1,0 +1,18 @@
+# Compiled Object files
+*.o
+*.obj
+
+# CCStudio project files
+*.paf2
+*.sbl
+*.log
+*.lkf
+*.CS_
+Debug
+Release
+
+# Eclipse project files
+.cproject
+.project
+.settings/
+*.launch
